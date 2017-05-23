@@ -1,0 +1,201 @@
+﻿@using GoldMantis.Common.CustomEnum
+@model GoldMantis.Web.ViewModel.UserEmailAnalysis.WF_REMINDER_WORKFLOW_TEMP.ModelVW_WF_REMINDER_WORKFLOW_TEMPIndex
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link rel="stylesheet" type="text/css" href="@Url.Content("~/Scripts/assets/global/plugins/fancybox/source/helpers/jquery.fancybox-buttons.css?v=1.0.5")" />
+<link rel="stylesheet" type="text/css" href="@Url.Content("~/Scripts/assets/global/plugins/fancybox/source/jquery.fancybox.css?v=2.1.5")" media="screen" />
+<link rel="stylesheet" type="text/css" href="@Url.Content("~/Scripts/assets/global/plugins/select2/select2.css")" />
+
+
+<script type="text/javascript" src="@Url.Content("~/Scripts/assets/global/plugins/fancybox/source/jquery.fancybox.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/assets/global/plugins/fancybox/source/helpers/jquery.fancybox-buttons.js?v=1.0.5")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/assets/global/plugins/select2/select2.min.js")"></script>
+
+
+<script type="text/javascript" src="@Url.Content("~/Scripts/assets/global/plugins/countUp/countUp.js")"></script>
+
+@using (Html.BeginForm(null, null, null, FormMethod.Post, new { role = "form", @class = "form-horizontal" }))
+{
+    <a class="fancyboxDigram" title="流程图"></a>
+    <div style="padding:15px 15px 0px;">
+
+        <!--TOOLBAR-->
+        <div style="height: 34px; margin-bottom: 10px;">
+            <div class="toolbar-left" style="float: left;">
+                <button type="button" class="btn yellow" onclick="javascript:commonPage.scan();">
+                    <i class="fa fa-search"></i>
+                    条件查询
+                </button>
+                <div class="btn-group">
+                    <button class="btn blue dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
+                        <i class="fa fa-file"></i>导出Excel <i class="fa fa-angle-down"></i>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li>
+                            <a onclick="commonPage.exportToExcel('@EnumExportType.导出本页.GetHashCode()');">
+                                导出本页
+                            </a>
+                        </li>
+                        <li class="divider">
+                        </li>
+                        <li>
+                            <a onclick="commonPage.exportToExcel('@EnumExportType.导出全部.GetHashCode()');">
+                                导出全部
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+            <div style="float: right; width: 250px; margin-right: 15px;">
+                <div class="input-group">
+                    @Html.TextBoxFor(x => x.SearchEntity.CommonSearchCondition, new
+                    {
+                        @class = "common-search-condition",
+
+                        content = "查询列：流程名称、单据号、审批状态、被催办人、被催办人部门、被催办人公司。"
+                    })
+                    <span class=" input-group-addon input-circle-right common-search-submit" style="cursor: pointer;">
+                        <i class="fa fa-search"></i>
+                    </span>
+                </div>
+            </div>
+
+
+
+        </div>
+
+        <!--SERACH FORM-->
+        <div class="search-container" style="margin-top: 15px;; display: none;">
+            <div class="form-group">
+                <div class="col-sm-4">
+                    <label class="col-sm-4 control-label  ">流程名称:</label>
+                    <div class="col-sm-8">
+                        @Html.TextBoxFor(x => x.SearchEntity.WorkFlowName, new { @class = "form-control input-md" })
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <label class="col-sm-4 control-label">单据号:</label>
+                    <div class="col-sm-8">
+                        @Html.TextBoxFor(x => x.SearchEntity.TokenName, new { @class = "form-control input-md" })
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <label class="col-sm-4 control-label">审批状态:</label>
+                    <div class="col-sm-8">
+                        @Html.DropDownListFor(x => x.SearchEntity.TokenStatus, Model.EnumTokenStatusList, new { @class = "form-control input-md" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-4">
+                    <label class="col-sm-4 control-label  ">被催办人:</label>
+                    <div class="col-sm-8">
+                        @Html.TextBoxFor(x => x.SearchEntity.UserName, new { @class = "form-control input-md" })
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <label class="col-sm-4 control-label  ">被催办人部门:</label>
+                    <div class="col-sm-8">
+                        @Html.TextBoxFor(x => x.SearchEntity.DeptName, new { @class = "form-control input-md" })
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <label class="col-sm-4 control-label  ">被催办人公司:</label>
+                    <div class="col-sm-8">
+                        @Html.TextBoxFor(x => x.SearchEntity.CompanyName, new { @class = "form-control input-md" })
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-4">
+                    <label class="col-sm-4 control-label  ">催办时间从:</label>
+                    <div class="col-sm-8">
+                        @Html.TextBoxFor(x => x.SearchEntity.ReminderDateBegin, new { @class = "form-control input-md shortDateFormat", @readonly = "readonly" })
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <label class="col-sm-4 control-label  ">至:</label>
+                    <div class="col-sm-8">
+                        @Html.TextBoxFor(x => x.SearchEntity.ReminderDateEnd, new { @class = "form-control input-md shortDateFormat", @readonly = "readonly" })
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <label class="col-sm-4 control-label  ">原因:</label>
+                    <div class="col-sm-8">
+                        @Html.TextBoxFor(x => x.SearchEntity.Reason, new { @class = "form-control input-md"})
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group" style="text-align: right; margin-right: 0px;">
+                <div class="col-sm-12">
+                    <button type="submit" class="button-search btn blue ">
+                        搜索 <i class="fa fa-search"></i>
+                    </button>
+                    <a href="javascript:;" class="button-clear btn red">
+                        清除 <i class="fa fa-trash-o"></i>
+                    </a>
+                </div>
+            </div>
+
+
+        </div>
+
+
+        <div style="clear: both"></div>
+    </div>
+
+    <div class="alert alert-warning" style="margin-bottom: 0px; padding: 8px;">
+        <button class="close" data-dismiss="alert"></button>
+        <i class="fa  fa-info-circle"></i>
+        <strong>警告!</strong> 该数据每天6点30分更新，暂无实时数据。
+    </div>
+
+    <div class="replace-container">
+        @{
+    Html.RenderPartial("Index_Partial");
+        }
+    </div>
+
+
+
+}
+
+<script type="text/javascript">
+    $(document).ready(function ($) {
+        commonPage.RangeDate('#SearchEntity_ReminderDateBegin', '#SearchEntity_ReminderDateEnd');
+    });
+
+
+    function setReason(id) {
+        var message = "<textarea class='textarea' id='txtAreaInput' rows='10' cols='30'  style='width:418px;resize:none;'></textarea>";
+        var title = "填写超时原因(不超过500字)";
+
+
+        window.top.bootstrapGM.alert({
+            title: title,
+            msg: message,
+            width: 450
+        }, function () {
+            if (window.top.$("#txtAreaInput").val() == "") {
+                alert('微信内容不能为空！');
+            } else {
+                $.ajax({
+                    type: "POST",
+                    data: { id: id, reason: window.top.$("#txtAreaInput").val() },
+                    url: '@Url.Content("~/UserEmailAnalysis/ReminderHandle/SetReasonByID")',
+                    success: function (highlightID) {
+                        commonPage.highlightData = highlightID;
+                        $('form').submit();
+                        window.top.toastr.info("操作成功!");
+                    }
+                });
+            }
+        });
+
+        $("#txtAreaInput").focus();
+    }
+</script>

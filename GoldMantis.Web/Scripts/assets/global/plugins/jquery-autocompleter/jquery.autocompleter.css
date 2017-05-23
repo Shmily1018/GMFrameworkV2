@@ -1,0 +1,74 @@
+.autocompleter {
+    width: 100%;
+    background: #FFFFFF;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    z-index: 100;
+    box-shadow: 5px 5px rgba(102, 102, 102, 0.1);
+}
+
+.autocompleter,
+.autocompleter-hint {
+    position: absolute;
+}
+
+.autocompleter-list {
+    box-shadow: inset 0px 0px 6px rgba(0,0,0,0.1);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    text-align: left;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.autocompleter-item-selected {
+    background: #F6F6F6;
+}
+
+.autocompleter-item {
+    padding: 6px 12px;
+    /*color: #7C94AA;*/
+    /*font-size: 20px;*/
+      font-size: 14px;
+  font-weight: 300;
+    cursor: pointer;
+}
+
+    .autocompleter-item:hover {
+        background: #F6F6F6;
+    }
+
+    .autocompleter-item strong {
+        background: #f9de8f;
+        text-shadow: 0 1px 0 #ffffff;
+    }
+
+    .autocompleter-item span {
+        color: #bbbbbb;
+    }
+
+.autocompleter-hint {
+    color: #ccc;
+    text-align: left;
+    top: -56px;
+    font-weight: 400;
+    left: 0;
+    width: 100%;
+    padding: 12px 12px 12px 13px;
+    font-size: 24px;
+    display: none;
+}
+
+    .autocompleter-hint span {
+        color: transparent;
+    }
+
+.autocompleter-hint-show {
+    display: block;
+}
+
+.autocompleter-closed {
+    display: none;
+}

@@ -1,0 +1,195 @@
+﻿@using GoldMantis.Web.HtmlControl
+@using GoldMantis.Web.ViewModel.UserEmailAnalysis.Report
+@model GoldMantis.Web.ViewModel.UserEmailAnalysis.Report.ModelReportSendTimesIndex
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm(null, null, null, FormMethod.Post, new { role = "form", @class = "form-horizontal" }))
+{
+
+    <div style="padding:15px 15px 0px;">
+
+        <!--TOOLBAR-->
+        <div style="height: 34px; margin-bottom: 10px;">
+            <div class="toolbar-left" style="float: left;">
+
+                <button type="button" class="btn yellow" onclick="javascript:commonPage.scan();">
+                    <i class="fa fa-search"></i>
+                    条件查询
+                </button>
+
+                <button type="button" class="button-search btn red " onclick="sendWeChatMessage();">
+                    <i class="fa fa-mobile"></i>发送微信
+                </button>
+
+                <button type="button" class="button-search btn purple " onclick="exportToExcel();">
+                    <i class="fa fa-file"></i>导出Excel
+                </button>
+                <a id="aDownload" class="a-exportEXL" title="下载" style="display: none">&nbsp</a>
+
+
+
+            </div>
+            <div style="float: right; width: 250px; margin-right: 15px;">
+                <div class="input-group">
+                    @Html.TextBoxFor(x => x.SearchEntity.CommonSearchCondition, new { @class = "common-search-condition form-control", content = "查询列：工号、姓名、邮箱、部门。" })
+                    <span class=" input-group-addon input-circle-right common-search-submit" style="cursor: pointer;">
+                        <i class="fa fa-search"></i>
+                    </span>
+                </div>
+            </div>
+
+        </div>
+
+        <!--SERACH FORM-->
+        <div class="search-container" style="margin-top: 15px;">
+            <div class="form-group">
+                <div class="col-sm-4">
+                    <label class="col-sm-4 control-label  ">工号:</label>
+                    <div class="col-sm-8">
+                        @Html.TextBoxFor(x => x.SearchEntity.JobCode, new { @class = "form-control input-md" })
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <label class="col-sm-4 control-label">姓名:</label>
+                    <div class="col-sm-8">
+                        @Html.TextBoxFor(x => x.SearchEntity.UserName, new { @class = "form-control input-md" })
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <label class="col-sm-4 control-label">邮箱:</label>
+                    <div class="col-sm-8">
+                        @Html.TextBoxFor(x => x.SearchEntity.Email, new { @class = "form-control input-md" })
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-4">
+                    <label class="col-sm-4 control-label  ">部门名称:</label>
+                    <div class="col-sm-8">
+                        @Html.TextBoxFor(x => x.SearchEntity.DepartmentName, new { @class = "form-control input-md" })
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <label class="col-sm-4 control-label">开始日期:</label>
+                    <div class="col-sm-8">
+                        @Html.TextBoxFor(x => x.SearchEntity.BeginDate, new { @class = "form-control input-md shortDateFormat", @readonly = "readonly" })
+                        @Html.ValidationMessageFor(x => x.SearchEntity.BeginDate)
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <label class="col-sm-4 control-label">结束日期:</label>
+                    <div class="col-sm-8">
+
+                        @Html.TextBoxFor(x => x.SearchEntity.EndDate, new { @class = "form-control input-md shortDateFormat", @readonly = "readonly" })
+                        @Html.ValidationMessageFor(x => x.SearchEntity.EndDate)
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group" style="text-align: right; margin-right: 0px;">
+                <div class="col-sm-12">
+                    <button type="submit" class="button-search btn blue ">
+                        搜索 <i class="fa fa-search"></i>
+                    </button>
+                    <a href="javascript:;" class="button-clear btn red">
+                        清除 <i class="fa fa-trash-o"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="alert alert-warning" style="margin-bottom: 0px; padding: 8px;">
+        <button class="close" data-dismiss="alert"></button>
+        <i class="fa  fa-info-circle"></i>
+        <strong>警告!</strong> 仅供参考，以实际数据为准。
+    </div>
+
+    <div class="replace-container">
+        @{
+    Html.RenderPartial("Index_Partial");
+        }
+    </div>
+
+
+
+}
+
+<script type="text/javascript">
+    $(document).ready(function ($) {
+
+
+        $("#SearchEntity_BeginDate").datepicker({
+            format: 'yyyy-mm-dd',
+            autoclose: true
+        }).on('changeDate', function (selected) {
+            var startDate = new Date(selected.date.valueOf());
+            $('#SearchEntity_EndDate').datepicker('setStartDate', startDate);
+        }).on('clearDate', function () {
+            $('#SearchEntity_EndDate').datepicker('setStartDate', null);
+        });
+
+        $("#SearchEntity_EndDate").datepicker({
+            format: 'yyyy-mm-dd',
+            autoclose: true
+        }).on('changeDate', function (selected) {
+            var endDate = new Date(selected.date.valueOf());
+            $('#SearchEntity_BeginDate').datepicker('setEndDate', endDate);
+        }).on('clearDate', function () {
+            $('#SearchEntity_BeginDate').datepicker('setEndDate', null);
+        });
+
+
+    });
+
+    function exportToExcel() {
+
+        if ($("#SearchEntity_BeginDate").val() == "") {
+            window.top.bootstrapGM.alert("请填写开始日期！");
+            $("#SearchEntity_BeginDate").focus();
+            return;
+        }
+
+        if ($("#SearchEntity_EndDate").val() == "") {
+            window.top.bootstrapGM.alert("请填写结束日期！");
+            $("#SearchEntity_EndDate").focus();
+            return;
+        }
+
+        var href = "@Url.Content("~/UserEmailAnalysis/ReportSendTimes/ExportToExcel")";
+        var param = "?beginDate=" + $("#SearchEntity_BeginDate").val() +
+            "&endDate=" + $("#SearchEntity_EndDate").val();
+        $("#aDownload").attr("href", href + param);
+        document.getElementById("aDownload").click();
+    }
+
+    function sendWeChatMessage() {
+        var message = "<textarea class='textarea' id='txtAreaInput' rows='10' cols='30'  style='width:418px;resize:none;'></textarea>";
+        var title = "填写微信发送内容(不超过500字)";
+
+
+        window.top.bootstrapGM.alert({
+            title: title,
+            msg: message,
+            width: 450
+        }, function () {
+            if (window.top.$("#txtAreaInput").val() == "") {
+                alert('微信内容不能为空！');
+            }
+            else {
+                var input2 = document.createElement("input");
+                input2.setAttribute("type", "hidden");
+                input2.setAttribute("value", window.top.$("#txtAreaInput").val());
+                input2.setAttribute("id", "idExportType");
+                input2.setAttribute("name", "WeChatMessageTemplate");
+                $("form")[0].appendChild(input2);
+                $("form")[0].submit();
+            }
+        });
+
+        $("#txtAreaInput").focus();
+
+    }
+</script>

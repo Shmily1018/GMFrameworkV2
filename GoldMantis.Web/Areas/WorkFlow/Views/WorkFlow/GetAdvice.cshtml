@@ -1,0 +1,157 @@
+﻿@model GoldMantis.Web.ViewModel.ModelWorkFlowAdvice
+@{
+    Layout = "~/Views/Shared/_LayoutDialog.cshtml";
+}
+
+<link href="~/Scripts/assets/admin/pages/css/timeline-old.css" rel="stylesheet" type="text/css" />
+
+<div class="portlet light">
+    <div class="portlet-body form">
+
+        <table class="table table-bordered  table-responsive table-hover ">
+            <colgroup>
+                <col width="20%" />
+                <col width="30%" />
+                <col width="20%" />
+                <col width="30%" />
+            </colgroup>
+            <tbody>
+                <tr>
+                    <td style="text-align: right;">流程名：</td>
+                    <td>@Html.DisplayFor(x => x.WorkflowName)</td>
+
+                    <td style="text-align: right;">发起流程人：</td>
+                    <td>@Html.DisplayFor(x => x.UserName)</td>
+                </tr>
+
+                <tr>
+                    <td style="text-align: right;">发起流程时间：</td>
+                    <td>@Model.StartTime.ToString("yyyy-MM-dd HH:mm:ss")</td>
+                    <td style="text-align: right;">流程结束时间：</td>
+                    <td>
+                        @{
+                            if (@Model.EndTime.HasValue)
+                            {
+
+                                @Model.EndTime.Value.ToString("yyyy-MM-dd HH:mm:ss")
+
+                            }
+                        }
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="row">
+            <div class="col-md-12">
+                <ul class="timeline">
+                    @{
+                        string icon = string.Empty;
+                        string noline = string.Empty;
+                        string color = string.Empty;
+                        for (int i = 0; i < Model.DataSource.Count; i++)
+                        {
+                            if (i == 0)
+                            {
+                                icon = "trophy";
+                            }
+                            else if (i == Model.DataSource.Count - 1)
+                            {
+                                icon = "bar-chart-o";
+                                noline = "timeline-noline";
+                            }
+                            else
+                            {
+                                icon = "comments";
+                            }
+
+                            switch (i % 6)
+                            {
+                                case 0:
+                                    color = "yellow";
+                                    break;
+                                case 1:
+                                    color = "blue";
+                                    break;
+                                case 2:
+                                    color = "green";
+                                    break;
+                                case 3:
+                                    color = "purple";
+                                    break;
+                                case 4:
+                                    color = "red";
+                                    break;
+                                case 5:
+                                    color = "grey";
+                                    break;
+
+                            }
+
+                            <li class="timeline-@color @noline">
+                                <div class="timeline-time">
+                                    @{
+                                        if (@Model.DataSource[i].DoTime.HasValue)
+                                        {
+                                            @*<span class="date">
+                                                    @Model.DataSource[i].DoTime.Value.ToString("dd/MM/yyyy")
+                                                </span>*@
+                                            <span class="time" style="font-size: 20px;">
+                                                @{
+                                                    var doTime = Model.DataSource[i].DoTime;
+                                                    if (doTime != null)
+                                                    {
+                                                        @:耗时@((doTime.Value - @Model.DataSource[i].CreateTime).TotalDays.ToString("0.00"))天
+                                                    }
+                                                }
+
+                                            </span>
+                                        }
+                                    }
+                                </div>
+                                <div class="timeline-icon">
+                                    <i class="fa fa-@icon"></i>
+                                </div>
+                                <div class="timeline-body">
+                                    <h2>@Model.DataSource[i].ActorName 【@Model.DataSource[i].NodeName】</h2>
+                                    <div class="timeline-content">
+                                        审批结果：@Model.DataSource[i].DoResult
+                                        <br />
+                                        审批意见：@Model.DataSource[i].DoDesc
+                                    </div>
+                                    <div class="timeline-footer">
+                                        <span style="float: right;">
+                                            <i class="m-icon-swapleft m-icon-white"></i>
+                                            环节到达时间:@Model.DataSource[i].CreateTime.ToString("yyyy/MM/dd HH:mm:ss")
+
+                                        </span>
+                                    </div>
+
+                                    @{
+                                        var dateTime = Model.DataSource[i].DoTime;
+                                        if (dateTime != null)
+                                        {
+                                            <div class="timeline-footer">
+                                                <span style="float: right;">
+                                                    <i class="m-icon-swapright m-icon-white"></i>
+                                                    环节处理时间:@dateTime.Value.ToString("yyyy/MM/dd HH:mm:ss")
+                                                </span>
+                                            </div>
+                                        }
+                                    }
+                                </div>
+
+                            </li>
+
+                        }
+                    }
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    commonPage.resizeTable();
+</script>

@@ -1,0 +1,80 @@
+﻿@model GoldMantis.Web.ViewModel.User.ModelSAUserIndex
+@{
+    Layout = null;
+}
+<div style="width: 100%; overflow: auto;" class="common-table-container" id="common-table-container">
+    <table style="margin-top: 0px; table-layout: fixed;"
+           class="table  table-responsive table-striped table-bordered table-hover"
+           role="grid">
+        <colgroup>
+            <col style="width: 40px;" />
+            <col style="width: 150px;" />
+            <col style="width: 150px;" />
+            <col style="width: 250px;" />
+            <col style="width: auto" />
+        </colgroup>
+        <thead class="common-table-header">
+            <tr role="row">
+                @Html.HiddenFor(x => x.SearchEntity.OrderName, new { data_order_name = "" })
+                @Html.HiddenFor(x => x.SearchEntity.OrderDirection, new { data_order_direction = "" })
+                <th style="text-align: center;">
+
+                </th>
+                <th style="text-align: center;">
+                    用户帐号
+                </th>
+                <th style="text-align: center;">
+                    用户名
+                </th>
+                <th style="text-align: center;">
+                    邮箱
+                </th>
+                <th style="text-align: center;">
+                    手机号
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var i in Model.GridDataSources)
+            {
+                <tr role="row" style="text-align: center;" ondblclick="javascript:showUser('@i.ID');">
+                    <td>
+                        <input type="radio" name="checkboxItem" class="checkboxItem" value="@i.ID" />
+                    </td>
+                    <td td-data-content="@i.LoginID">
+                        <div style="text-align: left;">
+                            @i.LoginID
+                        </div>
+                    </td>
+
+                    <td td-data-content="@i.UserName">
+                        <div style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden; text-align: left;">
+                            @i.UserName
+                        </div>
+                    </td>
+
+                    <td td-data-content="@i.Email">
+                        <div style="text-align: left;">
+                            @i.Email
+                        </div>
+
+                    </td>
+
+                    <td td-data-content="@i.Mobile">
+                        <div style="text-align: left;">
+                            @i.Mobile
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div>
+        @{
+            Html.RenderPartial(Url.Content("~/Views/Controls/PaginateAjax.cshtml"), Model.PaginateHelperObject);
+        }
+    </div>
+</div>
+
+
+

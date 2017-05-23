@@ -1,0 +1,88 @@
+﻿@model GoldMantis.Web.ViewModel.UserEmailAnalysis.ExportSendWeChat.ModelExportSendWeChatIndex
+@{
+    Layout = null;
+}
+<div style="width: 100%; overflow: auto;" class="common-table-container" id="common-table-container">
+    <table style="margin-top: 0px; table-layout: fixed;"
+           class="table  table-responsive table-striped table-bordered table-hover"
+           role="grid">
+        <colgroup>
+            <col style="width: 40px;" />
+            <col style="width: auto;" />
+            <col style="width: auto;" />
+            <col style="width: auto;"/>
+            <col style="width: auto;" />
+            <col style="width: auto;" />
+        </colgroup>
+        <thead class="common-table-header">
+            <tr role="row">
+
+                @Html.HiddenFor(x => x.SearchEntity.OrderName, new { data_order_name = "" })
+                @Html.HiddenFor(x => x.SearchEntity.OrderDirection, new { data_order_direction = "" })
+                <th style="text-align: center;">
+                    <input type="checkbox" class="common-table-checkbox-all" />
+                </th>
+                @Html.HiddenFor(x => x.SearchEntity.OrderName, new { data_order_name = "" })
+                @Html.HiddenFor(x => x.SearchEntity.OrderDirection, new { data_order_direction = "" })
+                <th>
+                    工号
+                </th>
+                <th>
+                    姓名
+                </th>
+                <th>
+                    手机
+                </th>
+                <th>
+                    邮箱
+                </th>
+                <th>
+                    邮箱使用情况
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                if (Model.GridDataSources != null)
+                {
+                    foreach (var item in Model.GridDataSources)
+                    {
+                        <tr role="row" style="text-align: center;color: @(item.EmailUseInfo < Model.EmailWarningPercent ? "" : "#F3565D")" >
+                            <td>
+                                <input type="checkbox" name="checkboxItem" class="checkboxItem" />
+                            </td>
+                            <td td-data-content="@item.JobCode">
+                                @item.JobCode
+                            </td>
+                            <td td-data-content="@item.UserName">
+                                @item.UserName
+                            </td>
+                            <td td-data-content="@item.Mobile">
+                                @item.Mobile
+                            </td>
+                            <td td-data-content="@item.Email">
+                                <div style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;">
+                                    @item.Email
+                                </div>
+                            </td>
+                            <td td-data-content="@item.EmailUseInfo.ToString("P")">
+                                @item.EmailUseInfo.ToString("P")
+                            </td>
+
+                        </tr>
+                    }
+                }
+            }
+        </tbody>
+    </table>
+
+
+    <div>
+        @{
+            if (Model.PaginateHelperObject != null)
+            {
+                Html.RenderPartial(Url.Content("~/Views/Controls/PaginateAjax.cshtml"), Model.PaginateHelperObject);
+            }
+        }
+    </div>
+</div>

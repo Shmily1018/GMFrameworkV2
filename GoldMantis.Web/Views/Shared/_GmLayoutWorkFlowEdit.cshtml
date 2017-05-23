@@ -1,0 +1,632 @@
+﻿@model WFModel
+@{
+    Layout = "~/Views/Shared/_GmLayoutEmpty.cshtml";
+}
+
+@section HtmlHeadPlaceHolder
+{
+    @RenderSection("EditHeadPlaceHolder", false)
+}
+
+
+<style>
+    .wrapeer {
+        border-top: 1px solid #ddd;
+        border-left: 1px solid #ddd;
+    }
+
+    .row {
+        margin: 0px;
+    }
+
+    .form-group {
+        margin: 0px;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .form-group label {
+        padding-top: 14px !important;
+        height: 100%;
+        vertical-align: middle !important;
+    }
+
+    .form-group > div {
+        border-left: 1px solid #ddd;
+        border-right: 1px solid #ddd;
+        padding-top: 8px;
+        padding-bottom: 8px;
+    }
+
+    .emergencyPanel {
+        position: absolute;
+        top: 66px;
+        left: 190px;
+        border: 1px solid #9e6934;
+        background-color: white;
+        padding-right: 6px;
+        border-radius: 0 0 10px 10px;
+        opacity: .3;
+        transition: .8s;
+        text-shadow: 1px 1px 1px white;
+    }
+
+        .emergencyPanel, .emergencyPanel * {
+            cursor: pointer;
+        }
+
+            .emergencyPanel:hover {
+                opacity: 1;
+            }
+
+    .emergencyWarning div {
+        position: fixed;
+        box-shadow: 0 0 30px 3px red;
+        transition: .6s;
+    }
+
+        .emergencyWarning div:nth-child(1) {
+            top: 0;
+            height: 1px;
+            width: 100%;
+        }
+
+        .emergencyWarning div:nth-child(2) {
+            right: 0;
+            top: 0;
+            height: 100%;
+            width: 1px;
+        }
+
+        .emergencyWarning div:nth-child(3) {
+            bottom: 0;
+            height: 1px;
+            width: 100%;
+        }
+
+        .emergencyWarning div:nth-child(4) {
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 1px;
+        }
+</style>
+
+<div id="main">
+    <div class="portlet light bordered">
+
+        <div class="portlet-body form">
+            @using (Html.BeginForm(new FormAttribute() { }))
+            {
+                <div class="form-actions top">
+                    <a class="fancyboxDigram" title="流程图"></a>
+
+                    @{
+                        @RenderSection("ActionButtonAreaLeft", false)
+                if (Model.ButtonSaveVisible)
+                {
+                    <button type="submit" class="btn btn-success" id="btn-edit-save">
+                        <i class="fa  fa-save"></i>
+                        保存
+                    </button>
+                }
+                if (Model.ButtonViewOpinionVisible)
+                {
+                    <button type="button" class="btn green" id="assignSuggestion" value="">审批意见</button>
+                }
+                if (Model.ButtonViewDiagramVisible)
+                {
+                    <button type="button" class="btn green" id="assignPic">流程图</button>
+                }
+                <div class="emergencyPanel" style="display: none;">
+                    <label>
+                        @Html.CheckBoxFor(x => x.IsEmergency) 加急
+                    </label>
+                </div>
+
+                if (Model.ButtonSubmitVisible)
+                {
+                    <button type="button" id="btnSubmit" class="btn default">
+                        提交
+                    </button>
+                }
+                if (Model.ButtonReSubmitVisible)
+                {
+                    <button type="button" id="btnReSubmit" class="btn default">再次提交</button>
+                }
+                if (Model.ButtonAgreeVisible)
+                {
+                            <!--pass-->
+                        <input type="button" id="btnAgree" class="btn default" value="同意" />
+                }
+                if (Model.ButtonDeprecateVisible)
+                {
+                    <input type="button" id="btnDeprecate" class="btn default" value="不同意" />
+                }
+                if (Model.ButtonCancelVisible)
+                {
+                    <button type="button" id="btnCancel" class="btn default">弃权</button>
+                }
+                if (Model.ButtonAssignVisible)
+                {
+                    <input type="button" id="btnAssign" class="btn default" value="委托" />
+                }
+                if (Model.ButtonStopVisible)
+                {
+                    <button type="button" id="btnStop" class="btn default">终止</button>
+                }
+                if (Model.ButtonBackVisible)
+                {
+                            <!--pass-->
+                        <input type="button" id="btnBack" class="btn default" value="退回" />
+                }
+
+                if (Model.ButtonViewVisible)
+                {
+                    <input type="button" id="btnView" class="btn default" value="已阅" />
+                }
+                if (Model.ButtonThroughVisible)
+                {
+                            <!--pass-->
+                        <button type="button" id="btnThrough" class="btn default">直送</button>
+                }
+                if (Model.ButtonCCVisible)
+                {
+                    <input type="button" id="btnCC" class="btn default" value="抄送" />
+                }
+                if (Model.ButtonSuspendVisible)
+                {
+                    <input type="button" id="btnSuspend" class="btn default" value="挂起" />
+                }
+
+                if (Model.ButtonResumeVisible)
+                {
+                    <input type="button" id="btnResume" class="btn default" value="恢复" />
+                }
+                if (Model.ButtonCustomFlowVisible)
+                {
+                    <input type="button" id="btnCustomFlow" class="btn default" value="自定义" />
+                }
+
+                @RenderSection("ActionButtonAreaCenter", false)
+
+                        <button type="button" class="btn btn-danger" id="btn-edit-cancel">
+                            <i class="fa  fa-arrow-left"></i>
+                            返回
+                        </button>
+
+                        @Html.HiddenFor(x => x.Idea)
+                        @Html.HiddenFor(x => x.Comand)
+                        @Html.HiddenFor(x => x.SelectUserID)
+                        @Html.HiddenFor(x => x.SelectActivityID)
+                        @Html.HiddenFor(x => x.InputKey)
+                        @Html.HiddenFor(x => x.WFPublishID)
+                        @Html.HiddenFor(x => x.WFName)
+                        @Html.HiddenFor(x => x.SelectNextID)
+                        @Html.HiddenFor(x => x.IsCustomFlow)
+                        @Html.HiddenFor(x => x.IsEmergency)
+                        @Html.HiddenFor(x => x.KeyID)
+                        @Html.HiddenFor(x => x.PageClass)
+
+
+                        @RenderSection("ActionButtonAreaRight", false)
+                    }
+
+                </div>
+                <div class="form-body">
+                    @RenderBody()
+                </div>
+            }
+        </div>
+    </div>
+    <div class="clear"> </div>
+</div>
+
+
+
+
+@section HtmlScriptsPlaceHolder
+{
+
+    <script type="text/javascript">
+
+        var afterWFButtonClicked, beforeWFButtonClicked, radIndex = 1;
+
+        // 页面对象
+        var Edit = {
+            actionSave: function() {},
+            actionClosing: function() {},
+            actionClose: function() {},
+            WFButtonClick: function(obj, command) {
+                $("#Comand").val(command);
+                var message, title;
+
+                var wfName = $("#WFName").val();
+                if (wfName == "") {
+                    wfName = "下一步选择流程";
+                }
+                if (obj == 'btnSubmit') {
+                    var message = "确认提交,进入【<span id='spanWFName'>" + wfName + "</span>】的审批流程吗?";
+                    if (document.getElementById('btnCustomFlow')) {
+                        message += "<br /><br /><a id='WFCustomFlow' style='color:#637695; text-decoration:none' >" +
+                            "选择或者创建自定义流程</a>";
+                    }
+                    title = "确认提交";
+                    window.top.bootstrapGM.alert({
+                        title: title,
+                        msg: message,
+                        width: 450
+                    }, function() {
+                        if (@Model.KeyID > 0) {
+                            Edit.WFConfrimClick(@CommandCatalog.Commit.GetHashCode());
+                        } else {
+                            $("#Comand").val("1");
+                            $("form").submit();
+                        }
+                    });
+
+                    window.top.$("#WFCustomFlow").bind('click', function() {
+                        Edit.WFCustomFlow();
+                    });
+
+                } else if (obj == 'btnReSubmit') {
+                    message = "确认重新提交,进入{" + wfName + "}的审批流程吗?<br/><br/><br/><b style='color:red'>该操作会重新发起流程，点击“直送”按钮可以直接发送给退回人！</b>";
+                    title = "确认重新提交";
+                    window.top.bootstrapGM.alert({
+                        title: title,
+                        msg: message,
+                        width: 450
+                    }, function() {
+                        Edit.WFConfrimClick(@CommandCatalog.Commit.GetHashCode());
+                    });
+                } else {
+                    var extendsInfo = '';
+                    if (obj == 'Suspend')
+                        extendsInfo = '<br/><b style="color:goldenrod">(注:系统会在7天后自动恢复此项代办)</b>';
+                    message = "审批意见：";
+                    message += "<br /><br /><textarea class='textarea' id='txtAreaInput' rows='4' cols='30'  style='width:418px;resize:none;' ></textarea>";
+                    title = "确认操作并填写意见(不超过500字)";
+                    message = message + extendsInfo;
+
+
+                    window.top.bootstrapGM.alert({
+                        title: title,
+                        msg: message,
+                        width: 450
+                    }, function() {
+                        Edit.WFConfrimClick(command);
+                    });
+
+                    if ($("#Idea").val() == "") {
+                        window.top.$("#txtAreaInput").html($("#" + obj).val());
+                    } else {
+                        window.top.$("#txtAreaInput").html($("#Idea").val());
+                    }
+                    $("#txtAreaInput").focus();
+
+
+                }
+                afterWFButtonClicked && afterWFButtonClicked(command);
+                return false;
+            },
+            WFConfrimClick: function(commandType) {
+                if ($("#Idea").val() != "" && $("#Area").val() != "") {
+                    $("#Idea").val($("#Area").val());
+                }
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Content("~/" + @Model.SubmitPrefix + "/Confirm")',
+                    data: {
+                        commandType: commandType,
+                        pageState: '@Model.EnumPageMode',
+                        keyID: '@Model.KeyID',
+                        idea: window.top.$("#txtAreaInput").val(),
+                        checkStatus: '@Model.CheckStatus',
+                        wfName: $("#WFName").val(),
+                        wfPublishID: $("#WFPublishID").val(),
+                        isCustomFlow: $('#IsCustomFlow').val(),
+                        selectUserID: $('#SelectUserID').val(),
+                        IsEmergency: $('#IsEmergency').is(':checked')
+                    }
+                });
+            },
+
+
+            SelectUserConfrimClick: function(commandType) {
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Content("~/" + @Model.SubmitPrefix + "/SelectUserConfrim")',
+                    data: {
+                        reStartCommand: commandType,
+                        selectUsers: $("#SelectUserID").val(),
+                        selectActivityID: $("#SelectActivityID").val(),
+                        inputKey: $('#InputKey').val()
+                    }
+                });
+            },
+
+
+            //选择退回环节后的回调函数
+            EvalSelectNode_CallBack: function(obj) {
+                $("#SelectActivityID").val(obj);
+                Edit.SelectUserConfrimClick(@CommandCatalog.Refuse.GetHashCode());
+            },
+
+            WFMutualSelectFlow: function(menuID, deptID) {
+                window.top.bootstrapGM.dialog({
+                    url: "WorkFlow/WorkFlow/ChooseSCFlowMapingIndex?menuID=" + menuID + "&deptID=" + deptID,
+                    title: '选择流程',
+                    width: 800
+                });
+            },
+
+            //选择流程后的回调函数
+            WFMutualSelectFlow_Callback: function(obj) {
+                var result = obj.split(";");
+
+                $("#WFPublishID").val(result[0]);
+                $('#WFName').val(result[1]);
+                $('#IsCustomFlow').val("true");
+
+                Edit.WFConfrimClick(@CommandCatalog.Commit.GetHashCode());
+            },
+
+
+            /*指定人*/
+            MutualPage: function(title, url, pdata) {
+                window.top.bootstrapGM.dialog({
+                    url: url + "?pdata=" + pdata,
+                    title: title,
+                    width: 800
+                });
+            },
+
+            /*选择指定人_回调函数*/
+            MutualPage_Callback: function(userID) {
+                $("#SelectUserID").val(userID);
+                Edit.SelectUserConfrimClick($("#Comand").val());
+            },
+
+
+            /*自定义工作流*/
+            WFCustomFlow: function() {
+                var url = '@Url.Content("~/WorkFlow/WorkFlow/CustomFlow?userID=")' + @SessionManager.UserInfo.UserID + "&menuID=" + @Model.MenuID + "&deptID=" + @Model.DeptID;
+                window.top.bootstrapGM.dialog({
+                    url: url,
+                    title: "选择自定义流程",
+                    width: 1000
+                });
+
+            },
+
+            /*自定义工作流_回调函数*/
+            WFCustomFlow_Callback: function(result) {
+                var arrayResult = $.evalJSON(result);
+                if (arrayResult != null) {
+                    $("#WFPublishID").val(arrayResult.Value);
+                    $('#WFName').val(arrayResult.Text);
+                    $('#IsCustomFlow').val("true");
+
+                    window.top.$("#spanWFName").text($('#WFName').val());
+
+                    //Edit.WFButtonClick("btnSubmit", @CommandCatalog.Commit.GetHashCode());
+                } else {
+                    window.top.bootstrapGM.alert({
+                        title: "提示信息",
+                        msg: "请选择要启动的流程！",
+                        width: 450
+                    });
+                    return false;
+                }
+            }
+
+        };
+
+        @RenderSection("EditScriptsPlaceHolder", false)
+
+        $(function() {
+            /*初始化fancybox*/
+            $(".fancyboxDigram").fancybox({
+                loop: false,
+                openEffect: 'elastic',
+                openSpeed: 150,
+                closeEffect: 'elastic',
+                closeSpeed: 150,
+                closeClick: true,
+                helpers: {
+                    title: {
+                        type: 'inside'
+                    },
+                    buttons: {}
+                }
+            });
+
+            $('#btn-edit-save').click(function() {
+                Edit.actionSave();
+            });
+
+            $('#btn-edit-cancel').on('click', function() {
+                Edit.actionClose();
+            });
+
+            $("#assignPic").bind('click', function() {
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Content("~/WorkFlow/WorkFlow/ShowDigram?wfpid=")+@Model.WFPublishID',
+                    success: function(url) {
+                        if (url.substring(0, 1) == '/') {
+                            $(".fancyboxDigram").attr("href", url);
+                            $(".fancyboxDigram").click();
+                        } else {
+                            //自定义流程只提醒文字
+                            window.top.bootstrapGM.alert({
+                                title: "自定义流程",
+                                msg: url,
+                                width: 450
+                            });
+                        }
+
+                    }
+                });
+            });
+
+            $("#assignSuggestion").bind('click', function() {
+                window.top.bootstrapGM.dialog({
+                    url: '@Url.Content("~/WorkFlow/WorkFlow/GetAdvice")' + '?keyID=@Model.KeyID' + "&menuID=@Model.MenuID" + "&workFlowID=@Model.WFPublishID",
+                    title: '查看审批意见',
+                    width: 1000
+                });
+            });
+
+            $("#btnSubmit").bind('click', function() {
+                Edit.WFButtonClick("btnSubmit", @CommandCatalog.Commit.GetHashCode());
+            });
+
+            $("#btnAgree").bind('click', function() {
+                Edit.WFButtonClick("btnAgree", @CommandCatalog.Agree.GetHashCode());
+            });
+
+            $("#btnBack").bind('click', function() {
+                Edit.WFButtonClick("btnBack", @CommandCatalog.Refuse.GetHashCode());
+            });
+
+
+            $("#btnReSubmit").bind('click', function() {
+                Edit.WFButtonClick("btnReSubmit", @CommandCatalog.Commit.GetHashCode());
+            });
+
+            $("#btnThrough").bind('click', function() {
+                Edit.WFButtonClick("btnThrough", @CommandCatalog.Through.GetHashCode());
+            });
+
+            $("#btnDeprecate").bind('click', function() {
+                Edit.WFButtonClick("btnDeprecate", @CommandCatalog.Disagree.GetHashCode());
+            });
+
+            $("#btnAssign").bind('click', function() {
+                Edit.WFButtonClick("btnAssign", @CommandCatalog.Assign.GetHashCode());
+            });
+
+            $("#btnCancel").bind('click', function() {
+                Edit.WFButtonClick("btnCancel", @CommandCatalog.Cancel.GetHashCode());
+            });
+
+            $("#btnStop").bind('click', function() {
+                Edit.WFButtonClick("btnStop", @CommandCatalog.Stop.GetHashCode());
+            });
+
+            $("#btnCC").bind('click', function() {
+                Edit.WFButtonClick("btnCC", @CommandCatalog.CC.GetHashCode());
+            });
+
+            $("#btnSuspend").bind('click', function() {
+                Edit.WFButtonClick("btnSuspend", @CommandCatalog.Suspend.GetHashCode());
+            });
+
+            $("#btnResume").bind('click', function() {
+                Edit.WFButtonClick("btnResume", @CommandCatalog.Resume.GetHashCode());
+            });
+
+            $("#btnCustomFlow").bind('click', function() {
+                Edit.WFButtonClick("WFCustomFlow", @CommandCatalog.Resume.GetHashCode());
+            });
+
+            $("#btnView").bind('click', function() {
+                Edit.WFButtonClick("btnView", @CommandCatalog.View.GetHashCode());
+            });
+
+            if ('@Model.Comand' == '1') {
+                Edit.WFConfrimClick(@CommandCatalog.Commit.GetHashCode());
+            }
+
+            $('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
+                commonPage.resize();
+            });
+
+            $("form .form-control").tooltipValidation();
+
+
+            if ($('#btnSubmit,#btnAgree').size() == 0)
+                return;
+
+            //流程加急控制
+            $('.emergencyPanel').show();
+            $('#IsEmergency').on('click', function(e) {
+                if (e && e.stopPropagation) {
+                    e.stopPropagation();
+                } else {
+                    window.event.cancelBubble = true;
+                }
+                toggleEmergencyWarning($('#IsEmergency').is(':checked'));
+            });
+            toggleEmergencyWarning($('#IsEmergency').is(':checked'));
+        });
+
+        function toggleEmergencyWarning(isEmergency) {
+            if ($('#emergencyWarning').size() == 0)
+                $('body').append('<div id="emergencyWarning"><div/><div/><div/><div/></div>');
+            if (isEmergency == true) {
+                $('#IsEmergency').attr('checked', true);
+
+                $('.emergencyPanel')[0].style.opacity = 1;
+                try {
+                    $('.emergencyPanel')[0].style.backgroundColor = 'rgba(250,95,95,.6)';
+                } catch (e) {
+                    $('.emergencyPanel')[0].style.backgroundColor = 'rgb(250,95,95)';
+                }
+
+                $('#emergencyWarning').addClass('emergencyWarning');
+            } else {
+                $('#IsEmergency').attr('checked', false);
+
+                $('.emergencyPanel')[0].style.opacity = '';
+                $('.emergencyPanel')[0].style.backgroundColor = '';
+
+                $('#emergencyWarning').removeClass('emergencyWarning');
+            }
+        }
+    </script>
+
+    @if (Model.EnumPageMode != null && ((EnumPageMode)Model.EnumPageMode).ToString() == EnumPageMode.View.ToString())
+    {
+        <script type="text/javascript">
+            $(function() {
+
+
+                $("span[class='red']").css("display", "none");
+                //$("input[type='checkbox']").attr("disabled", "disabled");
+                $("input[type='text']").each(function() {
+                    var textValue = $(this).val();
+                    $(this).replaceWith("<p class='form-control-static'>" + textValue + "</p>");
+                });
+                $("input[type='file']").each(function() {
+                    var textValue = $(this).val();
+                    $(this).remove();
+                });
+                $("textarea").each(function() {
+                    var textValue = $(this).val();
+                    $(this).replaceWith(
+                        "<p class='form-control-static'>" + textValue.replaceAll("\r\n", "<br/>").replaceAll("\n", "<br/>") + "</p>");
+                });
+                $("select").each(function() {
+                    var selectValue = $(this).find("option:selected").text();
+                    if (selectValue == "-- 请选择 --")
+                        selectValue = "";
+                    $(this).replaceWith("<p class='form-control-static'>" + selectValue + "</p>");
+                });
+                $("input[type='password']").each(function() {
+                    $(this).parent().html("<p class='form-control-static'>**********</p>");
+                });
+
+                $(".input-group-addon").hide();
+                $(".glyphicon-plus").attr("disabled", "disabled");
+                $(".glyphicon-minus").attr("disabled", "disabled");
+
+            });
+        </script>
+
+    }
+}
+
+
+
+

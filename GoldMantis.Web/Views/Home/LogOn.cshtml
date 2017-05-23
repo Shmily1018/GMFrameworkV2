@@ -1,0 +1,115 @@
+﻿@{
+    Layout = null;
+}
+@model GoldMantis.Web.ViewModel.Home.LogOnModel
+<title>欢迎使用邮件分析、工作流监控系统</title>
+<!DOCTYPE html>
+
+<link href="@Url.Content("~/Scripts/assets/global/css/bootstrapGoogle.css")" rel="stylesheet" type="text/css" />
+<link href="@Url.Content("~/Scripts/assets/global/plugins/font-awesome/css/font-awesome.min.css")" rel="stylesheet" type="text/css" />
+<link href="@Url.Content("~/Scripts/assets/global/plugins/bootstrap/css/bootstrap.min.css")" rel="stylesheet" type="text/css" />
+<link href="@Url.Content("~/Scripts/assets/global/plugins/uniform/css/uniform.default.css")" rel="stylesheet" type="text/css" />
+<link href="@Url.Content("~/Scripts/assets/global/css/components-rounded.css")" id="style_components" rel="stylesheet" type="text/css" />
+<link href="@Url.Content("~/Scripts/assets/admin/pages/css/login-soft.css")" rel="stylesheet" type="text/css" />
+
+
+
+<div class="login">
+    <!-- BEGIN LOGO -->
+    <div class="logo">
+        <a>
+            <img src="/Scripts/assets/page_logo.png" alt="logo" />
+        </a>
+    </div>
+    <!-- END LOGO -->
+    <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+    <div class="menu-toggler sidebar-toggler">
+    </div>
+    <!-- END SIDEBAR TOGGLER BUTTON -->
+    <!-- BEGIN LOGIN -->
+    <div class="content">
+        <!-- BEGIN LOGIN FORM -->
+        @using (Html.BeginForm())
+            {
+            <h3 class="form-title">登录</h3>
+            <div class="alert alert-danger display-hide">
+                <button class="close" data-close="alert"></button>
+                <span>
+                    输入用户名和密码.
+                </span>
+            </div>
+            <div class="form-group">
+                <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+                <label class="control-label visible-ie8 visible-ie9">Username</label>
+                <div class="input-icon">
+                    <i class="fa fa-user"></i>
+                    @Html.TextBoxFor(x => x.UserName, new { @class = "form-control placeholder-no-fix", placeholder = "用户名" })
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label visible-ie8 visible-ie9">Password</label>
+                <div class="input-icon">
+                    <i class="fa fa-lock"></i>
+                    @Html.PasswordFor(x => x.Password, new { @class = "form-control placeholder-no-fix", placeholder = "密码" })
+                </div>
+            </div>
+            <div class="form-actions">
+                <button type="submit" id="btnSumit" class="btn blue pull-right">
+                    登录 <i class="m-icon-swapright m-icon-white"></i>
+                </button>
+            </div>
+
+            }
+        <!-- END LOGIN FORM -->
+    </div>
+    <!-- END LOGIN -->
+    <!-- BEGIN COPYRIGHT -->
+    <div class="copyright">
+        @DateTime.Now.Year © POWER BY GOLDMANTIS.
+        <a href="http://erp.goldmantis.com/" title="欢迎访问金螳螂ERP系统" target="_blank">金螳螂</a>
+    </div>
+
+
+    <!-- END PAGE LEVEL SCRIPTS -->
+    <!-- END JAVASCRIPTS -->
+    <!-- END BODY -->
+</div>
+
+
+<script src="@Url.Content("~/Scripts/assets/global/plugins/jquery.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/assets/global/plugins/backstretch/jquery.backstretch.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/assets/global/plugins/bootstrap/js/bootstrap.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/assets/global/plugins/bootstrap/js/bootstrapGM.js")" type="text/javascript"></script>
+
+
+<script>
+    $(document).ready(function () {
+        $.backstretch([
+            "@Url.Content("~/Scripts/assets/admin/pages/media/bg/1.jpg")",
+            "@Url.Content("~/Scripts/assets/admin/pages/media/bg/2.jpg")",
+            "@Url.Content("~/Scripts/assets/admin/pages/media/bg/3.jpg")",
+            "@Url.Content("~/Scripts/assets/admin/pages/media/bg/4.jpg")"
+        ], {
+            fade: 2000,
+            duration: 2000
+        });
+
+        @{
+             //接收后台的错误与警告信息
+             var error = TempData["Error"] == null ? "" : TempData["Error"].ToString();
+         }
+
+        //显示错误信息
+        if ('@error' != "") {
+            window.top.bootstrapGM.alert('@error');
+        }
+
+        $("body").keydown(function () {
+            if (event.keyCode == "13") {
+                $('form').submit();
+            }
+        });
+
+    });
+</script>
+

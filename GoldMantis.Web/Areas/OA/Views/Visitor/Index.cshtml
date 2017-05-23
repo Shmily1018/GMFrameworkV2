@@ -1,0 +1,112 @@
+@model GoldMantis.Web.ViewModel.OA.ModelUTIPARKCUSTOMERVisitorIndex
+@{   
+    Layout = "~/Views/Shared/_GmLayoutMaintain.cshtml";
+}
+
+@section ActionButtonAreaRight{
+    <div class="btn-group" style="margin-left:5px;" >
+        <button class="btn blue dropdown-toggle" type ="button" data-toggle="dropdown" aria-expanded="false" >
+            <i class="fa fa-file" ></i>导出Excel<i class="fa fa-angle-down" ></i>
+        </button>
+        <ul class="dropdown-menu" role ="menu" >
+            <li>
+                <a onclick = "commonPage.exportToExcel('@EnumExportType.导出本页.GetHashCode()');" >
+                    导出本页
+                </a>
+            </li >
+            <li class="divider" >
+            </li>
+            <li>
+                <a onclick = "commonPage.exportToExcel('@EnumExportType.导出全部.GetHashCode()');" >
+                    导出全部
+                </a>
+            </li>
+        </ul>
+    </div>
+}
+
+@section QueryConditionArea 
+{ 
+    <div class="form-group">
+        <div class="col-md-4">
+            <label class="col-md-4 control-label">看房者编号：</label>
+            <div class="col-md-8">
+                @Html.TextBoxFor(x => x.SearchEntity.VisitorCode, new { @class ="form-control"  })
+            </div>
+        </div>
+        <div class="col-md-4">
+            <label class="col-md-4 control-label">看房者名称：</label>
+            <div class="col-md-8">
+                @Html.TextBoxFor(x => x.SearchEntity.VisitorName, new { @class ="form-control"  })
+            </div>
+        </div>
+        <div class="col-md-4">
+            <label class="col-md-4 control-label">联系人：</label>
+            <div class="col-md-8">
+                @Html.TextBoxFor(x => x.SearchEntity.Connector, new { @class ="form-control"  })
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-4">
+            <label class="col-md-4 control-label">联系电话：</label>
+            <div class="col-md-8">
+                @Html.TextBoxFor(x => x.SearchEntity.Telephone, new { @class ="form-control"  })
+            </div>
+        </div>
+        <div class="col-md-4">
+            <label class="col-md-4 control-label">开始租赁日期：</label>
+            <div class="col-md-8">
+                @Html.TextBoxFor(x => x.SearchEntity.RentDateStart, new { @class ="form-control"  })
+            </div>
+        </div>
+        <div class="col-md-4">
+            <label class="col-md-4 control-label">结束租赁日期：</label>
+            <div class="col-md-8">
+                @Html.TextBoxFor(x => x.SearchEntity.RentDateEnd, new { @class ="form-control"  })
+            </div>
+        </div>
+    </div>
+}
+
+@section MaintainScriptsPlaceHolder 
+{ 
+    <script type="text/javascript">
+
+        Maintain.commonContent = '右上角鼠标经过提醒文字，请替换';
+        Maintain.editUrl = '@Url.Content("~/OA/Visitor/Create/")';
+        Maintain.deleteUrl = '@Url.Content("~/OA/Visitor/Delete/")'; 
+
+        Maintain.actionAdd = function() {
+            window.top.menu.addTabs("新增看房者信息管理", this.editUrl + "?pageState=" + add);
+        };
+
+        Maintain.actionEdit = function(id) {
+            window.top.menu.addTabs("编辑看房者信息管理", this.editUrl +id+ "/?pageState=" + edit);
+        };
+
+        Maintain.actionView = function(id) {
+            window.top.menu.addTabs("查看看房者信息管理", this.editUrl +id+ "/?pageState=" + view);
+        };
+
+        Maintain.actionDelete = function (id) {
+            window.top.bootstrapGM.confirm({
+                title: '系统提示',
+                msg: '确定要删除吗?'
+            }, function () {
+                $.ajax({
+                    type: "POST",
+                    url: Maintain.deleteUrl,
+                    traditional: true,
+                    data: { ids: id },
+                    success: function(msg) {
+                        window.top.toastr.info(msg.result);
+                        commonPage.ajaxSubmit();
+                    }
+                });
+            });
+        };
+
+    </script>
+}

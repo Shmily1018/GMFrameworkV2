@@ -1,0 +1,86 @@
+﻿
+@{
+    Layout = null;
+}
+
+<div class="alert alert-warning" style="margin-bottom: 0px; padding: 8px;">
+    <button class="close" data-dismiss="alert"></button>
+    <i class="fa  fa-info-circle"></i>
+    <strong>警告!</strong> 系统参数请勿随意删除！
+</div>
+
+
+<style>
+    .datagrid-row {
+        height: 35px;
+    }
+
+    .datagrid-header-row {
+        height: 35px;
+    }
+</style>
+
+<table id="tt" class="easyui-treegrid"></table>
+
+<script>
+
+    function fixWidth(percent) {
+        return (document.body.clientWidth - 5) * percent;
+    }
+
+    function addUser() {
+        window.top.menu.addTabs('新增页', 'UserArea/User/Create?pageState=' + create);
+    }
+    function editSCBasicType(i) {
+        window.top.menu.addTabs('编辑参数', 'SystemConfig/SystemParameterSet/Create?pageState=' + edit + '&id=' + i);
+    }
+    function showUser(i) {
+        window.top.menu.addTabs('查看页', 'UserArea/User/Create?pageState=' + detail + '&id=' + i);
+    }
+
+
+    $(document).ready(function ($) {
+
+        var tt = $('#tt').treegrid({
+            url: '@Url.Content("~/SystemConfig/SystemParameterSet/GetData?parentID=0")',
+            method: 'get',
+            rownumbers: true,
+            idField: 'KeyID',
+            treeField: 'TypeCode',
+            iconCls: 'icon-save',
+            width: '100%',
+            lines: true,
+            height: "450px",
+            fitColumns: true,
+            animate: true,
+            onBeforeExpand: function (node, param) {
+                $('#tt').treegrid('options').url = '@Url.Content("~/SystemConfig/SystemParameterSet/GetData")' +
+                    "?parentID=" + node.TypeID;
+            },
+            columns: [
+                [
+                    {
+                        field: 'TypeCode', title: '类型编号', width: fixWidth(0.2), formatter: function (value, rowData, rowIndex) {
+                            return "<a onclick=editSCBasicType('" + rowData.TypeID + "')>" + rowData.TypeCode + "</a>";
+                        }
+                    },
+                    { field: 'TypeName', title: '类型名称', width: fixWidth(0.2), align: 'center' },
+                    { field: 'UserName', title: '创建人', width: fixWidth(0.2), align: 'center' },
+                    { field: 'CreateTime', title: '创建时间', width: fixWidth(0.2), align: 'center' },
+                    { field: 'Memo', title: '备注', width: fixWidth(0.1), align: 'center' },
+                    { field: 'Enabled', title: '状态', width: fixWidth(0.1), align: 'center' }
+                ]
+            ],
+            onLoadSuccess: function () {
+
+            }
+        });
+    });
+
+
+
+
+</script>
+
+
+

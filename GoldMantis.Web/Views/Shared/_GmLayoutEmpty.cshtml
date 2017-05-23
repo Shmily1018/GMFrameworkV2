@@ -1,0 +1,109 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html lang="en" class="no-js">
+<head>
+    <meta charset="utf-8" />
+    <meta content="" name="author" />
+    <meta content="" name="description" />
+    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <title>EmptyLayout</title>
+
+    <!-- 强制风格 -->
+    <link href="~/Scripts/assets/global/css/bootstrapGoogle.css" rel="stylesheet" type="text/css" />
+    <link href="~/Scripts/assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/Scripts/assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/Scripts/assets/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css" />
+    <!-- 主题样式 -->
+    <link href="~/Scripts/assets/global/css/components-rounded.css" rel="stylesheet" type="text/css" />
+    <link href="~/Scripts/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css" rel="stylesheet" type="text/css"/>
+    <link href="~/Scripts/assets/global/css/Site.css" rel="stylesheet" type="text/css" />
+
+    <link href="~/Scripts/assets/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker.css" rel="stylesheet" />
+    <link href="~/Scripts/assets/global/plugins/datetimepicker/jquery.datetimepicker.css" rel="stylesheet" />
+
+    <!-- fancybox css -->
+    <link href="~/Scripts/assets/global/plugins/fancybox/source/helpers/jquery.fancybox-buttons.css?v=1.0.5" rel="stylesheet" type="text/css" />
+    <link href="~/Scripts/assets/global/plugins/fancybox/source/jquery.fancybox.css?v=2.1.5" media="screen" rel="stylesheet" type="text/css" />
+    <link href="/Scripts/assets/global/plugins/pace/themes/pace-theme-minimal.css" rel="stylesheet" type="text/css" />
+    
+    @RenderSection("HtmlHeadPlaceHolder", false)
+
+    <link rel="shortcut icon" href="favicon.ico" />
+</head>
+<body class="page-boxed page-header-fixed page-sidebar-closed-hide-logo page-container-bg-solid page-sidebar-closed-hide-logo">
+
+
+    <script src="~/Scripts/assets/global/plugins/jquery.min.js" type="text/javascript"></script>
+    <script src="~/Scripts/assets/global/plugins/jquery.validate.js" type="text/javascript"></script>
+    <script src="~/Scripts/assets/global/plugins/jquery.validate.mvc.js" type="text/javascript"></script>
+    <script src="~/Scripts/assets/global/plugins/jquery.validate.unobtrusive.js" type="text/javascript"></script>
+    <script src="~/Scripts/assets/global/plugins/jquery-ui/jquery-ui.min.js" type="text/javascript"></script>
+    <script src="~/Scripts/assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="~/Scripts/assets/global/plugins/select2/select2.min.js" type="text/javascript"></script>
+    <script src="~/Scripts/assets/global/plugins/jquery.form.js" type="text/javascript"></script>
+    <script src="~/Scripts/assets/global/plugins/jquery.json.js" type="text/javascript"></script>
+    <script src="~/Scripts/assets/global/scripts/metronic.js" type="text/javascript"></script>
+    <script src="~/Scripts/assets/global/scripts/jquert-extension.js" type="text/javascript"></script>
+    <script src="~/Scripts/assets/global/scripts/cls-page.js" type="text/javascript"></script>
+    <script src="~/Scripts/assets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
+
+    <!--table分页-->
+    <script src="~/Scripts/assets/global/scripts/GmUIControl.js" type="text/javascript"></script>
+
+    <script type="text/javascript" src="@Url.Content("~/Scripts/assets/global/plugins/fancybox/source/jquery.fancybox.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/assets/global/plugins/fancybox/source/helpers/jquery.fancybox-buttons.js?v=1.0.5")"></script>
+
+    <!-- datetimepick js -->
+    <script type="text/javascript" src="@Url.Content("~/Scripts/assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/assets/global/plugins/datetimepicker/build/jquery.datetimepicker.full.js")"></script>
+
+    <!--[if !IE]><!-->
+    <script src="/Scripts/assets/global/plugins/pace/pace.min.js" type="text/javascript"></script>
+    <!--<![endif]-->
+
+    <script>
+        @{
+            //接收后台的错误与警告信息
+            string error = TempData["Error"] == null ? string.Empty : TempData["Error"].ToString();
+            string message = TempData["Message"] == null ? string.Empty : TempData["Message"].ToString();
+        }
+
+        var edit = @((int)EnumPageMode.Edit);
+        var add = @((int)EnumPageMode.Add);
+        var view = @((int)EnumPageMode.View);
+
+        //显示错误信息
+        if ('@error' !== '') {
+            window.top.bootstrapGM.alert('@error');
+        }
+
+        //显示提醒信息
+        if ('@message' !== '') {
+            window.top.bootstrapGM.alert('@message');
+        }
+
+        function refreshPage() {
+            commonPage.ajaxSubmit();
+        }
+
+        $(window).resize(function () {
+            commonPage.resizeTable();
+        });
+
+        $(function () {
+           
+        });
+    </script>
+    @RenderSection("HtmlScriptsPlaceHolder", false)
+
+
+    @RenderBody()
+
+</body>
+</html>

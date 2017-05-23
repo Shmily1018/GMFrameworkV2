@@ -1,0 +1,176 @@
+﻿@model GoldMantis.Web.ViewModel.UserEmailAnalysis.WF_REMINDER_WORKFLOW_TEMP.ModelVW_WF_REMINDER_WORKFLOW_TEMPIndex
+@{
+    Layout = null;
+}
+<div style="width: 100%; overflow: auto;" class="common-table-container" id="common-table-container">
+    <table style="margin-top: 0px; table-layout: fixed;"
+           class="table  table-responsive table-striped table-bordered table-hover"
+           role="grid">
+        <colgroup>
+            <col style="width: 40px;" />
+            <col style="width: 150px;" />
+            <col style="width: 250px;" />
+            <col style="width: 200px;" />
+            <col style="width: 150px;" />
+            <col style="width: 150px;" />
+            <col style="width: 150px;" />
+            <col style="width: 150px;" />
+            <col style="width: 150px;" />
+            <col style="width: 150px;" />
+            <col style="width: 150px;" />
+            <col style="width: 150px;" />
+            <col style="width: 150px;" />
+            <col style="width: 350px;" />
+        </colgroup>
+        <thead class="common-table-header">
+            <tr role="row">
+
+                @Html.HiddenFor(x => x.SearchEntity.OrderName, new { data_order_name = "" })
+                @Html.HiddenFor(x => x.SearchEntity.OrderDirection, new { data_order_direction = "" })
+                <th style="text-align: center;">
+                    <input type="checkbox" class="common-table-checkbox-all" />
+                </th>
+                @Html.HiddenFor(x => x.SearchEntity.OrderName, new { data_order_name = "" })
+                @Html.HiddenFor(x => x.SearchEntity.OrderDirection, new { data_order_direction = "" })
+                <th>
+                    操作
+                </th>
+                <th>
+                    工作流名称
+                </th>
+                <th>
+                    单据号
+                </th>
+                <th>
+                    审批状态
+                </th>
+                <th>
+                    被催办人
+                </th>
+                <th>
+                    被催办人手机
+                </th>
+                <th>
+                    被催办人部门
+                </th>
+                <th>
+                    被催办人公司
+                </th>
+                <th>
+                    微信内容
+                </th>
+                <th>
+                    催办时间
+                </th>
+                <th>
+                    审批结束时间
+                </th>
+                <th>
+                    反应时间（天）
+                </th>
+                <th>
+                    超时原因
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                if (Model.GridDataSources != null)
+                {
+                    foreach (var item in Model.GridDataSources)
+                    {
+                        <tr role="row" style="text-align: center;color: @(item.TimeSpent < 30 ? "" : "#F3565D")">
+                            <td>
+                                <div>
+                                    <input type="checkbox" name="checkboxItem" class="checkboxItem" value="@item.ID" />
+                                </div>
+                            </td>
+                            <td>
+                                <button type="button" class="btn red btn-xs" onclick="setReason(@item.ID)">
+                                    <i class="fa fa-edit"></i>
+                                    填写超时原因
+                                </button>
+                            </td>
+                            <td td-data-content="@item.WorkflowName">
+                                <div style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;">
+                                    @item.WorkflowName
+                                </div>
+                            </td>
+                            <td td-data-content="@item.TokenName">
+                                <div style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;">
+                                    @item.TokenName
+                                </div>
+                            </td>
+
+                            <td td-data-content="@item.FlowStatus">
+                                <div style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;">
+                                    @item.FlowStatus
+                                </div>
+                            </td>
+                            <td td-data-content="@item.UserName">
+                                <div style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;">
+                                    @item.UserName
+                                </div>
+                            </td>
+                            <td td-data-content="@item.Mobile">
+                                <div style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;">
+                                    @item.Mobile
+                                </div>
+                            </td>
+                            <td td-data-content="@item.DeptName">
+                                <div style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;">
+                                    @item.DeptName
+                                </div>
+                            </td>
+
+                            <td td-data-content="@item.CompanyName">
+                                <div style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;">
+                                    @item.CompanyName
+                                </div>
+                            </td>
+                            <td td-data-content="@item.MessageContent">
+                                <div style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;">
+                                    @item.MessageContent
+                                </div>
+                            </td>
+                            <td td-data-content="@item.SendDate.ToString("yyyy-MM-dd hh:mm:ss")">
+                                <div style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;">
+                                    @item.SendDate.ToString("yyyy-MM-dd HH:mm:ss")
+                                </div>
+                            </td>
+                            <td>
+
+                                @if (item.EndTime != null)
+                                {
+                                    <div style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;" td-data-content="@item.EndTime.Value.ToString("yyyy-MM-dd hh:mm:ss")">
+                                        @item.EndTime.Value.ToString("yyyy-MM-dd HH:mm:ss")
+                                    </div>
+                                }
+
+                            </td>
+                            <td td-data-content="@item.TimeSpent.ToString("0.00")">
+                                @item.TimeSpent.ToString("0.00")
+                            </td>
+                            <td td-data-content="@item.Reason">
+                                <div style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;">
+                                    @item.Reason
+                                </div>
+                            </td>
+                        </tr>
+           
+                    }
+                }
+            }
+            </tbody>
+            </table>
+
+
+            <div>
+                @{
+                    if (Model.PaginateHelperObject != null)
+                    {
+                        Html.RenderPartial(Url.Content("~/Views/Controls/PaginateAjax.cshtml"), Model.PaginateHelperObject);
+                    }
+                }
+            </div>
+            </div>

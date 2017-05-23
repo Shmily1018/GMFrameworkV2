@@ -1,0 +1,66 @@
+﻿@model GoldMantis.Web.ViewModel.OA.ModelVW_OAOvertimeIndex
+@{
+    ViewBag.Title = "SampleMaintain";
+    Layout = "~/Views/Shared/_GmLayoutMaintain.cshtml";
+}
+
+@section QueryConditionArea
+{
+    <div class="form-group">
+        <div class="col-sm-4">
+            <label class="col-sm-4 control-label  ">加班人员：</label>
+            <div class="col-sm-8">
+                @Html.TextBoxFor(new TextBoxAttribute<ModelVW_OAOvertimeIndex, string>(x => x.SearchEntity.OvertimeUser))
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <label class="col-sm-4 control-label">所属部门：</label>
+            <div class="col-sm-8">
+                @Html.TextBoxFor(new TextBoxAttribute<ModelVW_OAOvertimeIndex, string>(x => x.SearchEntity.UserDept))
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <label class="col-sm-4 control-label">编制人：</label>
+            <div class="col-sm-8">
+                @Html.TextBoxFor(new TextBoxAttribute<ModelVW_OAOvertimeIndex, string>(x => x.SearchEntity.Maker))
+            </div>
+        </div>
+
+    </div>
+    <div class="form-group">
+        <div>
+            <div class="col-sm-4">
+                <label class="col-sm-4 control-label">加班原因：</label>
+                <div class="col-sm-8">
+                    @Html.TextBoxFor(new TextBoxAttribute<ModelVW_OAOvertimeIndex, string>(x => x.SearchEntity.OverTimeReason))
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <label class="col-sm-4 control-label">加班时间：</label>
+                <div class="col-sm-8">
+                    @Html.DatePickerFor(new DatePickerAttribute<ModelVW_OAOvertimeIndex, DateTime?>(x => x.SearchEntity.OverTimeDateBegin))
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <label class="col-sm-4 control-label">至：</label>
+                <div class="col-sm-8">
+                    @Html.DatePickerFor(new DatePickerAttribute<ModelVW_OAOvertimeIndex, DateTime?>(x => x.SearchEntity.OverTimeDateEnd))
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+@section MaintainScriptsPlaceHolder
+{
+    <script>
+        Maintain.commonContent = '加班人员、所属部门,加班理由、编制人';
+        Maintain.editUrl = 'OA/OAOvertime/Create';
+        Maintain.deleteUrl = 'OA/OAOvertime/Delete';
+        Maintain.actionAdd = function() {
+            window.top.menu.addTabs("新增员工加班", this.editUrl);
+        };
+    </script>
+}
+

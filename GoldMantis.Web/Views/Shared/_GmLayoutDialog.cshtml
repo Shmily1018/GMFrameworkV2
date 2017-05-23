@@ -1,0 +1,122 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_GmLayoutEmpty.cshtml";
+}
+
+@section HtmlHeadPlaceHolder
+{
+    @RenderSection("EditHeadPlaceHolder", false)
+}
+
+
+<div id="main">
+        <div class="portlet light bordered">
+            <div class="portlet-body form">
+            @using (Html.BeginForm(new FormAttribute()))
+            {
+                @RenderSection("ActionButtonArea", false)
+                
+                <div class="form-body">
+                    @RenderBody()
+                </div>
+            }
+            </div>
+        </div>
+        <div class="clear"> </div>
+    </div>
+
+
+
+@section HtmlScriptsPlaceHolder
+{
+    <script type="text/javascript">
+        window.top.bootstrapGM.unblockUI();
+
+        // 页面对象
+        var Edit = {
+            actionSave: function() {
+                $.each($('.gm-grid-table'), function () {
+                    GmUIControl.GridTable(this.id).sortRow();
+                });
+            },
+            actionClosing: function() {},
+            actionClose: function() {
+                var tabId = window.top.$('.tab-pane.active').attr('id');
+                var tabLiId = 'tab_' + tabId;
+
+                if (jQuery.isFunction(this.actionClosing)) {
+                    try {
+                        this.actionClosing();
+                    } catch (e) {
+
+                    }
+                }
+
+                window.top.$('#' + tabLiId).find('span').click();
+            }
+        };
+
+        @RenderSection("EditScriptsPlaceHolder", false)
+
+        $(function() {
+            $('#btn-edit-save').click(function() {
+                Edit.actionSave();
+            });
+
+            $('#btn-edit-cancel').on('click', function() {
+                Edit.actionClose();
+            });
+
+            $('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
+                commonPage.resize();
+            });
+
+            $("form .form-control").tooltipValidation();
+        });
+    </script>
+
+    @if (ViewBag.PageState != null && ((EnumPageState)ViewBag.PageState).ToString() == EnumPageState.View.ToString())
+    {
+        <script type="text/javascript">
+            $(function () {
+
+
+                $("span[class='red']").css("display", "none");
+                $("input[type='checkbox']").attr("disabled", "disabled");
+                $("input[type='text']").each(function () {
+                    var textValue = $(this).val();
+                    $(this).replaceWith("<p class='form-control-static'>" + textValue + "</p>");
+                });
+                $("input[type='file']").each(function () {
+                    var textValue = $(this).val();
+                    $(this).remove();
+                });
+                $("textarea").each(function () {
+                    var textValue = $(this).val();
+                    $(this).replaceWith(
+                        "<p class='form-control-static'>" + textValue.replaceAll("\r\n", "<br/>").replaceAll("\n", "<br/>") + "</p>");
+                });
+                $("select").each(function () {
+                    var selectValue = $(this).find("option:selected").text();
+                    if (selectValue == "-- 请选择 --")
+                        selectValue = "";
+                    $(this).replaceWith("<p class='form-control-static'>" + selectValue + "</p>");
+                });
+                $("input[type='password']").each(function () {
+                    $(this).parent().html("<p class='form-control-static'>**********</p>");
+                });
+
+                $(".input-group-addon").hide();
+
+                $(".glyphicon-plus").attr("disabled", "disabled");
+                $(".glyphicon-minus").attr("disabled", "disabled");
+
+            });
+        </script>
+
+    }
+}
+
+
+
+

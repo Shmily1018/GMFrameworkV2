@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<hibernate-mapping assembly="GoldMantis.Entity" namespace="GoldMantis.Entity" xmlns="urn:nhibernate-mapping-2.2">
+  <class name="MenuOperation" table="MenuOperation" lazy="true" >
+    <id name="ID">
+      <generator class="increment" />
+    </id>
+    <property name="MenuID"  >
+      <column name="MenuID" sql-type="int" not-null="true" />
+    </property>
+    <property name="OperationID"  >
+      <column name="OperationID" sql-type="int" not-null="true" />
+    </property>
+  </class>
+</hibernate-mapping>

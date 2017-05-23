@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping assembly="GoldMantis.Entity" namespace="GoldMantis.Entity" xmlns="urn:nhibernate-mapping-2.2">
+  <class name="FlowMaping" table="SCFlowMaping" lazy="true" >
+    <id name="ID">
+      <generator class="native" />
+    </id>
+    <property name="MenuID">
+      <column name="MenuID" sql-type="int" not-null="true" />
+    </property>
+    <property name="Url"  >
+      <column name="Url" sql-type="nvarchar" not-null="true" />
+    </property>
+    <property name="WFName">
+      <column name="WFName" sql-type="nvarchar" not-null="true" />
+    </property>
+    <property name="DeptID">
+      <column name="DeptID" sql-type="int" not-null="false" />
+    </property>
+    <property name="WFPID">
+      <column name="WFPID" sql-type="uniqueidentifier" not-null="true" />
+    </property>
+    <property name="ParentID">
+      <column name="ParentID" sql-type="int" not-null="false" />
+    </property>
+    <property name="AllowCustomFlow">
+      <column name="AllowCustomFlow" sql-type="bit" not-null="true" />
+    </property>
+    <property name="IsOn">
+      <column name="IsOn" sql-type="bit" not-null="false" />
+    </property>
+  </class>
+</hibernate-mapping>

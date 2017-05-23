@@ -1,0 +1,91 @@
+﻿@model GoldMantis.Web.ViewModel.User.ModelSAUserIndex
+@{
+    Layout = "~/Views/Shared/_LayoutDialog.cshtml";
+}
+
+<script type="text/javascript">
+
+    function choose() {
+        if (!commonPage.isSelect())
+            return;
+        window.top.bootstrapGM.closeDialog({ callback: 'Edit.MutualPage_Callback' });
+    }
+
+    function returnValue() {
+        var tr = $("table tr.common-table-tr-selected");
+        var id = tr.find("input[type='radio']:checked").val();
+
+        return "'" + id + "'";
+    }
+
+    function cancel() {
+        window.top.bootstrapGM.closeDialog();
+    }
+
+</script>
+@using (Html.BeginForm(null, null, null, FormMethod.Get, new { role = "form", @class = "form-horizontal" }))
+{
+    @Html.HiddenFor(x=>x.Pdata)
+    <div style="padding: 15px 15px 0px;">
+        <!--TOOLBAR-->
+        <div style="height: 34px; margin-bottom: 10px;">
+            <div class="toolbar-left" style="float: left;">
+                <button class="btn green" onclick="choose();">
+                    <i class="fa fa-plus"></i>
+                    确认
+                </button>
+                <a href="javascript:;" class="btn red" onclick="cancel();">
+                    <i class="fa fa-edit"></i>
+                    取消
+                </a>
+                <button type="button" class="btn yellow" onclick="javascript:commonPage.scan();">
+                    <i class="fa fa-search"></i>
+                    条件查询
+                </button>
+            </div>
+            <div style="float: right; width: 250px; margin-right: 15px;">
+                <div class="input-group">
+                    @Html.TextBoxFor(x => x.SearchEntity.CommonSearchCondition, new { @class = "common-search-condition", content = "查询列：用户名。" })
+                    <span class=" input-group-addon input-circle-right common-search-submit" style="cursor: pointer;">
+                        <i class="fa fa-search"></i>
+                    </span>
+                </div>
+            </div>
+
+        </div>
+
+        <!--SERACH FORM-->
+        <div class="search-container" style="margin-top: 15px; display: none;">
+            <div class="form-group">
+                <div class="col-sm-6">
+                    <label class="col-sm-4 control-label  ">用户名:</label>
+                    <div class="col-sm-8">
+                        @Html.TextBoxFor(x => x.SearchEntity.UserName, new { @class = "form-control input-sm" })
+                    </div>
+                </div>
+            </div>
+            <div class="form-group" style="text-align: right; margin-right: 0px;">
+                <div class="col-sm-12">
+                    <button type="submit" class="button-search btn blue ">
+                        搜索 <i class="fa fa-search"></i>
+                    </button>
+                    <a href="javascript:;" class="button-clear btn red">
+                        清除 <i class="fa fa-trash-o"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="replace-container">
+        @{
+    Html.RenderPartial("MutualSelectActor_Partial");
+        }
+    </div>
+}
+
+<script type="text/javascript" language="javascript">
+    $(document).ready(function () {
+        
+    });
+</script>
+

@@ -1,0 +1,129 @@
+﻿@model PaginateAttribute
+
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("#getPage").click(function() {
+            var pageIndex = $(".jumpto").val();
+            var totalPages = parseInt(@Model.TotalCount);
+            if (pageIndex > totalPages && totalPages > 0) {
+                $("#@Model.PageIndexName.Replace('.', '_')").attr("value", parseInt($("#TotalPages").html()) - 1);
+            } else if (pageIndex < totalPages && totalPages > 0) {
+                $("#@Model.PageIndexName.Replace('.', '_')").attr("value", pageIndex - 1);
+            }
+            $("form").submit();
+        });
+
+        $("#jumpto").keypress(function(e) {
+            if (e.keyCode === 13) {
+                $("#getPage").click();
+            }
+        });
+
+        $(".pagination-container a").click(
+            function() {
+                if ($(this).hasClass("page-prev") && (!$(this).parent().hasClass("disabled"))) {
+                    $("#jumpto").val(parseInt($("#jumpto").val()) - 1);
+                    $("#getPage").click();
+                    return false;
+                } else if ($(this).hasClass("page-next") && (!$(this).parent().hasClass("disabled"))) {
+                    $("#jumpto").val(parseInt($("#jumpto").val()) + 1);
+                    $("#getPage").click();
+                    return false;
+                } else if ($(this).hasClass("page-first") && (!$(this).parent().hasClass("disabled"))) {
+                    $("#jumpto").val(1);
+                    $("#getPage").click();
+                    return false;
+                } else if ($(this).hasClass("page-last") && (!$(this).parent().hasClass("disabled"))) {
+                    $("#jumpto").val(@Model.TotalPages);
+                    $("#getPage").click();
+                    return false;
+                } else {
+                    return false;
+                }
+            }
+        );
+
+        //默认选中pageSize项
+        var pageSize = @Model.PageSize;
+        $("#pageSize").val(pageSize);
+
+    });
+
+
+
+    function changePageSize() {
+        $("input[name='SearchEntity.PageIndex']").val("0");
+        $("form").submit();
+    }
+
+    function search() {
+        $("#@Model.PageIndexName.Replace('.', '_')").attr("value", 0);
+    }
+
+</script>
+<div class="pagination-container">
+    <div class="paging" style="text-align: right; margin-top: 0px;">
+        <ul class="pagination" style="visibility: visible; margin: 0px;">
+            <li>
+                <span href="#" style="padding: 11px;">
+                    第@(Model.PageIndex + 1)/@(Model.TotalPages)页
+                </span>
+            </li>
+            <!--第一页-->
+            <li class='prev @(Model.PageIndex + 1 != 1 ? "" : "disabled")'>
+                <a class="page-first" href="@(Model.Url)@(Model.PageIndexName)=0" title="第一页" style="padding: 11px;">
+                    <i class="fa fa-angle-double-left"></i>
+                </a>
+            </li>
+            <!--上一页-->
+            <li class='prev @(Model.PageIndex != 0 ? "" : "disabled")'>
+                <a class="page-prev" href="@(Model.Url)@(Model.PageIndexName)=@(Model.PageIndex - 1)" title="上一页" style="padding: 11px;">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+            </li>
+            <!--下一页-->
+            <li class='next @(Model.PageIndex < (Model.TotalPages - 1) ? "" : "disabled")'>
+                <a class="page-next" href="@(Model.Url)@(Model.PageIndexName)=@(Model.PageIndex + 1)" title="下一页" style="padding: 11px;">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+            <!--最后一页-->
+            <li class='next @((Model.PageIndex + 1) < Model.TotalPages ? "" : "disabled")'>
+                <a class="page-last" href="@(Model.Url)@(Model.PageIndexName)=@(Model.TotalPages)" title="最后一页" style="padding: 11px;">
+                    <i class="fa fa-angle-double-right"></i>
+                </a>
+            </li>
+            <li>
+                <!--当前页的隐藏值-->
+                <input type="hidden" name="@Model.PageIndexName" id="@Model.PageIndexName.Replace('.', '_')" value="@Model.PageIndex" />
+                <span href="#" title="First" class="pageNum">
+                    共 @Model.TotalCount 条
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    每页
+
+                    <select title="每页显示多少条" name="@Model.PageSizeName" id="pageSize"
+                            onchange="changePageSize();"
+                            style="width: 70px !important; margin-top: 0px;"
+                            class="form-control input-xsmall input-sm input-inline">
+                        <option value="10">10</option>
+                        <option value="20">20</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                        <option value="200">200</option>
+                        <option value="500">500</option>
+                    </select>
+
+                    条
+                    &nbsp;&nbsp;
+                    第
+                    <input type="text" style="width: 30px;" maxlength="4" value="@(Model.PageIndex + 1)" id="jumpto" class="jumpto" name="pageIndexShow" title="指定页码" />
+                    页
+                    <input type="button" style="width: 30px;" value="GO" id="getPage" title="跳转" />
+                </span>
+            </li>
+        </ul>
+    </div>
+
+
+</div>

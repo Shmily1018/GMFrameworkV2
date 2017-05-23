@@ -1,0 +1,16 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutDialog.cshtml";
+}
+
+<div>
+    <img/>
+</div>
+
+<script type="text/javascript">
+    $("img").attr("src", "@ViewData["imageUrl"]");
+    $("img").load(function () {
+        commonPage.resizeTable();
+    });
+</script>
+
+

@@ -1,0 +1,219 @@
+﻿@{
+    Layout = "~/Views/Shared/_GmLayoutEmpty.cshtml";
+
+
+    string searchId = "CommonSearchCondition";
+    string searchIndex = "PageIndex";
+
+    if (Model != null)
+    {
+        Type modelType = Model.GetType();
+
+        if (modelType.IsSubclassOf(typeof(BaseModel)))
+        {
+            PropertyInfo pro = modelType.GetProperties(BindingFlags.Instance | BindingFlags.Public).FirstOrDefault(p => p.PropertyType.IsSubclassOf(typeof(BaseSearch)));
+
+            if (pro.IsNotNull())
+            {
+                searchId = string.Format("{0}.{1}", pro.Name, searchId);
+                searchIndex = string.Format("{0}.{1}", pro.Name, searchIndex);
+            }
+        }
+    }
+
+}
+
+@section HtmlHeadPlaceHolder
+{
+    @RenderSection("MaintainHeadPlaceHolder", false)
+}
+
+
+<div id="main">
+    @using (Html.BeginForm(new FormAttribute()))
+    {
+        <div style="padding: 15px 15px 0px;">
+            <div style="height: 34px; margin-bottom: 10px;">
+                <div class="toolbar-left" style="float: left;">
+                    @RenderSection("ActionButtonAreaLeft", false)
+                    <button type="button" class="btn btn-success" id="btn-maintain-add">
+                        <i class="fa fa-plus"></i>
+                        新增
+                    </button>
+                    @*<button type="button" class="btn purple" id="btn-maintain-edit">
+                            <i class="fa fa-edit"></i>
+                            编辑
+                        </button>*@
+                    <button type="button" class="btn btn-danger" id="btn-maintain-delete">
+                        <i class="fa fa-minus"></i>
+                        删除
+                    </button>
+                    <button type="button" class="btn btn-warning" id="btn-maintain-condition">
+                        <i class="fa fa-search"></i>
+                        条件查询
+                    </button>
+                    @RenderSection("ActionButtonAreaRight", false)
+                </div>
+                <div style="float: right; width: 250px; margin-right: 15px;">
+                    <div class="input-group">
+
+                        <input class="common-search-condition form-control input-circle-left" content="统一查询" id="@searchId" name="@searchId" type="text" value="" placeholder="请输入查询条件..." data-original-title="" title="">
+                        <span class=" input-group-addon input-circle-right common-search-submit" style="cursor: pointer;">
+                            <i class="fa fa-search"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="search-container" style="margin-top: 15px; display: none;">
+                @RenderSection("QueryConditionArea", false)
+
+                <div class="form-group" style="text-align: right; margin-right: 0px;">
+                    <div class="col-sm-12">
+                        @RenderSection("QueryButtonAreaRight", false)
+                        <button type="submit" class="button-search btn blue " id="btn-maintain-search">
+                            查询 <i class="fa fa-search"></i>
+                        </button>
+                        <button type="button" class="button-clear btn red">
+                            清除 <i class="fa fa-trash-o"></i>
+                        </button>
+                        @RenderSection("QueryButtonAreaLeft", false)
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="replace-container">
+            @{
+        Html.RenderPartial(string.Format("{0}_Partial", this.ViewContext.RouteData.GetRequiredString("action")));
+            }
+
+            @RenderBody()
+        </div>
+    }
+
+    <div class="clear"></div>
+</div>
+
+
+@section HtmlScriptsPlaceHolder
+{
+    <script type="text/javascript">
+        // 页面对象
+        var Maintain = {
+            commonContent: '',
+            editUrl: '',
+            deleteUrl: '',
+
+            actionAdd: function() {},
+            actionView: function() {},
+            actionDelete: function() {},
+
+            actionDeleteBatch: function() {
+                if (!commonPage.isSelect())
+                    return;
+
+                window.top.bootstrapGM.confirm({
+                    title: '系统提示',
+                    msg: '确定要删除吗?'
+                }, function() {
+                    if (Maintain.deleteUrl[0] !== '/') {
+                        Maintain.deleteUrl = '/' + Maintain.deleteUrl;
+                    }
+
+                    $.ajax({
+                        type: "POST",
+                        url: Maintain.deleteUrl,
+                        traditional:true,
+                        data: { ids: commonPage.listSelectedValues() },
+                        success: function(msg) {
+                            window.top.toastr.info(msg.result);
+                            commonPage.ajaxSubmit();
+                        },
+                        error: function() {
+                            alert('error');
+                        }
+                    });
+                });
+            },
+
+            actionEdit: function() {
+                if (!commonPage.forceSelectOne())
+                    return;
+            },
+
+            actionToggleCondition: function() {
+                commonPage.scan();
+            },
+
+            actionSearch: function() {},
+            actionCommonSearch: function() {},
+            asyncError: function() {},
+            load: function() {},
+            addAsyncError: function(fn) {},
+            asyncBefore: function() {},
+            addAsyncBefore: function(fn) {},
+
+            setCommomContent: function() {
+                var input = $('.common-search-condition');
+
+                if (input) {
+                    input.attr('content', this.commonContent);
+                }
+            }
+        };
+    </script>
+
+    @RenderSection("MaintainScriptsPlaceHolder", false)
+    @RenderSection("MaintainScriptsPartialPlaceHolder", false)
+
+    <script type="text/javascript">
+        $(function() {
+            //添加操作
+            $('#btn-maintain-add').on('click', function() {
+                if (jQuery.isFunction(Maintain.actionAdd)) {
+                    Maintain.actionAdd();
+                }
+            });
+
+            //删除操作
+            $('#btn-maintain-delete').on('click', function() {
+                if (jQuery.isFunction(Maintain.actionDelete)) {
+                    Maintain.actionDeleteBatch();
+                }
+            });
+
+            //查询条件操作
+            $('#btn-maintain-condition').on('click', function() {
+                if (jQuery.isFunction(Maintain.actionToggleCondition)) {
+                    Maintain.actionToggleCondition();
+                }
+            });
+
+            //查询操作
+            $('#btn-maintain-search').on('click', function() {
+                Maintain.actionSearch();
+            });
+
+            $('.btn-maintain-common-search').on('click', function() {
+                Maintain.actionCommonSearch();
+            });
+
+
+            Maintain.setCommomContent();
+            commonPage.initialize();
+            commonPage.ajaxGrid();
+            commonPage.callbackSuccess = function() {
+                Maintain.load();
+            };
+
+            commonPage.callbackError = function() {
+                Maintain.asyncError();
+            };
+
+            commonPage.callbackBefore = function() {
+                Maintain.asyncBefore();
+            };
+        });
+    </script>
+}

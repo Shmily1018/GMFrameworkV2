@@ -1,0 +1,151 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{FDDA35BC-D3A9-4E65-86F9-C46D867E6B19}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>GoldMantis.Web.HtmlControl</RootNamespace>
+    <AssemblyName>GoldMantis.Web.HtmlControl</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="GoldMantis.Framework, Version=2.3.2011.225, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\GMReference\Reference\GoldMantis.Framework.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Web.WebPages, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Attributes\ButtonAttribute.cs" />
+    <Compile Include="Attributes\CheckAttribute.cs" />
+    <Compile Include="Attributes\DatePickerAttribute.cs" />
+    <Compile Include="Attributes\DateRangeAttribute.cs" />
+    <Compile Include="Attributes\DateTimePickerAttribute.cs" />
+    <Compile Include="Attributes\OptionListAttribute.cs" />
+    <Compile Include="Attributes\EditorAttribute.cs" />
+    <Compile Include="Attributes\FormAttribute.cs" />
+    <Compile Include="Attributes\HtmlAttribute.cs" />
+    <Compile Include="Attributes\IHtmlAttribute.cs" />
+    <Compile Include="Attributes\LabelAttribute.cs" />
+    <Compile Include="Attributes\LinkAttribute.cs" />
+    <Compile Include="Attributes\RadioAttribute.cs" />
+    <Compile Include="Attributes\SelectAttribute.cs" />
+    <Compile Include="Attributes\SelectWidgetAttribute.cs" />
+    <Compile Include="Attributes\TableAttribute.cs" />
+    <Compile Include="Attributes\TableRowAttribute.cs" />
+    <Compile Include="Attributes\TableCellAttribute.cs" />
+    <Compile Include="Attributes\TextAreaAttribute.cs" />
+    <Compile Include="Attributes\TextBoxAttribute.cs" />
+    <Compile Include="Attributes\Workflow\WfCommandButton.cs" />
+    <Compile Include="Attributes\Workflow\WfCommandButtonAttribute.cs" />
+    <Compile Include="Attributes\Workflow\WfCommandButtonCollection.cs" />
+    <Compile Include="Attributes\Workflow\WfCommandButtonTypeEnum.cs" />
+    <Compile Include="ButtonExtensions.cs" />
+    <Compile Include="Classes\ControlClass.cs" />
+    <Compile Include="DatePickerExtensions.cs" />
+    <Compile Include="DateRangeExtensions.cs" />
+    <Compile Include="DateTimePickerExtensions.cs" />
+    <Compile Include="EditorExtensions.cs" />
+    <Compile Include="FormExtensions.cs" />
+    <Compile Include="Helper\HtmlHelperExtensions.cs" />
+    <Compile Include="InputExtensions.cs" />
+    <Compile Include="LabelExtensions.cs" />
+    <Compile Include="LinkExtensions.cs" />
+    <Compile Include="MenuExtensions.cs" />
+    <Compile Include="PagerExtensions.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SelectWidgetExtensions.cs" />
+    <Compile Include="SelectExtensions.cs" />
+    <Compile Include="Styles\AlertStyle.cs" />
+    <Compile Include="Styles\BackgroundStyle.cs" />
+    <Compile Include="Styles\BadgeStyle.cs" />
+    <Compile Include="Styles\Bootstrap.cs" />
+    <Compile Include="Styles\ButtonStyle.cs" />
+    <Compile Include="Styles\DropdownStyle.cs" />
+    <Compile Include="Styles\FormStyle.cs" />
+    <Compile Include="Styles\GlyphiconStyle.cs" />
+    <Compile Include="Styles\GridVisibleStyle.cs" />
+    <Compile Include="Styles\GridStyle.cs" />
+    <Compile Include="Styles\ImageStyle.cs" />
+    <Compile Include="Styles\LabelStyle.cs" />
+    <Compile Include="Styles\ListGroupStyle.cs" />
+    <Compile Include="Styles\PagerStyle.cs" />
+    <Compile Include="Styles\PaginationStyle.cs" />
+    <Compile Include="Styles\PanelStyle.cs" />
+    <Compile Include="Styles\ProgressStyle.cs" />
+    <Compile Include="Styles\TableStyle.cs" />
+    <Compile Include="Styles\TextStyle.cs" />
+    <Compile Include="Styles\TypesettingStyle.cs" />
+    <Compile Include="Styles\WellStyle.cs" />
+    <Compile Include="Helper\TagBuilderExtensions.cs" />
+    <Compile Include="TableCellExtensions.cs" />
+    <Compile Include="TableExtensions.cs" />
+    <Compile Include="TableExtraExtensions.cs" />
+    <Compile Include="TableRowExtensions.cs" />
+    <Compile Include="TextAreaExtensions.cs" />
+    <Compile Include="ThOrderExtension.cs" />
+    <Compile Include="ValueExtensions.cs" />
+    <Compile Include="WorkFlowExtensions.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GoldMantis.Common\GoldMantis.Common.csproj">
+      <Project>{2c049107-e053-489b-8bdd-a4b97bcefc97}</Project>
+      <Name>GoldMantis.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GoldMantis.Entity\GoldMantis.Entity.csproj">
+      <Project>{549eb49c-d99c-4124-a55e-a60ceeb9daf5}</Project>
+      <Name>GoldMantis.Entity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GoldMantis.Web.ViewModel\GoldMantis.Web.ViewModel.csproj">
+      <Project>{e34c8229-3a9a-4fb3-8e67-ae0db6188799}</Project>
+      <Name>GoldMantis.Web.ViewModel</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

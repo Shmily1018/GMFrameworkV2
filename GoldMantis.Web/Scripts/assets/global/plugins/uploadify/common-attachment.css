@@ -1,0 +1,32 @@
+﻿.attachmentdiv{ float:left; width:460px; margin-right:10px}
+.uploadbtnbar .btn1{ float:left; margin-right:5px}
+.uploadbtnbar{ float:left;}
+
+.uploadify .swfupload{ left:0; top:0}
+.button-upload
+{
+    height: 34px;
+	width:95px;
+	cursor: pointer;
+	border: 0px;
+    background: #26a69a;
+	color:white;
+	text-align:center;
+	font-size:14px;
+	float:left;
+    border-radius: 4px;
+}
+.button-upload:hover
+{
+	/*background: url("images/icons.png") no-repeat -355px -769px transparent;*/
+	font-size:14px;
+}
+
+.clearboth {
+	 clear: both;
+	 height: 0px;
+}
+
+.data {
+    color: black;
+}

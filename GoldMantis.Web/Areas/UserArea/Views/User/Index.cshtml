@@ -1,0 +1,190 @@
+﻿@model GoldMantis.Web.ViewModel.User.ModelDemoIndex
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link rel="stylesheet" type="text/css" href="@Url.Content("~/Scripts/assets/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css")" />
+<link rel="stylesheet" type="text/css" href="@Url.Content("~/Scripts/assets/global/plugins/bootstrap-timepicker/css/bootstrap-timepicker.min.css")" />
+<link rel="stylesheet" type="text/css" href="@Url.Content("~/Scripts/assets/global/plugins/bootstrap-daterangepicker/daterangepicker-bs3.css")" />
+<link rel="stylesheet" type="text/css" href="@Url.Content("~/Scripts/assets/global/plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css")" />
+
+
+<script type="text/javascript" src="@Url.Content("~/Scripts/assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/assets/global/plugins/bootstrap-timepicker/js/bootstrap-timepicker.min.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/assets/global/plugins/bootstrap-daterangepicker/moment.min.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/assets/global/plugins/bootstrap-daterangepicker/daterangepicker.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/assets/global/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js")"></script>
+
+<style>
+    a:link {
+        color: #000;
+        text-decoration: none;
+    }
+
+    .table th {
+        text-align: center;
+    }
+</style>
+<script type="text/javascript">
+    function addUser() {
+        window.top.menu.addTabs('新增页', 'UserArea/User/Create?pageState=' + create);
+    }
+    function editUser(i) {
+        window.top.menu.addTabs('编辑页', 'UserArea/User/Create?pageState=' + edit + '&id=' + i);
+    }
+    function showUser(i) {
+        window.top.menu.addTabs('查看页', 'UserArea/User/Create?pageState=' + detail + '&id=' + i);
+    }
+
+    function deleteUser(id) {
+        window.top.bootstrapGM.confirm({
+            title: '系统提示',
+            msg: '确定要删除吗?'
+        }, function () {
+            $.ajax({
+                type: "POST",
+                url: "@Url.Content("~/UserArea/User/Delete/")",
+                data: "id=" + id,
+                success: function (msg) {
+                    window.top.toastr.info(msg.result);
+                    commonPage.ajaxSubmit();
+                }
+            });
+        });
+    }
+
+    function deleteUserBatch() {
+        if (!commonPage.isSelect())
+            return;
+
+        window.top.bootstrapGM.confirm({
+            title: '系统提示',
+            msg: '确定要删除吗?'
+        }, function () {
+            $.ajax({
+                type: "POST",
+                url: "@Url.Content("~/UserArea/User/DeleteBatch/")",
+                data: commonPage.listSelectedValues(),
+                success: function (msg) {
+                    window.top.toastr.info(msg.result);
+                    commonPage.ajaxSubmit();
+                }
+            });
+        });
+    }
+
+</script>
+@using (Html.BeginForm(null, null, null, FormMethod.Post, new { role = "form", @class = "form-horizontal" }))
+{
+    <div style="padding:15px 15px 0px;">
+
+        <!--TOOLBAR-->
+        <div style="height: 34px; margin-bottom: 10px;">
+            <div class="toolbar-left" style="float: left;">
+                <button class="btn green" onclick="addUser();">
+                    <i class="fa fa-plus"></i>
+                    新增
+                </button>
+
+                <a href="javascript:;" class="btn red" onclick="javascript: deleteUserBatch();">
+                    <i class="fa fa-edit"></i>
+                    删除
+                </a>
+                <button type="button" class="btn yellow" onclick="javascript:commonPage.scan();">
+                    <i class="fa fa-search"></i>
+                    条件查询
+                </button>
+                <a href="javascript:;" class="btn purple">
+                    <i class="fa fa-file"></i>
+                    导出
+                </a>
+            </div>
+            <div style="float: right; width: 250px; margin-right: 15px;">
+                <div class="input-group">
+                    @Html.TextBoxFor(x => x.SearchEntity.CommonSearchCondition, new { @class = "common-search-condition", content = "查询列：用户名、密码、工号。" })
+                    <span class=" input-group-addon input-circle-right common-search-submit" style="cursor: pointer;">
+                        <i class="fa fa-search"></i>
+                    </span>
+                </div>
+            </div>
+
+        </div>
+
+        <!--SERACH FORM-->
+        <div class="search-container" style="margin-top: 15px; display: none;">
+            <div class="form-group">
+                <div class="col-sm-4">
+                    <label class="col-sm-4 control-label  ">名称:</label>
+                    <div class="col-sm-8">
+                        @Html.TextBoxFor(x => x.SearchEntity.Name, new { @class = "form-control input-sm" })
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <label class="col-sm-4 control-label">编号:</label>
+                    <div class="col-sm-8">
+                        @Html.TextBoxFor(x => x.SearchEntity.ID, new { @class = "form-control input-sm" })
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <label class="col-sm-4 control-label">Check-in:</label>
+                    <div class="col-sm-8">
+                        <input class="form-control input-sm" size="16" type="text">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-4">
+                    <label class="col-sm-4 control-label">Check-in:</label>
+                    <div class="col-sm-8">
+                        <input class="form-control input-sm" size="16" type="text">
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <label class="col-sm-4 control-label">Check-in:</label>
+                    <div class="col-sm-8">
+                        <input class="form-control input-sm" size="16" type="text">
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <label class="col-sm-4 control-label">Check-in:</label>
+                    <div class="col-sm-8">
+                        <input class="form-control input-sm" size="16" type="text">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group" style="text-align: right; margin-right: 0px;">
+                <div class="col-sm-12">
+                    <button type="submit" class="button-search btn blue ">
+                        搜索 <i class="fa fa-search"></i>
+                    </button>
+                    <a href="javascript:;" class="button-clear btn red">
+                        清除 <i class="fa fa-trash-o"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="alert alert-warning" style="margin-bottom: 0px; padding: 8px;">
+        <button class="close" data-dismiss="alert"></button>
+        <i class="fa  fa-info-circle"></i>
+        <strong>警告!</strong> 用户信息涉及用户登录，请勿随意删除！
+    </div>
+
+    <div class="replace-container">
+        @{
+    Html.RenderPartial("Index_Partial");
+        }
+    </div>
+
+
+}
+
+<script type="text/javascript" language="javascript">
+    $(document).ready(function () {
+
+    });
+
+
+
+</script>
+

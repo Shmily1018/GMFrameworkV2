@@ -1,0 +1,131 @@
+@model GoldMantis.Web.ViewModel.OA.ModelUTIPARKCUSTOMERVisitorCreate
+@{
+    Layout = "~/Views/Shared/_GmLayoutEdit.cshtml";
+}
+
+@Html.HiddenFor(x => x.UTIPARKCUSTOMERVisitor.VisitorID)
+@Html.HiddenFor(x => x.UTIPARKCUSTOMERVisitor.AddPeople)
+@Html.HiddenFor(x => x.UTIPARKCUSTOMERVisitor.AddDate)
+@Html.HiddenFor(x => x.UTIPARKCUSTOMERVisitor.UpdatePeople)
+@Html.HiddenFor(x => x.UTIPARKCUSTOMERVisitor.UpdateDate)
+@Html.HiddenFor(x => x.UTIPARKCUSTOMERVisitor.IsDeleted)
+
+<table class="table table-bordered table-striped" role="grid" style="margin-top: 0px; table-layout: fixed; ">
+    <colgroup>
+        <col style="width: auto; " />
+        <col style="width: auto; " />
+        <col style="width: auto; " />
+        <col style="width: auto; " />
+           </colgroup>
+    <tbody>
+        <tr>
+            <th>
+                看房者编号：
+            </th>
+            <td>
+                @Html.TextBoxFor(x => x.UTIPARKCUSTOMERVisitor.VisitorCode, new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.UTIPARKCUSTOMERVisitor.VisitorCode)
+            </td>
+
+            <th>
+                <span class="red">*</span>看房者名称：
+            </th>
+            <td>
+                @Html.TextBoxFor(x => x.UTIPARKCUSTOMERVisitor.VisitorName, new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.UTIPARKCUSTOMERVisitor.VisitorName)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                联系人：
+            </th>
+            <td>
+                @Html.TextBoxFor(x => x.UTIPARKCUSTOMERVisitor.Connector, new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.UTIPARKCUSTOMERVisitor.Connector)
+            </td>
+
+            <th>
+                联系电话：
+            </th>
+            <td>
+                @Html.TextBoxFor(x => x.UTIPARKCUSTOMERVisitor.Telephone, new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.UTIPARKCUSTOMERVisitor.Telephone)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                业态：
+            </th>
+            <td>
+                @Html.TextBoxFor(x => x.UTIPARKCUSTOMERVisitor.BusinessStatus, new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.UTIPARKCUSTOMERVisitor.BusinessStatus)
+            </td>
+
+            <th>
+                <span class="red">*</span>地块ID：
+            </th>
+            <td>
+                @Html.DropDownListFor(x => x.UTIPARKCUSTOMERVisitor.BlockID,Model.BlockIDList, new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.UTIPARKCUSTOMERVisitor.BlockID)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                开始租赁日期：
+            </th>
+            <td>
+                @Html.TextBoxFor(x => x.UTIPARKCUSTOMERVisitor.RentDateStart, new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.UTIPARKCUSTOMERVisitor.RentDateStart)
+            </td>
+
+            <th>
+                结束租赁日期：
+            </th>
+            <td>
+                @Html.TextBoxFor(x => x.UTIPARKCUSTOMERVisitor.RentDateEnd, new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.UTIPARKCUSTOMERVisitor.RentDateEnd)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                租赁价格：
+            </th>
+            <td>
+                @Html.TextBoxFor(x => x.UTIPARKCUSTOMERVisitor.RentPrice, new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.UTIPARKCUSTOMERVisitor.RentPrice)
+            </td>
+
+            <th>
+                租赁面积：
+            </th>
+            <td>
+                @Html.TextBoxFor(x => x.UTIPARKCUSTOMERVisitor.RentArea, new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.UTIPARKCUSTOMERVisitor.RentArea)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                备注：
+            </th>
+            <td>
+                @Html.TextBoxFor(x => x.UTIPARKCUSTOMERVisitor.Remark, new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.UTIPARKCUSTOMERVisitor.Remark)
+            </td>
+
+            <th>
+                客户经理：
+            </th>
+            <td>
+                @Html.DisplayFor(x => x.UTIPARKCUSTOMERVisitor.Manager, new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.UTIPARKCUSTOMERVisitor.Manager)
+            </td>
+        </tr>
+    </tbody>
+</table> 
+
+@section EditScriptsPlaceHolder
+{  
+  $(document).ready(function ($) {
+
+  });
+}

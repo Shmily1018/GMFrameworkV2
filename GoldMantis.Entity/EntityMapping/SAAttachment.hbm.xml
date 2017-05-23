@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<hibernate-mapping assembly="GoldMantis.Entity" namespace="GoldMantis.Entity" xmlns="urn:nhibernate-mapping-2.2">
+  <class name="SAAttachment" table="SAAttachment" lazy="true" >
+    <id name="ID">
+      <generator class="native" />
+    </id>
+    <property name="BillID">
+      <column name="BillID" sql-type="int" not-null="true" />
+    </property>
+    <property name="TableName">
+      <column name="TableName" sql-type="nvarchar" not-null="true" />
+    </property>
+    <property name="Expand">
+      <column name="Expand" sql-type="nvarchar" not-null="false" />
+    </property>
+    <property name="DocName">
+      <column name="DocName" sql-type="nvarchar" not-null="true" />
+    </property>
+    <property name="DocPath">
+      <column name="DocPath" sql-type="nvarchar" not-null="true" />
+    </property>
+    <property name="DocSize">
+      <column name="DocSize" sql-type="int" not-null="true" />
+    </property>
+    <property name="DocEncryptPath">
+      <column name="DocEncryptPath" sql-type="nvarchar" not-null="false" />
+    </property>
+    <property name="IsCheck">
+      <column name="IsCheck" sql-type="bit" not-null="false" />
+    </property>
+  </class>
+</hibernate-mapping>

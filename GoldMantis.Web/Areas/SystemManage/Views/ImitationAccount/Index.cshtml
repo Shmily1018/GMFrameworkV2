@@ -1,0 +1,29 @@
+﻿@using GoldMantis.Web.ViewModel.SystemManage
+@model GoldMantis.Web.ViewModel.SystemManage.ModelImitationAccountIndex
+@{
+    ViewBag.Title = "SampleMaintain";
+    Layout = "~/Views/Shared/_GmLayoutEdit.cshtml";
+}
+
+<div class="row">
+
+    <div class="col-sm-6">
+        <div class="form-group">
+            <label class="control-label col-sm-4">模拟用户帐号：</label>
+            <div class="col-sm-8">
+                @Html.SelectWidgetFor(new SelectWidgetAttribute<ModelImitationAccountIndex, string, int>
+                    (m => m.ImitationAccountUserName,
+                        m => m.ImitationAccountUserID,
+                        "SystemManage/UserProfile/Index"))
+
+                @Html.ValidationMessageFor(x => x.ImitationAccountUserID)
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("#btn-edit-save").text("开始模拟");
+    });
+</script>

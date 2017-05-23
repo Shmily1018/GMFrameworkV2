@@ -1,0 +1,83 @@
+﻿@using System
+@using System.Security.Policy
+@using GoldMantis.Entity
+@using GoldMantis.Web.HtmlControl
+@model GoldMantis.Web.ViewModel.User.ModelDemoIndex
+@{
+    Layout = null;
+}
+<div style="width: 100%; overflow: auto;" class="common-table-container" id="common-table-container">
+    <table style="margin-top: 0px; table-layout: fixed;"
+           class="table  table-responsive table-striped table-bordered table-hover"
+           role="grid">
+        <colgroup>
+            <col style="width: 40px;" />
+            <col style="width: 220px;" />
+            <col style="width: 120px;" />
+            <col style="width: 70px;" />
+            <col style="width: 120px;" />
+            <col style="width: 120px;" />
+        </colgroup>
+        <thead class="common-table-header">
+            <tr role="row">
+
+                @Html.HiddenFor(x => x.SearchEntity.OrderName, new { data_order_name = "" })
+                @Html.HiddenFor(x => x.SearchEntity.OrderDirection, new { data_order_direction = "" })
+                <th style="text-align: center;">
+                    <input type="checkbox" class="common-table-checkbox-all" />
+                </th>
+                @Html.HiddenFor(x => x.SearchEntity.OrderName, new { data_order_name = "" })
+                @Html.HiddenFor(x => x.SearchEntity.OrderDirection, new { data_order_direction = "" })
+                <th>
+                    操作
+                </th>
+                @(Html.ThOrderHelper<Demo>(x => x.ID, "编号"))
+                @(Html.ThOrderHelper<Demo>(x => x.Name, "姓名"))
+                @(Html.ThOrderHelper<Demo>(x => x.Age, "年龄"))
+                <th>
+                    籍贯
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var i in Model.GridDataSources)
+            {
+                <tr role="row" style="text-align: center;" ondblclick="javascript:showUser('@i.ID');">
+                    <td>
+                        <input type="checkbox" name="checkboxItem" class="checkboxItem" value="@i.ID" />
+                    </td>
+                    <td>
+                        <button type="button" class="btn blue btn-xs" onclick="editUser(@i.ID)">
+                            <i class="fa fa-edit"></i>
+                            编辑
+                        </button>
+                        <button type="button" class="btn red btn-xs" onclick="deleteUser(@i.ID)">
+                            <i class="fa fa-trash"></i>
+                            删除
+                        </button>
+                    </td>
+                    <td td-data-content="<b>@i.ID</b>">
+                    @i.ID
+                </td>
+
+                    <td td-data-content="@i.Name">
+                        <div style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;">
+                            @i.Name
+                        </div>
+                    </td>
+                    <td td-data-content="@i.Age">
+                        @i.Age
+                    </td>
+                    <td td-data-content="@DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss fffffff")">
+                        <span>@DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss fffffff")</span>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div>
+        @{
+            Html.RenderPartial(Url.Content("~/Views/Controls/PaginateAjax.cshtml"), Model.PaginateHelperObject);
+        }
+    </div>
+</div>

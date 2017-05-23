@@ -1,0 +1,93 @@
+﻿@using GoldMantis.Entity
+@using GoldMantis.Web.HtmlControl
+@using GoldMantis.WorkFlow.WCFClient
+@model GoldMantis.Web.ViewModel.User.ModelCustomFlowIndex
+@{
+    Layout = null;
+}
+<div style="width: 100%; overflow: auto;" class="common-table-container" id="common-table-container">
+    <table style="margin-top: 0px; table-layout: fixed;"
+           class="table  table-responsive table-striped table-bordered table-hover"
+           role="grid">
+        <colgroup>
+            <col style="width: 40px;" />
+            <col style="width: 200px;" />
+            <col style="width: auto;" />
+            <col style="width: 100px;" />
+            <col style="width: 200px;" />
+            <col style="width: 100px;" />
+        </colgroup>
+        <thead class="common-table-header">
+            <tr role="row">
+                <th style="text-align: center;">
+
+                </th>
+
+                <th style="text-align: center;">
+                    流程名
+                </th>
+                <th style="text-align: center;">
+                    描述
+                </th>
+                <th style="text-align: center;">
+                    创建者
+                </th>
+                <th style="text-align: center;">
+                    创建时间
+                </th>
+                <th style="text-align: center;">
+                    查看
+                </th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var i in Model.GridDataSources)
+            {
+                <tr role="row" style="text-align: center;" ondblclick="javascript:showUser('@i.PublishId');">
+                    <td>
+                        <input type="radio" name="checkboxItem" class="checkboxItem" value="@i.PublishId" data-row='{"Text":"@i.Name" , "Value":"@i.PublishId" }' />
+                    </td>
+                    <td td-data-content="@i.Name">
+                        <div style="text-align: left;">
+                            @i.Name
+                        </div>
+                    </td>
+
+                    <td td-data-content="@i.Desc">
+                        <div style="text-align: left;">
+                            @i.Desc
+                        </div>
+                    </td>
+
+                    <td td-data-content="@i.CreateUserName">
+                        <div style="text-align: left;">
+                            @i.CreateUserName
+                        </div>
+                    </td>
+                    <td td-data-content="@i.CreateTime">
+                        <div>
+                            @i.CreateTime.ToString("yyyy-MM-dd hh:mm:ss")
+                        </div>
+                    </td>
+                    <td>
+                        <div>
+                            <button type="button" class="btn blue btn-xs" onclick="javaScript:OpenViewCustomFlow(@i.CreateUserId,'@i.PublishId')">
+                                <i class="fa fa-user"></i>
+                                查看
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div>
+        @{
+            Html.RenderPartial(Url.Content("~/Views/Controls/PaginateAjax.cshtml"), Model.PaginateHelperObject);
+        }
+    </div>
+</div>
+
+
+

@@ -1,0 +1,70 @@
+﻿@model GoldMantis.Web.ViewModel.User.ModelSCFlowMapingIndex
+@{
+    Layout = null;
+}
+<div style="width: 100%; overflow: auto;" class="common-table-container" id="common-table-container">
+    <table style="margin-top: 0px; table-layout: fixed;"
+           class="table  table-responsive table-striped table-bordered table-hover"
+           role="grid">
+        <colgroup>
+            <col style="width: 40px;" />
+            <col style="width: 100px;" />
+            <col style="width: 200px;" />
+            <col style="width: 300px;" />
+            <col style="width: auto" />
+        </colgroup>
+        <thead class="common-table-header">
+            <tr role="row">
+                @Html.HiddenFor(x => x.SearchEntity.OrderName, new { data_order_name = "" })
+                @Html.HiddenFor(x => x.SearchEntity.OrderDirection, new { data_order_direction = "" })
+                <th style="text-align: center;">
+                    
+                </th>
+                <th style="text-align: center;">
+                    流程编号
+                </th>
+                <th style="text-align: center;">
+                    流程名称
+                </th>
+                <th style="text-align: center;">
+                    流程ID
+                </th>
+                <th style="text-align: center;">
+                    查看流程图
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var i in Model.GridDataSources)
+            {
+                <tr role="row" style="text-align: center;" ondblclick="javascript:showUser('@i.ID');">
+                    <td>
+                        <input type="radio" name="checkboxItem" class="checkboxItem" value="@i.WFPID" />
+                    </td>
+                    <td td-data-content="@i.ID">
+                        @i.ID
+                    </td>
+
+                    <td td-data-content="@i.WFName">
+                        <div style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden; text-align: left;">
+                            @i.WFName
+                        </div>
+                    </td>
+                    <td td-data-content="@i.WFPID"> @i.WFPID
+                    </td>
+                    <td td-data-content="@i.WFPID">
+                        <a onclick="showDigram('@i.WFPID')">查看流程图</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div>
+        @{
+            Html.RenderPartial(Url.Content("~/Views/Controls/PaginateAjax.cshtml"), Model.PaginateHelperObject);
+        }
+    </div>
+</div>
+
+
+

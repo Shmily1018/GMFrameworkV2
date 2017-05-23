@@ -1,0 +1,41 @@
+﻿@model GoldMantis.Web.ViewModel.UserEmailAnalysis.MonitorWorkFlow.ModelMonitorWorkFlowDeckIndexTop
+@{
+    ViewBag.Title = "DeskTop";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script type="text/javascript" src="@Url.Content("~/Scripts/assets/global/plugins/countUp/countUp.js")"></script>
+@using (Html.BeginForm(null, null, null, FormMethod.Post, new { role = "form", @class = "form-horizontal" }))
+{
+    @*<h1 class="jumbo" id="myTargetElement">2972</h1>*@
+
+    <div class="replace-container">
+        @{
+    Html.RenderPartial("DeskTop_Partial");
+        }
+    </div>
+}
+<script type="text/javascript">
+
+    var options = {
+        useEasing: true,
+        useGrouping: true,
+        separator: ',',
+        decimal: '.',
+        prefix: '',
+        suffix: ''
+    };
+
+    new CountUp("myTargetElement1", 0, @Model.MoreThan30WorkFlowCount, 0, 2, options).start();
+    new CountUp("myTargetElement2", 0, @Model.MoreThan182WorkFlowCount, 0, 2, options).start();
+    new CountUp("myTargetElement3", 0, @Model.MoreThan365WorkFlowCount, 0, 2, options).start();
+
+    new CountUp("myTargetElement4", 0, @Model.WorkFlowEnabledCount, 0, 2, options).start();
+    new CountUp("myTargetElement5", 0, @Model.MoreThan20WorkFlowCount, 0, 2, options).start();
+    new CountUp("myTargetElement6", 0, @Model.WorkFlowInstanceCount, 0, 2, options).start();
+
+
+    function openDetail(title,url) {
+        window.top.menu.addTabs(new Date().getTime(), title, url);
+    }
+
+</script>

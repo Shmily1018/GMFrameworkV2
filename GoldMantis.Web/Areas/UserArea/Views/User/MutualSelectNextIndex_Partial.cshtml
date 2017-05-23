@@ -1,0 +1,51 @@
+﻿@model GoldMantis.Web.ViewModel.User.ModelSelectNextIndex
+@{
+    Layout = null;
+}
+<div style="width: 100%; overflow: auto;" class="common-table-container" id="common-table-container">
+    <table style="margin-top: 0px; table-layout: fixed;"
+           class="table  table-responsive table-striped table-bordered table-hover"
+           role="grid">
+        <colgroup>
+            <col style="width: 40px;" />
+            <col style="width: auto;" />
+            <col style="width: auto;" />
+            <col style="width: auto" />
+        </colgroup>
+        <thead class="common-table-header">
+            <tr role="row">
+                @Html.HiddenFor(x => x.SearchEntity.OrderName, new { data_order_name = "" })
+                @Html.HiddenFor(x => x.SearchEntity.OrderDirection, new { data_order_direction = "" })
+                <th style="text-align: center;">
+
+                </th>
+                <th style="text-align: center;">
+                    环节
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var i in Model.GridDataSources)
+            {
+                <tr role="row" style="text-align: center;" ondblclick="javascript:showUser('@i.NodeId');">
+                    <td>
+                        <input type="radio" name="checkboxItem" class="checkboxItem" value="@i.NodeId" />
+                    </td>
+                    <td td-data-content="@i.NodeName">
+                        <div style="text-align: left;">
+                            @i.NodeName
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div>
+        @{
+            Html.RenderPartial(Url.Content("~/Views/Controls/PaginateAjax.cshtml"), Model.PaginateHelperObject);
+        }
+    </div>
+</div>
+
+
+

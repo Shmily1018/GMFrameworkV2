@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<hibernate-mapping assembly="GoldMantis.Entity" namespace="GoldMantis.Entity" xmlns="urn:nhibernate-mapping-2.2">
+  <class name="SCBasicType" table="SCBasicType" lazy="true" >
+    <id name="TypeID" column="TypeID">
+      <generator class="identity" />
+    </id>
+    <property name="TypeCode">
+      <column name="TypeCode" sql-type="nvarchar" not-null="false" />
+    </property>
+    <property name="TypeName">
+      <column name="TypeName" sql-type="nvarchar" not-null="true" />
+    </property>
+    <property name="Memo">
+      <column name="Memo" sql-type="nvarchar" not-null="false" />
+    </property>
+    <property name="ParentID">
+      <column name="ParentID" sql-type="int" not-null="false" />
+    </property>
+    <property name="OrderID">
+      <column name="OrderID" sql-type="int" not-null="false" />
+    </property>
+    <property name="Enabled">
+      <column name="Enabled" sql-type="bit" not-null="true" />
+    </property>
+    <property name="CreateUserID">
+      <column name="CreateUserID" sql-type="int" not-null="true" />
+    </property>
+    <property name="CreateTime">
+      <column name="CreateTime" sql-type="datetime" not-null="true" />
+    </property>
+    <property name="UpdateUserID">
+      <column name="UpdateUserID" sql-type="int" not-null="false" />
+    </property>
+    <property name="UpdateTime">
+      <column name="UpdateTime" sql-type="datetime" not-null="false" />
+    </property>
+    <property name="Attribute1">
+      <column name="Attribute1" sql-type="nvarchar" not-null="false" />
+    </property>
+    <property name="Attribute4">
+      <column name="Attribute4" sql-type="nvarchar" not-null="false" />
+    </property>
+    <property name="Attribute2">
+      <column name="Attribute2" sql-type="nvarchar" not-null="false" />
+    </property>
+    <property name="Attribute3">
+      <column name="Attribute3" sql-type="nvarchar" not-null="false" />
+    </property>
+    <property name="Attribute5">
+      <column name="Attribute5" sql-type="nvarchar" not-null="false" />
+    </property>
+    <property name="Attribute6">
+      <column name="Attribute6" sql-type="nvarchar" not-null="false" />
+    </property>
+    <property name="Attribute7">
+      <column name="Attribute7" sql-type="nvarchar" not-null="false" />
+    </property>
+    <property name="RadTypeID">
+      <column name="RadTypeID" sql-type="int" not-null="false" />
+    </property>
+    <property name="DataDisplayType">
+      <column name="DataDisplayType" sql-type="int" not-null="false" />
+    </property>
+    
+  </class>
+</hibernate-mapping>

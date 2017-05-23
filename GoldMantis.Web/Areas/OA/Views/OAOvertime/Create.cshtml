@@ -1,0 +1,144 @@
+﻿@model GoldMantis.Web.ViewModel.OA.ModelOAOvertimeCreate
+@{
+    ViewBag.Title = "SampleEdit";
+    Layout = "~/Views/Shared/_GmLayoutWorkFlowEdit.cshtml";
+}
+
+@Html.HiddenFor(x => x.OAOvertime.ID)
+@Html.HiddenFor(x => x.OAOvertime.EmployeeID)
+@Html.HiddenFor(x => x.OAOvertime.MakerID)
+@Html.HiddenFor(x => x.OAOvertime.DeptID)
+
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+            <label class="control-label col-md-4">编号：</label>
+            <div class="col-md-8">
+                @Html.TextBoxFor(x => x.OAOvertime.Code, new { @readonly = "readonly", @class = "form-control" })
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="form-group">
+            <label class="control-label col-md-4">员工：</label>
+            <div class="col-md-8">
+                @Html.TextBoxFor(x => x.EmployeeName, new { @readonly = "readonly", @class = "form-control" })
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-6">
+        <div class="form-group">
+            <label class="control-label col-sm-4">所在部门：</label>
+            <div class="col-sm-8">
+                @Html.TextBoxFor(x => x.DeptName, new { @readonly = "readonly", @class = "form-control" })
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="form-group">
+            
+            <label class="control-label col-sm-4"><span class="red">*</span>加班时间：</label>
+            <div class="col-sm-8">
+                @Html.DatePickerFor(new DatePickerAttribute<ModelOAOvertimeCreate, DateTime>(x => x.OAOvertime.OvertimerDate))
+                @Html.ValidationMessageFor(x => x.OAOvertime.OvertimerDate)
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-sm-6">
+        <div class="form-group">
+            <label class="control-label col-sm-4">编制人：</label>
+            <div class="col-sm-8">
+                @Html.TextBoxFor(x => x.Maker, new { @readonly = "readonly", @class = "form-control" })
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="form-group">
+            <label class="control-label col-sm-4">编制日期：</label>
+            <div class="col-sm-8">
+                @Html.TextBoxFor(x => x.OAOvertime.MakeDate, new { @readonly = "readonly", @class = "form-control shortDateFormat" })
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="form-group">
+            <label class="control-label col-sm-2"><span class="red">*</span>加班原因：</label>
+            <div class="col-sm-10">
+                <div style="word-break: break-all; word-wrap: break-word;">
+                    @Html.TextAreaFor(model => model.OAOvertime.OvertimeReason, new {@class = "form-control", style = "resize: none;height: 100px;"})
+                    @Html.ValidationMessageFor(x => x.OAOvertime.OvertimeReason)
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<ul class="nav nav-tabs">
+    <li class="active"> <a href="#detail" data-toggle="tab"> 明细情况 </a> </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade in active" id="detail">
+        @{
+            TableAttribute<ModelOAOvertimeCreate, OAOvertimeDetail> table = new TableAttribute<ModelOAOvertimeCreate, OAOvertimeDetail>(m => m.Detail);
+
+            table.TableHeaderRow = new TableRowAttribute();
+            table.TableHeaderRow.TableCells.Add(new TableCellAttribute("员工姓名"));
+            table.TableHeaderRow.TableCells.Add(new TableCellAttribute("完成工作编号"));
+            table.TableHeaderRow.TableCells.Add(new TableCellAttribute("加班前进度(%)"));
+            table.TableHeaderRow.TableCells.Add(new TableCellAttribute("加班后进度(%)"));
+            table.TableHeaderRow.TableCells.Add(new TableCellAttribute("加班时间(单位：小时)"));
+            table.TableHeaderRow.TableCells.Add(new TableCellAttribute("下班时间(请选择到时分)"));
+            table.TableHeaderRow.TableCells.Add(new TableCellAttribute("备注"));
+
+            if (ViewBag.PageState != EnumPageState.View)
+            {
+                table.TableHeaderRow.TableCells.Add(new TableCellAttribute("<i class=\"glyphicon glyphicon-plus btn-plus\" onclick=\"GmUIControl.GridTable(\'Detail\').rowPlus()\"></i>"));
+            }
+            table.TableBodyRowTemplete = new TableRowAttribute();
+
+
+
+            table.TableBodyRowTemplete.TableCells.Add(new TableCellAttribute(index => Html.SelectWidgetFor(new SelectWidgetAttribute<ModelOAOvertimeCreate, string, int>(m => m.Detail[index].MakerName, m => m.Detail[index].MakerID, "OA/UserProfile/Index") { HiddenClearButton = true, HiddenSelectButton = true, IsDbClickSelect = true })));
+
+            table.TableBodyRowTemplete.TableCells.Add(new TableCellAttribute(index => Html.TextBoxFor(new TextBoxAttribute<ModelOAOvertimeCreate, string>(m => m.Detail[index].JobID)) + Html.ValidationMessageFor(m => m.Detail[index].JobID).ToString()));
+            table.TableBodyRowTemplete.TableCells.Add(new TableCellAttribute(index => Html.TextBoxFor(new TextBoxAttribute<ModelOAOvertimeCreate, decimal>(m => m.Detail[index].OvertimeStartProgress))));
+            table.TableBodyRowTemplete.TableCells.Add(new TableCellAttribute(index => Html.TextBoxFor(new TextBoxAttribute<ModelOAOvertimeCreate, decimal>(m => m.Detail[index].OvertimeEndProgress))));
+
+            table.TableBodyRowTemplete.TableCells.Add(new TableCellAttribute(index => Html.TextBoxFor(new TextBoxAttribute<ModelOAOvertimeCreate, decimal>(m => m.Detail[index].OvertimeDate))));
+            table.TableBodyRowTemplete.TableCells.Add(new TableCellAttribute(index => Html.DatePickerFor(new DatePickerAttribute<ModelOAOvertimeCreate, DateTime>(m => m.Detail[index].GetOffWorkDate)) + Html.ValidationMessageFor(m => m.Detail[index].GetOffWorkDate).ToString()));
+            table.TableBodyRowTemplete.TableCells.Add(new TableCellAttribute(index => Html.TextBoxFor(new TextBoxAttribute<ModelOAOvertimeCreate, string>(m => m.Detail[index].Memo)) + Html.HiddenFor(m => m.Detail[index].ID).ToString()));
+            if (ViewBag.PageState != EnumPageState.View)
+            {
+                table.TableBodyRowTemplete.TableCells.Add(new TableCellAttribute("<i class=\"glyphicon glyphicon-minus btn-minus\" onclick=\"GmUIControl.GridTable(\'Detail\').rowMinus(this)\"></i>") {CellWidth = 30});
+            }
+        }
+
+        @Html.TableFor(table)
+
+
+
+
+    </div>
+</div>
+
+@section EditScriptsPlaceHolder
+{
+    @*<script type="text/javascript">
+
+        </script>*@
+}

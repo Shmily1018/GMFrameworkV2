@@ -1,0 +1,106 @@
+@model GoldMantis.Web.ViewModel.OA.ModelUTIPARKCUSTOMERVisitorIndex
+@{
+    Layout = null;
+}
+
+<div class="alert alert-warning" style ="margin-bottom: 0px; padding: 8px; " >
+    <button class="close" data-dismiss="alert" ></button>
+    <i class="fa  fa-info-circle" ></i>
+    <strong>提示!</strong> 您可通过该功能维护看房者信息管理的相关信息！
+</div>
+
+<div style="width:100%;overflow: auto; " class="common-table-container" id ="common-table-container" >
+    <table style = "margin-top: 0px; table-layout: fixed;"
+        class="table dataTable table-responsive table-striped table-bordered table-hover" role ="grid" >
+        <colgroup>
+            <col style="width:40px;" />
+            <col style="width:auto;" />
+            <col style="width:auto;" />
+            <col style="width:auto;" />
+            <col style="width:auto;" />
+            <col style="width:auto;" />
+            <col style="width:auto;" />
+        </colgroup>
+        <thead class="common-table-header">
+            <tr role="row" style="text-align: center; ">    
+                <th style="text-align: center; ">
+                    <input type="checkbox" class="common-table-checkbox-all" />
+                </th>
+                <th>
+                    操作
+                </th>
+                @Html.HiddenFor(x => x.SearchEntity.OrderName, new { data_order_name = "" })
+                @Html.HiddenFor(x => x.SearchEntity.OrderDirection, new { data_order_direction = "" })
+                @(Html.ThOrderHelper<UTIPARKCUSTOMERVisitor>(x => x.VisitorCode, "看房者编号"))
+                @(Html.ThOrderHelper<UTIPARKCUSTOMERVisitor>(x => x.VisitorName, "看房者名称"))
+                @(Html.ThOrderHelper<UTIPARKCUSTOMERVisitor>(x => x.Connector, "联系人"))
+                @(Html.ThOrderHelper<UTIPARKCUSTOMERVisitor>(x => x.Telephone, "联系电话"))
+                @(Html.ThOrderHelper<UTIPARKCUSTOMERVisitor>(x => x.BusinessStatus, "业态"))
+                @(Html.ThOrderHelper<UTIPARKCUSTOMERVisitor>(x => x.RentPrice, "租赁价格"))
+                @(Html.ThOrderHelper<UTIPARKCUSTOMERVisitor>(x => x.RentArea, "租赁面积"))
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.GridDataSources)
+            {
+                <tr role="row" style="text-align:center; "ondblclick="javascript:Maintain.actionView('@item.VisitorID');">
+                    <td>
+                        <div>   
+                            <input type="checkbox" name="checkboxItem" class="checkboxItem" value="@item.VisitorID" />
+                        </div>   
+                    </td>
+                    <td>
+                        <button type="button" class="btn blue btn-xs" onclick="Maintain.actionEdit(@item.VisitorID)" >  
+                            <i class="fa fa-edit"></i>
+                            编辑
+                        </button >
+                        <button type="button" class="btn red btn-xs" onclick="Maintain.actionDelete(@item.VisitorID)" >  
+                            <i class="fa fa-trash"></i>
+                            删除
+                        </button >
+                    </td>
+                    <td td-data-content="@item.VisitorCode" >  
+                        <div style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden; "> 
+                            @item.VisitorCode
+                        </div>  
+                    </td>
+                    <td td-data-content="@item.VisitorName" >  
+                        <div style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden; "> 
+                            @item.VisitorName
+                        </div>  
+                    </td>
+                    <td td-data-content="@item.Connector" >  
+                        <div style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden; "> 
+                            @item.Connector
+                        </div>  
+                    </td>
+                    <td td-data-content="@item.Telephone" >  
+                        <div style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden; "> 
+                            @item.Telephone
+                        </div>  
+                    </td>
+                    <td td-data-content="@item.BusinessStatus" >  
+                        <div style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden; "> 
+                            @item.BusinessStatus
+                        </div>  
+                    </td>
+                    <td td-data-content="@item.RentPrice" >  
+                        <div style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden; "> 
+                            @item.RentPrice
+                        </div>  
+                    </td>
+                    <td td-data-content="@item.RentArea" >  
+                        <div style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden; "> 
+                            @item.RentArea
+                        </div>  
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div>
+        @{
+            Html.RenderPartial(Url.Content("~/Views/Controls/PaginateAjax.cshtml"), Model.PaginateHelperObject);
+        }
+    </div>
+</div>

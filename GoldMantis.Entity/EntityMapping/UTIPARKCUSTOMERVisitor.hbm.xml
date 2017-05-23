@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<hibernate-mapping assembly="GoldMantis.Entity" namespace="GoldMantis.Entity" xmlns="urn:nhibernate-mapping-2.2">
+  <class name="UTIPARKCUSTOMERVisitor" table="UT_IPARK_CUSTOMER_Visitor" lazy="true" >
+    <id name="VisitorID">
+      <generator class="native" />
+    </id>
+    <property name="VisitorCode"  >
+        <column name="VisitorCode" sql-type="nvarchar" not-null="false" />
+    </property>
+    <property name="VisitorName"  >
+        <column name="VisitorName" sql-type="nvarchar" not-null="true" />
+    </property>
+    <property name="Connector"  >
+        <column name="Connector" sql-type="nvarchar" not-null="false" />
+    </property>
+    <property name="Telephone"  >
+        <column name="Telephone" sql-type="varchar" not-null="false" />
+    </property>
+    <property name="BusinessStatus"  >
+        <column name="BusinessStatus" sql-type="nvarchar" not-null="false" />
+    </property>
+    <property name="BlockID"  >
+        <column name="BlockID" sql-type="bigint" not-null="true" />
+    </property>
+    <property name="RentDateStart"  >
+        <column name="RentDateStart" sql-type="datetime" not-null="false" />
+    </property>
+    <property name="RentDateEnd"  >
+        <column name="RentDateEnd" sql-type="datetime" not-null="false" />
+    </property>
+    <property name="RentPrice"  >
+        <column name="RentPrice" sql-type="decimal" not-null="false" />
+    </property>
+    <property name="RentArea"  >
+        <column name="RentArea" sql-type="decimal" not-null="false" />
+    </property>
+    <property name="Remark"  >
+        <column name="Remark" sql-type="nvarchar" not-null="false" />
+    </property>
+    <property name="AddPeople"  >
+        <column name="AddPeople" sql-type="bigint" not-null="false" />
+    </property>
+    <property name="AddDate"  >
+        <column name="AddDate" sql-type="datetime" not-null="false" />
+    </property>
+    <property name="UpdatePeople"  >
+        <column name="UpdatePeople" sql-type="bigint" not-null="false" />
+    </property>
+    <property name="UpdateDate"  >
+        <column name="UpdateDate" sql-type="datetime" not-null="false" />
+    </property>
+    <property name="IsDeleted"  >
+        <column name="IsDeleted" sql-type="bit" not-null="true" />
+    </property>
+    <property name="Manager"  >
+        <column name="Manager" sql-type="nvarchar" not-null="false" />
+    </property>
+    </class>
+</hibernate-mapping>

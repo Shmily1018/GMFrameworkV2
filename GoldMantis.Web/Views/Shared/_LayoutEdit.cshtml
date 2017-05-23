@@ -1,0 +1,165 @@
+﻿<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en" class="no-js">
+<!--<![endif]-->
+
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <meta content="" name="description" />
+    <meta content="" name="author"/>
+
+    <!--[if !IE]><!-->
+    <script src="/Scripts/assets/global/plugins/pace/pace.min.js" type="text/javascript"></script>
+    <link href="/Scripts/assets/global/plugins/pace/themes/pace-theme-minimal.css" rel="stylesheet" type="text/css" />
+    <!--<![endif]-->
+
+    <!-- 强制风格 -->
+    <link href="@Url.Content("~/Scripts/assets/global/css/bootstrapGoogle.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Scripts/assets/global/plugins/font-awesome/css/font-awesome.min.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Scripts/assets/global/plugins/bootstrap/css/bootstrap.min.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Scripts/assets/global/plugins/uniform/css/uniform.default.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Scripts/assets/global/plugins/jstree/dist/themes/default/style.min.css")" rel="stylesheet" />
+   
+
+
+    <!-- 主题样式 -->
+    <link href="@Url.Content("~/Scripts/assets/global/css/components-rounded.css")" id="style_components" rel="stylesheet" type="text/css" />
+
+    <!--禁止出现滚动条-->
+    <style type="text/css">
+        body, html {
+            overflow: hidden;
+        }
+    </style>
+
+    <link rel="shortcut icon" href="favicon.ico" />
+
+    <!-- 加载核心插件 -->
+    <!--[if lt IE 9]>
+        <script src="@Url.Content("~/Scripts/assets/global/plugins/respond.min.js")"></script>
+        <script src="@Url.Content("~/Scripts/assets/global/plugins/excanvas.min.js")"></script>
+    <![endif]-->
+    <script src="@Url.Content("~/Scripts/assets/global/plugins/jquery.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("/Scripts/assets/global/plugins/jquery.validate.js")" type="text/javascript"></script>
+    <script src="@Url.Content("/Scripts/assets/global/plugins/jquery.validate.unobtrusive.js")" type="text/javascript"></script>
+    <script src="@Url.Content("/Scripts/assets/global/plugins/jquery.validate.mvc.js")" type="text/javascript"></script>
+
+    <!-- 注意，加载jquery-ui.min.js 必须在bootstrap.min.js前，修复bootstrap tooltip 与 jquery ui tooltip的冲突 -->
+    <script src="@Url.Content("~/Scripts/assets/global/plugins/jquery-ui/jquery-ui.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/assets/global/plugins/bootstrap/js/bootstrap.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/assets/global/plugins/jquery.validate.mvc.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/assets/global/plugins/select2/select2.min.js")" type="text/javascript"></script>
+    @*<script src="@Url.Content("~/Scripts/assets/global/plugins/jstree/jstree2/jquery.jstree.js")" type="text/javascript"></script>*@
+    @*<script src="@Url.Content("~/Scripts/assets/global/plugins/jstree/dist/jstree.js")" type="text/javascript"></script>*@
+    <script src="@Url.Content("~/Scripts/assets/global/plugins/jquery.form.js" )" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/assets/global/scripts/metronic.js")" type="text/javascript"></script>
+
+    <!--核心脚本设计-->
+    <script src="@Url.Content("~/Scripts/assets/global/scripts/jquert-extension.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/assets/global/scripts/cls-page.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/assets/global/scripts/menuControl.js")" type="text/javascript"></script>
+
+
+    <script src="@Url.Content("~/Scripts/assets/global/plugins/jstree/dist/jstree.min.js")"></script>
+    <!-- END PAGE LEVEL SCRIPTS -->
+    <script src="@Url.Content("~/Scripts/assets/admin/pages/scripts/ui-tree.js")"></script>
+
+
+
+    <!--基本状态与错误处理-->
+    <script type="text/javascript">
+        var edit = @((int)EnumPageMode.Edit);
+        var create = @((int)EnumPageMode.Add);
+        var detail = @((int)EnumPageMode.View);
+        $(function() {
+            @{
+                //接收后台的错误与警告信息
+                var error = TempData["Error"] == null ? "" : TempData["Error"].ToString();
+                var message = TempData["Message"] == null ? "" : TempData["Message"].ToString();
+            }
+
+        });
+    </script>
+
+</head>
+
+<body class="page-boxed
+      page-header-fixed
+      page-sidebar-closed-hide-logo
+      page-container-bg-solid
+      page-sidebar-closed-hide-logo"
+      style="background-color: white; background-color: white !important;">
+    <!--强制将背景改为白色-->
+
+    <div id="main">
+        @RenderBody()
+        <div class="clear">
+        </div>
+    </div>
+
+</body>
+<!-- END BODY -->
+
+
+</html>
+<script type="text/javascript">
+    //显示错误信息
+    if ('@error' != "") {
+        window.top.bootstrapGM.alert('@error');
+    }
+
+    //显示提醒信息
+    if ('@message' != "") {
+        window.top.bootstrapGM.alert('@message');
+    }
+
+    $(document).ready(function() {
+        commonPage.initialize();
+    });
+
+
+    $(window).resize(function() {
+        commonPage.resizeTable();
+    });
+</script>
+
+@if (ViewBag.PageState != null && ((EnumPageMode)ViewBag.PageState).ToString() == EnumPageMode.View.ToString())
+{
+    <script type="text/javascript">
+        $(function () {
+            $(".top").css("display", "none");
+
+            $("span[class='red']").css("display", "none");
+            $("input[type='button'][value!='关闭']").attr("disabled", "disabled");
+            $("input[type='checkbox']").attr("disabled", "disabled");
+            $("input[type='text']").each(function () {
+                var textValue = $(this).val();
+                $(this).replaceWith("<p class='form-control-static'>"+textValue +"</p>");
+            });
+            $("input[type='file']").each(function () {
+                var textValue = $(this).val();
+                $(this).remove();
+            });
+            $("textarea").each(function () {
+                var textValue = $(this).val();
+                $(this).replaceWith(
+                   "<p class='form-control-static'>" + textValue.replaceAll("\r\n", "<br/>").replaceAll("\n", "<br/>") + "</p>");
+            });
+            $("select").each(function () {
+                var selectValue = $(this).find("option:selected").text();
+                if (selectValue == "-- 请选择 --")
+                    selectValue = "";
+                $(this).replaceWith("<p class='form-control-static'>" + selectValue + "</p>");
+            });
+            $("input[type='password']").each(function () {
+                $(this).parent().html("<p class='form-control-static'>**********</p>");
+            });
+        });
+    </script>
+
+}

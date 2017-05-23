@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<hibernate-mapping assembly="GoldMantis.Entity" namespace="GoldMantis.Entity" xmlns="urn:nhibernate-mapping-2.2">
+  <class name="OAKPILeaves" table="OAKPILeaves" lazy="true" >
+    <id name="ID" column="ID">
+      <generator class="native" />
+    </id>
+    <property name="Code">
+      <column name="Code" sql-type="nvarchar" not-null="true" />
+    </property>
+    <property name="DeptId">
+      <column name="DeptId" sql-type="int" not-null="true" />
+    </property>
+    <property name="EmpId">
+      <column name="EmpId" sql-type="int" not-null="true" />
+    </property>
+    <property name="BeginDate">
+      <column name="BeginDate" sql-type="datetime" not-null="true" />
+    </property>
+    <property name="EndDate">
+      <column name="EndDate" sql-type="datetime" not-null="true" />
+    </property>
+    <property name="Days">
+      <column name="Days" sql-type="decimal" not-null="false" />
+    </property>
+    <property name="LeaveType">
+      <column name="LeaveType" sql-type="int" not-null="false" />
+    </property>
+    <property name="Reason">
+      <column name="Reason" sql-type="nvarchar" not-null="false" />
+    </property>
+    <property name="IsPost">
+      <column name="IsPost" sql-type="bit" not-null="true" />
+    </property>
+    <property name="PostDate">
+      <column name="PostDate" sql-type="datetime" not-null="false" />
+    </property>
+    <property name="CheckStatus">
+      <column name="CheckStatus" sql-type="int" not-null="true" />
+    </property>
+    <property name="MakerID">
+      <column name="MakerID" sql-type="int" not-null="true" />
+    </property>
+    <property name="MakeDate">
+      <column name="MakeDate" sql-type="datetime" not-null="true" />
+    </property>
+    <property name="WorkAgentID">
+      <column name="WorkAgentID" sql-type="int" not-null="false" />
+    </property>
+  </class>
+</hibernate-mapping>

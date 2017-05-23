@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{E34C8229-3A9A-4FB3-8E67-AE0DB6188799}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>GoldMantis.Web.ViewModel</RootNamespace>
+    <AssemblyName>GoldMantis.Web.ViewModel</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="GoldMantis.Framework">
+      <HintPath>..\..\..\GMReference\Reference\GoldMantis.Framework.dll</HintPath>
+    </Reference>
+    <Reference Include="GoldMantis.WorkFlow.WCFClient">
+      <HintPath>..\..\..\GMReference\Reference\GoldMantis.WorkFlow.WCFClient.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BaseModel.cs" />
+    <Compile Include="BaseSearch.cs" />
+    <Compile Include="FileUploadHelper.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Home\LogOnModel.cs" />
+    <Compile Include="OA\ModelOAKPILeavesIndex.cs" />
+    <Compile Include="OA\ModelVisitorIndex.cs" />
+    <Compile Include="Permission\ModelVW_UserProfileIndex.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="PaginateAttribute.cs" />
+    <Compile Include="Permission\DepartmentModel.cs" />
+    <Compile Include="Permission\MenuTree.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SelectWidgetModel.cs" />
+    <Compile Include="SystemConfig\ModelSCBasicTypeIndex.cs" />
+    <Compile Include="SystemManage\ModelImitationAccountIndex.cs" />
+    <Compile Include="User\ModelDemoIndex.cs" />
+    <Compile Include="User\ModelSAUserIndex.cs" />
+    <Compile Include="WFModel.cs" />
+    <Compile Include="Workflow\WorkflowModel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GoldMantis.Common\GoldMantis.Common.csproj">
+      <Project>{2c049107-e053-489b-8bdd-a4b97bcefc97}</Project>
+      <Name>GoldMantis.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GoldMantis.Entity\GoldMantis.Entity.csproj">
+      <Project>{549EB49C-D99C-4124-A55E-A60CEEB9DAF5}</Project>
+      <Name>GoldMantis.Entity</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="SystemManage\ImitationAccount\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

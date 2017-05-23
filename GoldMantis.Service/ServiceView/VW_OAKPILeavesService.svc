@@ -1,0 +1,1 @@
+﻿<%@ ServiceHost Language="C#" Debug="true" Service="GoldMantis.Service.ServiceView.VW_OAKPILeavesService" CodeBehind="VW_OAKPILeavesService.svc.cs" %>

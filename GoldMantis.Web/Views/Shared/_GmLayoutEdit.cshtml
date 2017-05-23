@@ -1,0 +1,115 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_GmLayoutEmpty.cshtml";
+}
+
+@section HtmlHeadPlaceHolder
+{
+    @RenderSection("EditHeadPlaceHolder", false)
+}
+
+
+<div id="main">
+        <div class="portlet light bordered">
+            <div class="portlet-body form">
+            @using (Html.BeginForm(new FormAttribute()))
+            {
+                <div class="form-actions top">
+                    @RenderSection("ActionButtonAreaLeft", false)
+                    <button type="submit" class="btn btn-success" id="btn-edit-save">
+                        <i class="fa  fa-save"></i>
+                        保存
+                    </button>
+                    @RenderSection("ActionButtonAreaCenter", false)
+                    <button type="button" class="btn btn-danger" id="btn-edit-cancel">
+                        <i class="fa  fa-arrow-left"></i>
+                        返回
+                    </button>
+                    @RenderSection("ActionButtonAreaRight", false)
+                </div>
+                <div class="form-body">
+                    @RenderBody()
+                </div>
+            }
+            </div>
+        </div>
+        <div class="clear"> </div>
+    </div>
+
+
+
+@section HtmlScriptsPlaceHolder
+{
+    <script type="text/javascript">
+        // 页面对象
+        var Edit = {
+            actionSave: function() {},
+            actionClosing: function() {},
+            actionClose: function () {
+                window.top.menu.closeCurrentTab();
+            }
+        };
+
+        @RenderSection("EditScriptsPlaceHolder", false)
+
+        $(function() {
+            $('#btn-edit-save').click(function() {
+                Edit.actionSave();
+            });
+
+            $('#btn-edit-cancel').on('click', function() {
+                Edit.actionClose();
+            });
+
+            $('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
+                commonPage.resize();
+            });
+
+            $("form .form-control").tooltipValidation();
+        });
+    </script>
+
+    @if (ViewBag.PageState != null && ((EnumPageMode)ViewBag.PageState).ToString() == EnumPageMode.View.ToString())
+    {
+        <script type="text/javascript">
+            $(function () {
+                $("span[class='red']").css("display", "none");
+                $("input[type='checkbox']").attr("disabled", "disabled");
+                $("input[type='text']").each(function () {
+                    var textValue = $(this).val();
+                    $(this).replaceWith("<p class='form-control-static'>" + textValue + "</p>");
+                });
+                $("input[type='file']").each(function () {
+                    $(this).remove();
+                });
+                $("textarea").each(function () {
+                    var textValue = $(this).val();
+                    $(this).replaceWith(
+                        "<p class='form-control-static'>" + textValue.replaceAll("\r\n", "<br/>").replaceAll("\n", "<br/>") + "</p>");
+                });
+                $("select").each(function () {
+                    var selectValue = $(this).find("option:selected").text();
+                    if (selectValue == "-- 请选择 --")
+                        selectValue = "";
+                    $(this).replaceWith("<p class='form-control-static'>" + selectValue + "</p>");
+                });
+                $("input[type='password']").each(function () {
+                    $(this).parent().html("<p class='form-control-static'>**********</p>");
+                });
+
+                $(".input-group-addon").remove();
+                $(".glyphicon-plus").attr("disabled", "disabled");
+                $(".glyphicon-minus").attr("disabled", "disabled");
+
+                // button disable
+                $("#btn-edit-save").remove();
+
+            });
+        </script>
+
+    }
+}
+
+
+
+

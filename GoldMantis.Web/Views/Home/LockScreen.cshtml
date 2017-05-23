@@ -1,0 +1,67 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="@Url.Content("~/Scripts/assets/admin/pages/css/lock2.css")" rel="stylesheet" type="text/css" />
+
+<div class="page-lock">
+    <div class="page-logo">
+        <a class="brand">
+            <img src="/Scripts/assets/page_logo.png" alt="logo" /></a>
+    </div>
+    <div class="page-body">
+        <img class="page-lock-img" src="@Url.Content("~/Scripts/assets/admin/pages/media/profile/profile.jpg")" alt="">
+        <div class="page-lock-info">
+            <h1>张飞</h1>
+            <span class="email">
+               zhangfei@goldmantis.com
+            </span>
+            <span class="locked">
+                已锁定
+            </span>
+            <div class="form-inline" action="@Url.Content("~/Home/Index")">
+                <div class="input-group input-medium">
+                    <input type="text" class="form-control" placeholder="密码">
+                    <span class="input-group-btn">
+                        <button type="button" class="btn blue icn-only"><i class="m-icon-swapright m-icon-white"></i></button>
+                    </span>
+                </div>
+                <!-- /input-group -->
+                <div class="relogin">
+                    <a href="">
+                        您不是张飞啊 ?
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="page-footer-custom">
+        <div class="page-footer-inner">
+            @DateTime.Now.Year © POWER BY GOLDMANTIS.
+            <a href="http://erp.goldmantis.com/" title="欢迎访问金螳螂ERP系统" target="_blank">金螳螂</a>
+        </div>
+    </div>
+</div>
+
+<!-- BEGIN PAGE LEVEL PLUGINS -->
+<script src="@Url.Content("~/Scripts/assets/global/plugins/backstretch/jquery.backstretch.min.js")" type="text/javascript"></script>
+<!-- END PAGE LEVEL PLUGINS -->
+<script src="@Url.Content("~/Scripts//assets/admin/pages/scripts/lock.js")"></script>
+<script>
+    jQuery(document).ready(function () {
+
+        $("button").bind('click', function() {
+            window.location.href = "http://localhost:43546/";
+        });
+
+        $.backstretch([
+		        "@Url.Content("~/Scripts/assets/admin/pages/media/bg/1.jpg")",
+    		    "@Url.Content("~/Scripts/assets/admin/pages/media/bg/2.jpg")",
+    		    "@Url.Content("~/Scripts/assets/admin/pages/media/bg/3.jpg")",
+    		    "@Url.Content("~/Scripts/assets/admin/pages/media/bg/4.jpg")"
+        ], {
+            fade: 1000,
+            duration: 3000
+        });
+    });
+</script>
+<!-- END JAVASCRIPTS -->

@@ -1,0 +1,25 @@
+﻿@model GoldMantis.Web.ViewModel.BaseModel
+@{
+    ViewBag.Title = "MultiFileUpload";
+}
+
+<link rel="stylesheet" type="text/css" href="@Url.Content("~/Scripts/assets/global/plugins/uploadify/uploadify.css")" />
+<script type="text/javascript" src="@Url.Content("~/Scripts/assets/global/plugins/uploadify/jquery.uploadify-3.1.js")"></script>
+<link rel="stylesheet" type="text/css" href="@Url.Content("~/Scripts/assets/global/plugins/uploadify/common-attachment.css")" />
+<script type="text/javascript" src="@Url.Content("~/Scripts/assets/global/plugins/fancybox/source/jquery.fancybox.js")"></script>
+<link rel="stylesheet" type="text/css" href="@Url.Content("~/Scripts/assets/global/plugins/fancybox/source/jquery.fancybox.css?v=2.1.5")" media="screen" />
+
+
+<div>
+    @{
+        if (Model.FileUploadHelperObject.IsReadOnly != null && Model.FileUploadHelperObject.IsReadOnly == true)
+        {
+            Html.RenderPartial(Url.Content("~/Views/Controls/MultiFileUploadView.cshtml"), Model);
+        }
+        else
+        {
+            Html.RenderPartial(Url.Content("~/Views/Controls/MultiFileUploadEdit.cshtml"), Model);
+        }
+    }
+</div>
+

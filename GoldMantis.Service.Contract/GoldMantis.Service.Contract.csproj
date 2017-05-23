@@ -1,0 +1,105 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{7834799D-7070-43BA-8026-53807389E667}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>GoldMantis.Service.Contract</RootNamespace>
+    <AssemblyName>GoldMantis.Service.Contract</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="GoldMantis.Framework">
+      <HintPath>..\..\..\GMReference\Reference\GoldMantis.Framework.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ContractView\IVW_SCBasicTypeService.cs" />
+    <Compile Include="ContractView\IVW_OAKPILeavesService.cs" />
+    <Compile Include="ContractView\IVW_UserProfileService.cs" />
+    <Compile Include="ContractView\IVW_OAOvertimeService.cs" />
+    <Compile Include="Contract\IOAKPILeavesService.cs" />
+    <Compile Include="Contract\ISCFlowMapingService.cs" />
+    <Compile Include="Contract\IWorkFlowService.cs" />
+    <Compile Include="Contract\ISCBasicTypeService.cs" />
+    <Compile Include="Contract\ISAUserDeptService.cs" />
+    <Compile Include="Contract\IOAOvertimeDetailService.cs" />
+    <Compile Include="Contract\IOAOvertimeService.cs" />
+    <Compile Include="Contract\ISCDepartmentService.cs" />
+    <Compile Include="Contract\ISAUserService.cs" />
+    <Compile Include="Contract\IDemoService.cs" />
+    <Compile Include="Contract\IFlowMapingService.cs" />
+    <Compile Include="Contract\IOperationService.cs" />
+    <Compile Include="Contract\IRoleService.cs" />
+    <Compile Include="Contract\IRoleMenuService.cs" />
+    <Compile Include="Contract\IRoleTypeService.cs" />
+    <Compile Include="Contract\ISystemModuleService.cs" />
+    <Compile Include="Contract\IMenuOperationService.cs" />
+    <Compile Include="Contract\IMenuService.cs" />
+    <Compile Include="Contract\ISAAttachment.cs" />
+    <Compile Include="Contract\IPermissionService.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ContractSP\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GoldMantis.Common\GoldMantis.Common.csproj">
+      <Project>{2c049107-e053-489b-8bdd-a4b97bcefc97}</Project>
+      <Name>GoldMantis.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GoldMantis.Entity\GoldMantis.Entity.csproj">
+      <Project>{549eb49c-d99c-4124-a55e-a60ceeb9daf5}</Project>
+      <Name>GoldMantis.Entity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GoldMantis.Web.HtmlControl\GoldMantis.Web.HtmlControl.csproj">
+      <Project>{fdda35bc-d3a9-4e65-86f9-c46d867e6b19}</Project>
+      <Name>GoldMantis.Web.HtmlControl</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GoldMantis.Web.ViewModel\GoldMantis.Web.ViewModel.csproj">
+      <Project>{e34c8229-3a9a-4fb3-8e67-ae0db6188799}</Project>
+      <Name>GoldMantis.Web.ViewModel</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

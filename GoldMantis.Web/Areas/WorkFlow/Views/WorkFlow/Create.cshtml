@@ -1,0 +1,223 @@
+﻿@using GoldMantis.Web.HtmlControl
+@using GoldMantis.Web.ViewModel.User
+@model GoldMantis.Web.ViewModel.User.ModelCommonFlowEntityCreate
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_GmLayoutDialog.cshtml";
+}
+
+<style type="text/css">
+    .table .divLeft {
+        text-align: right;
+    }
+</style>
+
+@Html.HiddenFor(x=>x.NodesValue)
+@Html.HiddenFor(x => x.MenuID)
+@Html.HiddenFor(x => x.UserID)
+<!--TOOLBAR-->
+<div style="height: 34px; margin-bottom: 10px;">
+    <div class="toolbar-left" style="float: left;">
+        <button class="btn green" onclick="saveCustomWorkFlow();">
+            <i class="fa fa-save"></i>
+            确认
+        </button>
+        <a href="javascript:;" class="btn red" onclick="javaScript:window.top.bootstrapGM.closeDialog({ isRefreshParent: true });">
+            <i class="fa fa-edit"></i>
+            取消
+        </a>
+    </div>
+    @*<div style="float: right; width: 250px; margin-right: 15px;">
+            <div class="input-group">
+                @Html.TextBoxFor(x => x.SearchEntity.CommonSearchCondition, new { @class = "common-search-condition", content = "查询列：用户名。" })
+                <span class=" input-group-addon input-circle-right common-search-submit" style="cursor: pointer;">
+                    <i class="fa fa-search"></i>
+                </span>
+            </div>
+        </div>*@
+
+</div>
+
+<h3 class="form-section">审批流程</h3>
+
+
+
+<div class="row">
+    <div class="form-group">
+        <div class="col-sm-12">
+            <label class="col-sm-2 control-label">自定义流程名:</label>
+            <div class="col-sm-4">
+                @Html.TextBoxFor(x => x.SelfWFName, new { @class = "form-control input-sm" })
+
+            </div>
+            <div class="col-sm-4">
+                <span class="red">
+                    (请输入有意义的名字)
+                </span>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<table style="margin-top: 0px; table-layout: fixed;" id="nodesTable"
+       class="table  table-responsive table-striped table-bordered table-hover"
+       role="grid">
+    <colgroup>
+        <col style="width: auto" />
+        <col style="width: auto" />
+        <col style="width: auto" />
+    </colgroup>
+    <thead class="common-table-header">
+        <tr role="row">
+            <th style="text-align: center;">
+                用户ID
+            </th>
+            <th style="text-align: center;">
+                审批节点名称
+            </th>
+            <th style="text-align: center;">
+                操作
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+
+
+        @*<tr role="row" style="text-align: center;">
+
+                <td>
+                    <div style="text-align: left;">
+                        @(index + 1)
+                    </div>
+                </td>
+                <td>
+                    <div style="text-align: left;">
+                        @item.UserID
+                    </div>
+                </td>
+
+                <td>
+                    <div style="text-align: left;">
+                        @item.UserName@(item.IsRemind ? ("（" + item.Hour + "小时后未处理提醒）") : "")
+                    </div>
+                </td>
+                <td></td>
+
+            </tr>*@
+
+    </tbody>
+</table>
+
+
+<h3 class="form-section">添加审批节点区域</h3>
+
+<div class="row">
+
+    <label class="col-sm-2 control-label">审批人员:</label>
+    <div class="col-sm-3">
+        @*@Html.TextBoxFor(x => x.NodeAuditUserID, new {@class = "form-control input-sm"})*@
+
+        @Html.SelectWidgetFor(new SelectWidgetAttribute<ModelCommonFlowEntityCreate, string, int>
+                                 (m => m.NodeAuditUserName,
+                                 m => m.NodeAuditUserID,
+                        "OA/UserProfile/Index"))
+
+        @Html.ValidationMessageFor(x => x.NodeAuditUserID)
+
+    </div>
+    <div class="col-sm-2">
+        @Html.CheckBoxFor(x => x.IsRemind)
+        <label>启动提醒在</label>
+    </div>
+    <div class="col-sm-3">
+
+        <div class="input-group">
+            @Html.TextBoxFor(x => x.Hour, new {@class = "form-control input-sm", style = "width:80px;"})
+            <label>小时未处理发信息</label>
+
+        </div>
+    </div>
+    <div class="col-sm-2">
+        <button class="btn green" type="button" onclick="addTr()">
+            <i class="fa fa-plus"></i>
+            添加
+        </button>
+    </div>
+
+</div>
+<script type="text/javascript">
+    function addTr() {
+
+        var userID = $("#NodeAuditUserID").val();
+        var name = $("input[name='NodeAuditUserName']").val();
+        var isRemind = $("#IsRemind").is(':checked');
+        var hour = $("#Hour").val();
+
+        if (isRemind==true) {
+            name += "（" + hour + "小时后未处理提醒）";
+        }
+
+        var trHtml = "<tr align='center' role='row'>" +
+            "<td>" + userID + "</td>" +
+            "<td><span id='name' style='display:none;'>"+name+"</span>" +
+            "<span id='isRemind' style='display:none;'>"+isRemind +"</span>" +
+            "<span id='hour' style='display:none;'>"+ hour+"</span>" +
+            "" + name +
+            "</td>" +
+            "<td><button type='button' onclick='moveUp(this)' class='btn green btn-xs'>上移</button>" +
+            "<button type='button' onclick='moveDown(this)' class='btn blue btn-xs'>下移</button>" +
+            "<button type='button' onclick='remove(this)' class='btn red btn-xs'>删除</button>" +
+            "</td></tr>";
+        var $tr = $("#nodesTable  tr:last");
+        $tr.after(trHtml);
+
+        $("#NodeAuditUserID").val('');
+        $("input[name='NodeAuditUserName']").val('');
+        $("#IsRemind").attr('checked', false);
+        $("#Hour").val(0);
+        commonPage.resizeTable();
+    }
+
+    // 上移
+    function moveUp(obj) {
+        var current = $(obj).parent().parent();
+        var prev = current.prev();
+        if (current.index() > 1) {
+            current.insertBefore(prev);
+        }
+    }
+
+    // 下移
+    function moveDown(obj) {
+        var current = $(obj).parent().parent();
+        var next = current.next();
+        if (next) {
+            current.insertAfter(next);
+        }
+    }
+    // 删除
+    function remove(obj) {
+        var current = $(obj).parent().parent();
+        current.remove();
+    }
+
+    function saveCustomWorkFlow() {
+
+        var rowArray = new Array();
+
+        $('#nodesTable tr:gt(0)').each(function () {
+
+            rowArray.push({
+                IsRemind: $(this).find('td').eq(1).find('#isRemind').text(),
+                Hour: $(this).find('td').eq(1).find('#hour').text(),
+                UserID: $(this).find('td').eq(0).text(),
+                UserName: $(this).find('td').eq(1).find('#name').text()
+            });
+        });
+
+        $("#NodesValue").val($.toJSON(rowArray));
+
+    }
+</script>

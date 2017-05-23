@@ -1,0 +1,132 @@
+﻿<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en" class="no-js">
+<!--<![endif]-->
+
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <meta content="" name="description" />
+    <meta content="" name="author" />
+    <!-- 强制风格 -->
+    <link href="@Url.Content("~/Scripts/assets/global/css/bootstrapGoogle.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Scripts/assets/global/plugins/font-awesome/css/font-awesome.min.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Scripts/assets/global/plugins/bootstrap/css/bootstrap.min.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Scripts/assets/global/plugins/uniform/css/uniform.default.css")" rel="stylesheet" type="text/css" />
+
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Scripts/assets/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css")" />
+    @*<link rel="stylesheet" type="text/css" href="@Url.Content("~/Scripts/assets/global/plugins/bootstrap-timepicker/css/bootstrap-timepicker.min.css")" />
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Scripts/assets/global/plugins/bootstrap-daterangepicker/daterangepicker-bs3.css")" />*@
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Scripts/assets/global/plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css")" />
+
+
+   
+
+    <!-- 主题样式 -->
+    <link href="@Url.Content("~/Scripts/assets/global/css/components-rounded.css")" id="style_components" rel="stylesheet" type="text/css" />
+
+    <!--禁止出现滚动条-->
+    <style type="text/css">
+        body, html {
+            overflow: hidden;
+        }
+    </style>
+
+    
+
+    <link rel="shortcut icon" href="favicon.ico" />
+
+    <!-- 加载核心插件 -->
+    <!--[if lt IE 9]>
+        <script src="@Url.Content("~/Scripts/assets/global/plugins/respond.min.js")"></script>
+        <script src="@Url.Content("~/Scripts/assets/global/plugins/excanvas.min.js")"></script>
+    <![endif]-->
+    <script src="~/Scripts/assets/global/plugins/jquery.min.js" type="text/javascript"></script>
+
+    <!-- 注意，加载jquery-ui.min.js 必须在bootstrap.min.js前，修复bootstrap tooltip 与 jquery ui tooltip的冲突 -->
+    <script src="@Url.Content("~/Scripts/assets/global/plugins/jquery-ui/jquery-ui.min.js" )" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/assets/global/plugins/bootstrap/js/bootstrap.min.js" )" type="text/javascript"></script>
+    @*<script src="@Url.Content("~/Scripts/assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" )" type="text/javascript"></script>*@
+    <script src="@Url.Content("~/Scripts/assets/global/plugins/jquery.blockui.min.js" )" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/assets/global/plugins/jquery.form.js" )" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/assets/global/scripts/metronic.js")" type="text/javascript"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js")"></script>
+    @*<script type="text/javascript" src="@Url.Content("~/Scripts/assets/global/plugins/bootstrap-timepicker/js/bootstrap-timepicker.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/assets/global/plugins/bootstrap-daterangepicker/moment.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/assets/global/plugins/bootstrap-daterangepicker/daterangepicker.js")"></script>*@
+    <script type="text/javascript" src="@Url.Content("~/Scripts/assets/global/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js")"></script>
+
+
+    <!--核心脚本设计-->
+    <script src="@Url.Content("~/Scripts/assets/global/scripts/jquert-extension.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/assets/global/scripts/cls-page.js")" type="text/javascript"></script>
+    
+
+    <!--基本状态与错误处理-->
+    <script type="text/javascript">
+        var edit = @((int)EnumPageState.Edit);
+        var create = @((int)EnumPageState.Add);
+        var detail = @((int)EnumPageState.View);
+        $(function() {
+            @{
+                //接收后台的错误与警告信息
+                var error = TempData["Error"] == null ? "" : TempData["Error"].ToString();
+                var message = TempData["Message"] == null ? "" : TempData["Message"].ToString();
+            }
+
+        });
+
+
+        
+    </script>
+
+</head>
+
+<body class="page-boxed
+      page-header-fixed
+      page-sidebar-closed-hide-logo
+      page-container-bg-solid
+      page-sidebar-closed-hide-logo"
+      style="background-color: white; background-color: white !important;">
+    <!--强制将背景改为白色-->
+
+    <div id="main">
+        @RenderBody()
+        <div class="clear">
+        </div>
+    </div>
+    
+</body>
+<!-- END BODY -->
+
+
+</html>
+<script type="text/javascript">
+    function refreshPage() {
+        commonPage.ajaxSubmit();
+    }
+
+    //显示错误信息
+    if ('@error' != "") {
+        window.top.bootstrapGM.alert('@error');
+    }
+
+    //显示提醒信息
+    if ('@message' != "") {
+        window.top.bootstrapGM.alert('@message');
+    }
+
+    $(document).ready(function() {
+        commonPage.initialize();
+        commonPage.ajaxGrid();
+
+        window.top.bootstrapGM.unblockUI();
+    });
+
+
+</script>
+

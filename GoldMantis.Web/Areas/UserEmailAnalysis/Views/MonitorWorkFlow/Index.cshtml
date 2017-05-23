@@ -1,0 +1,324 @@
+﻿@using GoldMantis.Common.CustomEnum
+@model GoldMantis.Web.ViewModel.UserEmailAnalysis.MonitorWorkFlow.ModelMonitorWorkFlowIndex
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link rel="stylesheet" type="text/css" href="@Url.Content("~/Scripts/assets/global/plugins/fancybox/source/helpers/jquery.fancybox-buttons.css?v=1.0.5")" />
+<link rel="stylesheet" type="text/css" href="@Url.Content("~/Scripts/assets/global/plugins/fancybox/source/jquery.fancybox.css?v=2.1.5")" media="screen" />
+<link rel="stylesheet" type="text/css" href="@Url.Content("~/Scripts/assets/global/plugins/select2/select2.css")" />
+
+
+<script type="text/javascript" src="@Url.Content("~/Scripts/assets/global/plugins/fancybox/source/jquery.fancybox.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/assets/global/plugins/fancybox/source/helpers/jquery.fancybox-buttons.js?v=1.0.5")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/assets/global/plugins/select2/select2.min.js")"></script>
+
+
+<script type="text/javascript" src="@Url.Content("~/Scripts/assets/global/plugins/countUp/countUp.js")"></script>
+
+@using (Html.BeginForm(null, null, null, FormMethod.Post, new { role = "form", @class = "form-horizontal" }))
+{
+    <a class="fancyboxDigram" title="流程图"></a>
+    <div style="padding:15px 15px 0px;">
+
+        <!--TOOLBAR-->
+        <div style="height: 34px; margin-bottom: 10px;">
+            <div class="toolbar-left" style="float: left;">
+                <button type="button" class="btn yellow" onclick="javascript:commonPage.scan();">
+                    <i class="fa fa-search"></i>
+                    条件查询
+                </button>
+                @*<button type="button" class="button-search btn purple " onclick="exportToExcel();">
+                        <i class="fa fa-file"></i>导出Excel
+                    </button>*@
+                <div class="btn-group">
+                    <button class="btn blue dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
+                        <i class="fa fa-file"></i>导出Excel <i class="fa fa-angle-down"></i>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li>
+                            <a onclick="commonPage.exportToExcel('@EnumExportType.导出本页.GetHashCode()');">
+                                导出本页
+                            </a>
+                        </li>
+                        <li class="divider">
+                        </li>
+                        <li>
+                            <a onclick="commonPage.exportToExcel('@EnumExportType.导出全部.GetHashCode()');">
+                                导出全部
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="btn-group">
+                    <button class="btn red dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
+                        <i class="fa fa-mobile"></i>发送催办微信 <i class="fa fa-angle-down"></i>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li>
+                            <a onclick="sendWeChatMessage();">
+                                选中发送
+                            </a>
+                        </li>
+                        <li class="divider">
+                        </li>
+                        <li>
+                            <a onclick="sendWeChatMessageBatch();">
+                                全部发送
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div style="float: right; width: 250px; margin-right: 15px;">
+                <div class="input-group">
+                    @Html.TextBoxFor(x => x.SearchEntity.CommonSearchCondition, new
+                    {
+                        @class = "common-search-condition",
+
+                        content = "查询列：菜单名称、工作流名称、当前处理人、表单编号、当前处理人部门、流程创建人、其他信息。"
+                    })
+                    <span class=" input-group-addon input-circle-right common-search-submit" style="cursor: pointer;">
+                        <i class="fa fa-search"></i>
+                    </span>
+                </div>
+            </div>
+
+
+
+        </div>
+
+        <!--SERACH FORM-->
+        <div class="search-container" style="margin-top: 15px;">
+            <div class="form-group">
+                <div class="col-sm-3">
+                    <label class="col-sm-4 control-label  ">菜单名称:</label>
+                    <div class="col-sm-8">
+                        @Html.TextBoxFor(x => x.SearchEntity.MenuName, new { @class = "form-control input-md" })
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col-sm-4 control-label">工作流:</label>
+                    <div class="col-sm-8">
+                        @Html.TextBoxFor(x => x.SearchEntity.WorkFlowName, new { @class = "form-control input-md" })
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col-sm-4 control-label">当前处理人:</label>
+                    <div class="col-sm-8">
+                        @Html.TextBoxFor(x => x.SearchEntity.CurrentActorName, new {@class = "form-control input-md"})
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col-sm-4 control-label  ">表单编号:</label>
+                    <div class="col-sm-8">
+                        @Html.TextBoxFor(x => x.SearchEntity.TokenName, new { @class = "form-control input-md" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-3">
+                    <label class="col-sm-4 control-label  ">催办次数从:</label>
+                    <div class="col-sm-8">
+                        @Html.TextBoxFor(x => x.SearchEntity.ReminderCountBegin, new { @class = "form-control input-md" })
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col-sm-4 control-label  ">至:</label>
+                    <div class="col-sm-8">
+                        @Html.TextBoxFor(x => x.SearchEntity.ReminderCounteEnd, new {@class = "form-control input-md"})
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col-sm-4 control-label  ">流程创建人:</label>
+                    <div class="col-sm-8">
+                        @Html.TextBoxFor(x => x.SearchEntity.CreateUserName, new { @class = "form-control input-md" })
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col-sm-4 control-label  ">处理人部门:</label>
+                    <div class="col-sm-8">
+                        @Html.TextBoxFor(x => x.SearchEntity.CurrentActorDeptName, new {@class = "form-control input-md"})
+                        @*@Html.DropDownListFor(x => x.SearchEntity.CurrentActorName, Model.CurrentActorDeptNameList, new { @class = "form-control input-md select2" })*@
+                    </div>
+                </div>
+               
+            </div>
+            <div class="form-group">
+               
+                <div class="col-sm-3">
+                    <label class="col-sm-4 control-label  ">流程时间从:</label>
+                    <div class="col-sm-8">
+                        @Html.TextBoxFor(x => x.SearchEntity.TimeSpentBegin, new {@class = "form-control input-md"})
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col-sm-4 control-label  ">至:</label>
+                    <div class="col-sm-8">
+                        @Html.TextBoxFor(x => x.SearchEntity.TimeSpentEnd, new {@class = "form-control input-md"})
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col-sm-4 control-label  ">其他信息:</label>
+                    <div class="col-sm-8">
+                        @Html.TextBoxFor(x => x.SearchEntity.ExtendInfo, new {@class = "form-control input-md"})
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group" style="text-align: right; margin-right: 0px;">
+                <div class="col-sm-12">
+                    <button type="submit" class="button-search btn blue ">
+                        搜索 <i class="fa fa-search"></i>
+                    </button>
+                    <a href="javascript:;" class="button-clear btn red">
+                        清除 <i class="fa fa-trash-o"></i>
+                    </a>
+                </div>
+            </div>
+
+
+        </div>
+
+
+        <div style="clear: both"></div>
+    </div>
+
+    <div class="alert alert-warning" style="margin-bottom: 0px; padding: 8px;">
+        <button class="close" data-dismiss="alert"></button>
+        <i class="fa  fa-info-circle"></i>
+        <strong>警告!</strong> 该数据每天6点更新，暂无实时数据。
+    </div>
+
+    <div class="replace-container">
+        @{
+    Html.RenderPartial("Index_Partial");
+        }
+    </div>
+
+
+
+}
+
+<script type="text/javascript">
+    $(document).ready(function ($) {
+
+
+
+
+        $(".fancyboxDigram").fancybox({
+            loop: false,
+            openEffect: 'elastic',
+            openSpeed: 150,
+            closeEffect: 'elastic',
+            closeSpeed: 150,
+            closeClick: true,
+            helpers: {
+                title: {
+                    type: 'inside'
+                },
+                buttons: {}
+            }
+        });
+
+    });
+
+    function assignPic(WFPublishID) {
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Content("~/WorkFlow/WorkFlow/ShowDigram?wfpid=")' + WFPublishID,
+            success: function (url) {
+                if (url.substring(0, 1) == '/') {
+                    $(".fancyboxDigram").attr("href", url);
+                    $(".fancyboxDigram").click();
+                }
+                else {
+                    //自定义流程只提醒文字
+                    window.top.bootstrapGM.alert({
+                        title: "自定义流程",
+                        msg: url,
+                        width: 450
+                    });
+                }
+
+            }
+        });
+    }
+
+
+    function assignSuggestion(keyID, menuID, WFPublishID) {
+        window.top.bootstrapGM.dialog({
+            url: '@Url.Content("~/WorkFlow/WorkFlow/GetAdvice")' + '?keyID=' + keyID + "&menuID=" + menuID + "&workFlowID=" + WFPublishID,
+            title: '查看审批意见',
+            width: 1000
+        });
+    }
+
+    function showReminderHandleRecord(instanceID) {
+        window.top.bootstrapGM.dialog({
+            url: '@Url.Content("~/UserEmailAnalysis/MonitorWorkFlow/ShowReminderHandleRecord")' + '?instanceID=' + instanceID,
+            title: '查看催办记录',
+            width: 1000
+        });
+    }
+
+
+    function sendWeChatMessage() {
+        var message = "确定要发送催办微信消息?";
+        if (!commonPage.isSelect()) {
+            return;
+        }
+
+        window.top.bootstrapGM.confirm({
+            msg: message,
+            width: 450
+        }, function() {
+            Metronic.blockUI({
+                target: 'form',
+                animate: true
+            });
+
+            $.ajax({
+                type: "POST",
+                traditional: true,
+                data: { ids: commonPage.listSelectedValues() },
+                url: "@Url.Content("~/UserEmailAnalysis/MonitorWorkFlow/SendWeChatMessage")",
+                success: function(msg) {
+                    window.top.bootstrapGM.alert('发送微信成功！');
+                    commonPage.ajaxSubmit();
+                    Metronic.unblockUI('form');
+                }
+            });
+        });
+    }
+
+
+    function sendWeChatMessageBatch() {
+        var  message = "确定要给全部人员发送催办微信消息?";
+        window.top.bootstrapGM.confirm({
+            msg: message,
+            width: 450
+        }, function() {
+            Metronic.blockUI({
+                target: 'form',
+                animate: true
+            });
+
+            $.ajax({
+                type: "POST",
+                data: $("form").serialize(),
+                url: "@Url.Content("~/UserEmailAnalysis/MonitorWorkFlow/SendWeChatMessageBatch")",
+                success: function (msg) {
+                    window.top.bootstrapGM.alert('发送微信成功！');
+                    commonPage.ajaxSubmit();
+                    Metronic.unblockUI('form');
+                }
+            });
+        });
+    }
+
+
+
+
+</script>

@@ -1,0 +1,138 @@
+﻿@model ModelSCBasicTypeCreate
+@{
+    ViewBag.Title = "SampleEdit";
+    Layout = "~/Views/Shared/_GmLayoutEdit.cshtml";
+}
+
+
+
+<style>
+    .wrapeer {
+        border-top: 1px solid #ddd;
+        border-left: 1px solid #ddd;
+    }
+
+    .row {
+        margin: 0px;
+    }
+
+    .form-group {
+        margin: 0px;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .form-group label {
+        padding-top: 14px !important;
+        height: 100%;
+        vertical-align: middle !important;
+    }
+
+    .form-group > div {
+        border-left: 1px solid #ddd;
+        border-right: 1px solid #ddd;
+        padding-top: 8px;
+        padding-bottom: 8px;
+    }
+</style>
+
+@Html.HiddenFor(x => x.SCBasicType.TypeID)
+@Html.HiddenFor(x => x.SCBasicType.CreateTime)
+@Html.HiddenFor(x => x.SCBasicType.CreateUserID)
+@Html.HiddenFor(x => x.SCBasicType.UpdateTime)
+@Html.HiddenFor(x => x.SCBasicType.UpdateUserID)
+
+<div class="wrapeer">
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group">
+
+                <label class="control-label col-sm-4">父节点：</label>
+
+                <div class="col-sm-8">
+                    @Html.TextBoxFor(x => x.SCBasicType.ParentID, new { @class = "form-control" })
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label class="control-label col-sm-4"><span class="red">*</span>参数代码：</label>
+                <div class="col-sm-8">
+                    @Html.TextBoxFor(x => x.SCBasicType.TypeCode, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.SCBasicType.TypeCode)
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label class="control-label col-sm-4"><span class="red">*</span>参数名称：</label>
+                <div class="col-sm-8">
+                    @Html.TextBoxFor(x => x.SCBasicType.TypeName, new {  @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.SCBasicType.TypeName)
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="form-group">
+
+                <label class="control-label col-sm-4">参数排序：</label>
+                <div class="col-sm-8">
+                    @Html.TextBoxFor(x => x.SCBasicType.OrderID, new { @class = "form-control" })
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label class="control-label col-sm-4">参数显示方式：</label>
+                <div class="col-sm-8">
+                    @Html.DropDownListFor(x => x.SCBasicType.DataDisplayType, Model.DataDisplayTypeList, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.SCBasicType.DataDisplayType)
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label class="control-label col-sm-4">是否禁用：</label>
+                <div class="col-sm-8">
+                    @Html.CheckBoxFor(x=>x.SCBasicType.Enabled, new { @class = "form-control" })
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="form-group">
+                <label class="control-label col-sm-2"><span class="red">*</span>参数备注：</label>
+                <div class="col-sm-10">
+                    <div style="word-break: break-all; word-wrap: break-word;">
+                        @Html.TextAreaFor(model => model.SCBasicType.Memo, new { @class = "form-control", style = "resize: none;height: 100px;" })
+                        @Html.ValidationMessageFor(x => x.SCBasicType.Memo)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+@section EditScriptsPlaceHolder
+{
+
+    $(document).ready(function () {
+    $(".row:even").css('background-color', '#F9F9F9');
+    });
+
+}
+
+

@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<hibernate-mapping assembly="GoldMantis.Entity" namespace="GoldMantis.Entity" xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Role" table="Role" lazy="true" >
+    <id name="ID">
+      <generator class="increment" />
+    </id>
+    <property name="TypeID"  >
+      <column name="TypeID" sql-type="int" not-null="true" />
+    </property>
+    <property name="Code"  >
+      <column name="Code" sql-type="nvarchar" not-null="true" />
+    </property>
+    <property name="Name"  >
+      <column name="Name" sql-type="nvarchar" not-null="true" />
+    </property>
+    <property name="Description"  >
+      <column name="Description" sql-type="nvarchar" not-null="false" />
+    </property>
+    <property name="IsDelete"  >
+      <column name="IsDelete" sql-type="bit" not-null="true" />
+    </property>
+    <property name="IsOn"  >
+      <column name="IsOn" sql-type="bit" not-null="true" />
+    </property>
+  </class>
+</hibernate-mapping>

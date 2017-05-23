@@ -1,0 +1,287 @@
+﻿@model GoldMantis.Web.ViewModel.UserEmailAnalysis.MonitorWorkFlow.ModelMonitorWorkFlowDeckIndexTop
+@{
+    Layout = null;
+}
+
+<div style="padding: 15px 15px 0px;">
+    <div class="row">
+        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+            <div class="dashboard-stat green" onclick="openDetail('执行超20天以上的流程实例数量', 'UserEmailAnalysis/MonitorWorkFlow/Index?SearchEntity.TimeSpentBegin=20')" style="cursor: pointer;">
+                <div class="visual">
+                    <i class="fa fa-comments"></i>
+                </div>
+                <div class="details">
+                    <div class="number" id="myTargetElement5">
+                    </div>
+                    <div class="desc">
+                        执行超20天以上的流程实例数量
+                    </div>
+                </div>
+                <a class="more" href="javascript:;">
+                    查看详情 <i class="m-icon-swapright m-icon-white"></i>
+                </a>
+            </div>
+        </div>
+
+        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+            <div class="dashboard-stat green" onclick="openDetail('执行超30天以上的流程实例数量', 'UserEmailAnalysis/MonitorWorkFlow/Index?SearchEntity.TimeSpentBegin=30')" style="cursor: pointer;">
+                <div class="visual">
+                    <i class="fa fa-comments"></i>
+                </div>
+                <div class="details">
+                    <div class="number" id="myTargetElement1">
+                    </div>
+                    <div class="desc">
+                        执行超30天以上的流程实例数量
+                    </div>
+                </div>
+                <a class="more" href="javascript:;">
+                    查看详情 <i class="m-icon-swapright m-icon-white"></i>
+                </a>
+            </div>
+        </div>
+
+        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+            <div class="dashboard-stat green" onclick="openDetail('执行超半年以上的流程实例数量', 'UserEmailAnalysis/MonitorWorkFlow/Index?SearchEntity.TimeSpentBegin=182')" style="cursor: pointer;">
+                <div class="visual">
+                    <i class="fa fa-globe"></i>
+                </div>
+                <div class="details">
+                    <div class="number" id="myTargetElement2">
+
+                    </div>
+                    <div class="desc">
+                        执行超半年以上的流程实例数量
+                    </div>
+                </div>
+                <a class="more" href="javascript:;">
+                    查看详情 <i class="m-icon-swapright m-icon-white"></i>
+                </a>
+            </div>
+        </div>
+
+
+    </div>
+
+    <div class="row">
+
+        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+            <div class="dashboard-stat green" onclick="openDetail('执行超一年以上的流程实例数量', 'UserEmailAnalysis/MonitorWorkFlow/Index?SearchEntity.TimeSpentBegin=365')" style="cursor: pointer;">
+                <div class="visual">
+                    <i class="fa fa-bar-chart-o"></i>
+                </div>
+                <div class="details">
+                    <div class="number" id="myTargetElement3">
+                    </div>
+                    <div class="desc">
+                        执行超一年以上的流程实例数量
+                    </div>
+                </div>
+                <a class="more" href="javascript:;">
+                    查看详情 <i class="m-icon-swapright m-icon-white"></i>
+                </a>
+            </div>
+        </div>
+
+        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+            <div class="dashboard-stat green">
+                <div class="visual">
+                    <i class="fa fa-globe"></i>
+                </div>
+                <div class="details">
+                    <div class="number" id="myTargetElement4">
+                    </div>
+                    <div class="desc">
+                        系统可用流程数量
+                    </div>
+                </div>
+                <a class="more" href="javascript:;">
+                    查看详情 <i class="m-icon-swapright m-icon-white"></i>
+                </a>
+            </div>
+        </div>
+
+        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+            <div class="dashboard-stat green" onclick="openDetail('当前流程实例数量', 'UserEmailAnalysis/MonitorWorkFlow/Index')" style="cursor: pointer;">
+                <div class="visual">
+                    <i class="fa fa-shopping-cart"></i>
+                </div>
+                <div class="details">
+                    <div class="number" id="myTargetElement6">
+                    </div>
+                    <div class="desc">
+                        当前流程实例数量
+                    </div>
+                </div>
+                <a class="more">
+                    查看详情 <i class="m-icon-swapright m-icon-white"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6 col-sm-12">
+            <!-- BEGIN PORTLET-->
+            <div class="portlet light " style="background-color: #F1F3FA;">
+                <div class="portlet-title">
+                    <div class="caption caption-md">
+                        <i class="icon-bar-chart theme-font hide"></i>
+                        <span class="caption-subject theme-font bold uppercase">待办数量TOP10</span>
+
+                    </div>
+
+                </div>
+                <div class="portlet-body">
+                    <div class="table-scrollable table-scrollable-borderless">
+                        <table class="table table-hover table-light">
+                            <thead>
+                                <tr class="uppercase">
+                                    <th colspan="2">
+                                        姓名
+                                    </th>
+                                    <th>
+                                        手机
+                                    </th>
+                                    <th>
+                                        部门
+                                    </th>
+                                    <th>
+                                        数量
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in @Model.WaitHands)
+                                {
+                                    <tr>
+                                        <td class="fit">
+                                            <img class="user-pic" src="@Url.Content("~/Scripts/assets/admin/layout2/img/avatar.png")">
+                                        </td>
+                                        <td>
+                                            @item.CurrentActorName
+                                        </td>
+                                        <td>
+                                            @item.Mobile
+                                        </td>
+                                        <td>
+                                            @item.CurrentActorDeptName
+                                        </td>
+                                        <td>
+                                            <a class="bold theme-font" style="text-decoration: underline;" onclick="openDetail('@item.CurrentActorName 的未处理的流程实例数量', 'UserEmailAnalysis/MonitorWorkFlow/Index'+'?SearchEntity.CurrentActorName=@item.CurrentActorName')">@item.NoAuditCount</a>
+                                        </td>
+                                    </tr>
+                                }
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- END PORTLET-->
+        </div>
+        <div class="col-md-6 col-sm-12">
+            <!-- BEGIN PORTLET-->
+            <div class="portlet light " style="background-color: #F1F3FA;">
+                <div class="portlet-title">
+                    <div class="caption caption-md">
+                        <i class="icon-bar-chart theme-font hide"></i>
+                        <span class="caption-subject theme-font bold uppercase">最近一个月内审批高手TOP10</span>
+                    </div>
+                </div>
+                <div class="portlet-body">
+                    <div class="table-scrollable table-scrollable-borderless">
+                        <table class="table table-hover table-light">
+                            <thead>
+                                <tr class="uppercase">
+                                    <th colspan="2">
+                                        姓名
+                                    </th>
+                                    <th>
+                                        排名
+                                    </th>
+                                    <th>
+                                        流程数量
+                                    </th>
+                                    <th>
+                                        平均耗时(秒)
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.FastAuditPersons)
+                                {
+                                    <tr>
+                                        <td class="fit">
+                                            <img class="user-pic" src="@Url.Content("~/Scripts/assets/admin/layout2/img/avatar.png")">
+                                        </td>
+                                        <td>
+                                            <a href="javascript:;" class="primary-link">@item.UserName</a>
+                                        </td>
+                                        <td>
+                                            @item.Ranking
+                                        </td>
+                                        <td>
+                                            @item.FlowCount
+                                        </td>
+                                        <td>
+                                            <span class="bold theme-font">@item.AvgTime</span>
+                                        </td>
+                                    </tr>
+                                }
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- END PORTLET-->
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-md-6 col-sm-12">
+            <!-- BEGIN PORTLET-->
+            <div class="portlet light " style="background-color: #F1F3FA;">
+                <div class="portlet-title">
+                    <div class="caption caption-md">
+                        <i class="icon-bar-chart theme-font hide"></i>
+                        <span class="caption-subject theme-font bold uppercase">最近一个月内最慢流程TOP10</span>
+                    </div>
+                </div>
+                <div class="portlet-body">
+                    <div class="table-scrollable table-scrollable-borderless">
+                        <table class="table table-hover table-light">
+                            <thead>
+                                <tr class="uppercase">
+                                    <th>
+                                        流程名
+                                    </th>
+                                    <th>
+                                        花费时间（天）
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.SlowestWorkFlows)
+                                {
+                                    <tr>
+                                        <td>
+                                            @item.WorkflowName
+                                        </td>
+                                        <td>
+                                            <span class="bold theme-font">@item.SpentDay</span>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- END PORTLET-->
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,1 @@
+﻿<%@ ServiceHost Language="C#" Debug="true" Service="GoldMantis.Service.ServiceView.VW_UserProfileService" CodeBehind="VW_UserProfileService.svc.cs" %>

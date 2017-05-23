@@ -1,0 +1,150 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{A20B3A22-5893-47F0-A396-6A24B948C540}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>GoldMantis.Service.Biz</RootNamespace>
+    <AssemblyName>GoldMantis.Service.Biz</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="GoldMantis.Framework, Version=2.3.2011.225, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\GMReference\Reference\GoldMantis.Framework.dll</HintPath>
+    </Reference>
+    <Reference Include="GoldMantis.WorkFlow.WCFClient">
+      <HintPath>..\..\..\GMReference\Reference\GoldMantis.WorkFlow.WCFClient.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.8.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate, Version=3.3.1.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\GMReference\Reference\NHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceStack.Common, Version=3.9.28.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\GMReference\Reference\ServiceStack.Redis.3.9.29.0\lib\net35\ServiceStack.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceStack.Interfaces, Version=4.0.0.0, Culture=neutral, PublicKeyToken=e06fbc6124f57c43, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\GMReference\Reference\ServiceStack.Redis.3.9.29.0\lib\net35\ServiceStack.Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BizView\VW_SCBasicTypeBiz.cs" />
+    <Compile Include="BizView\VW_UserProfileBiz.cs" />
+    <Compile Include="Biz\BizSAAttachment.cs" />
+    <Compile Include="Biz\DemoBiz.cs" />
+    <Compile Include="Biz\OAKPILeavesBiz.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Biz\PermissionBiz.cs" />
+    <Compile Include="Biz\SCBasicTypeBiz.cs" />
+    <Compile Include="Biz\SCFlowMapingBiz.cs" />
+    <Compile Include="Biz\UTIPARKCUSTOMERVisitorBiz.cs" />
+    <Compile Include="Biz\WorkFlowBiz.cs" />
+    <Compile Include="Core\BaseBiz.cs" />
+    <Compile Include="Core\BaseSPBiz.cs" />
+    <Compile Include="Core\BaseViewBiz.cs" />
+    <Compile Include="Core\BaseTableBiz.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="BizSP\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GoldMantis.Common\GoldMantis.Common.csproj">
+      <Project>{2c049107-e053-489b-8bdd-a4b97bcefc97}</Project>
+      <Name>GoldMantis.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GoldMantis.DI\GoldMantis.DI.csproj">
+      <Project>{ec3aeb66-1509-4b2b-a6ba-918a28b5a2fe}</Project>
+      <Name>GoldMantis.DI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GoldMantis.Entity\GoldMantis.Entity.csproj">
+      <Project>{549eb49c-d99c-4124-a55e-a60ceeb9daf5}</Project>
+      <Name>GoldMantis.Entity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GoldMantis.Redis\GoldMantis.Redis.csproj">
+      <Project>{3b2fcb2c-8e77-43db-bf8f-a6f7aef4212a}</Project>
+      <Name>GoldMantis.Redis</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GoldMantis.Service.Dal\GoldMantis.Service.Dal.csproj">
+      <Project>{518e1e22-1ffb-42e9-b81a-7319f1927132}</Project>
+      <Name>GoldMantis.Service.Dal</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GoldMantis.Web.Core\GoldMantis.Web.Core.csproj">
+      <Project>{F67A0153-20E8-4551-99D0-EA5361D5184C}</Project>
+      <Name>GoldMantis.Web.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GoldMantis.Web.HtmlControl\GoldMantis.Web.HtmlControl.csproj">
+      <Project>{FDDA35BC-D3A9-4E65-86F9-C46D867E6B19}</Project>
+      <Name>GoldMantis.Web.HtmlControl</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GoldMantis.Web.ViewModel\GoldMantis.Web.ViewModel.csproj">
+      <Project>{E34C8229-3A9A-4FB3-8E67-AE0DB6188799}</Project>
+      <Name>GoldMantis.Web.ViewModel</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>这台计算机上缺少此项目引用的 NuGet 程序包。启用“NuGet 程序包还原”可下载这些程序包。有关详细信息，请参阅 http://go.microsoft.com/fwlink/?LinkID=322105。缺少的文件是 {0}。</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

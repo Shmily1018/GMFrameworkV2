@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<hibernate-mapping assembly="GoldMantis.Entity" namespace="GoldMantis.Entity" xmlns="urn:nhibernate-mapping-2.2">
+  <class name="VW_OAOvertime" table="VW_OAOvertime" lazy="true" >
+    <id name="KeyID">
+    </id>
+    <property name="ID">
+      <column name="ID" sql-type="int" not-null="true" />
+    </property>
+    <property name="OvertimeCode">
+      <column name="OvertimeCode" sql-type="nvarchar" not-null="true" />
+    </property>
+    <property name="OvertimeReason">
+      <column name="OvertimeReason" sql-type="nvarchar" not-null="true" />
+    </property>
+    <property name="OvertimerDate">
+      <column name="OvertimerDate" sql-type="datetime" not-null="true" />
+    </property>
+    <property name="OvertimeUser">
+      <column name="OvertimeUser" sql-type="nvarchar" not-null="true" />
+    </property>
+    <property name="UserDept">
+      <column name="UserDept" sql-type="nvarchar" not-null="true" />
+    </property>
+    <property name="Maker">
+      <column name="Maker" sql-type="nvarchar" not-null="true" />
+    </property>
+    <property name="MakeDate">
+      <column name="MakeDate" sql-type="datetime" not-null="true" />
+    </property>
+    <property name="Ispost">
+      <column name="Ispost" sql-type="bit" not-null="true" />
+    </property>
+    <property name="Checkstatus">
+      <column name="Checkstatus" sql-type="int" not-null="true" />
+    </property>
+  </class>
+</hibernate-mapping>

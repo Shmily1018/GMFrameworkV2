@@ -1,0 +1,118 @@
+﻿@using GoldMantis.Web.Core.Session
+@model GoldMantis.Web.ViewModel.UserEmailAnalysis.CompleteInfo.ModelCompleteInfoIndex
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link rel="stylesheet" type="text/css" href="@Url.Content("~/Scripts/assets/global/plugins/uploadify/uploadify.css")" />
+<link rel="stylesheet" type="text/css" href="@Url.Content("~/Scripts/assets/global/plugins/uploadify/common-attachment.css")" />
+<script type="text/javascript" src="@Url.Content("~/Scripts/assets/global/plugins/uploadify/jquery.uploadify-3.1.js")"></script>
+
+
+
+@using (Html.BeginForm(null, null, null, FormMethod.Post, new { role = "form", @class = "form-horizontal" }))
+{
+
+    <div style="padding:15px 15px 0px;">
+
+        <div style="height: 34px; margin-bottom: 10px;">
+            <div class="toolbar-left" style="float: left;">
+                <div class="uploadbtnbar" >
+                    <div class="btn1">
+                        <button id="fileMultiImage" name="fileMultiImage" type="file" ></button>
+                    </div>
+                </div>
+                @*<button type="submit" class="button-search btn red ">
+                    <i class="fa fa-search"></i>开始补全信息
+                </button>*@
+                <button type="button" class="button-search btn purple " onclick="exportToExcel();">
+                    <i class="fa fa-file"></i>导出Excel
+                </button>
+                <a id="aDownload" href="@Url.Content("~/UserEmailAnalysis/CompleteInfo/ExportToExcel")" class="a-exportEXL" title="下载" style="display: none">&nbsp</a>
+
+
+            </div>
+
+           
+        </div>
+        <div id="divMulti" class="attachmentdiv" style="display: none;">
+            @Html.HiddenFor(x => x.FileUploadHelperObject.FileKey)
+        </div>
+
+        <div style="clear: both"></div>
+    </div>
+
+    <div class="alert alert-warning" style="margin-bottom: 0px; padding: 8px;">
+        <button class="close" data-dismiss="alert"></button>
+        <i class="fa  fa-info-circle"></i>
+        <strong>警告!</strong> 使用前请先下载<a href="@Url.Content("~/UserEmailAnalysis/CompleteInfo/GetExcelTemplet")">模板</a>，请务必上传扩展名为xls、xlsx、csv的文件，并且严格安装模板填写。
+    </div>
+
+    <div class="replace-container">
+        @{
+    Html.RenderPartial("Index_Partial");
+        }
+    </div>
+
+
+
+}
+
+<script type="text/javascript">
+    $(document).ready(function ($) {
+        //var hasFlash = ((typeof navigator.plugins != "undefined" && typeof navigator.plugins["Shockwave Flash"] == "object") || (window.ActiveXObject && (new ActiveXObject("ShockwaveFlash.ShockwaveFlash")) != false));
+        //alert(hasFlash);
+        $('#fileMultiImage').uploadify({
+            'swf': '@Url.Content("~/Scripts/assets/global/plugins/uploadify/uploadify.swf")',
+            'uploader': '@Url.Content("~/CompleteInfo/AnalysisExcel")',
+            'buttonClass': 'button-upload',
+            'buttonCursor': 'hand',
+            'height': 34,
+            'width': 100,
+            'buttonText': '选择文件',
+            'fileTypeExts': "*.xls;*.xlsx;*.csv",
+            'auto': true,
+            'multi': false,
+            'fileSizeLimit': 5120,
+            'overrideEvents': ['onSelectError', 'onDialogClose'],
+            'queueID': "divMulti",
+            'formData': { FileKey: $("#@Html.FullHtmlFieldId(x => x.FileUploadHelperObject.FileKey)").val(), 'ASPNETSessionId': '@Request.Cookies["ASP.NET_SessionId"].Value' },
+            'onUploadSuccess': function (file, data, response) {
+                $("form").submit();
+            },
+            'onSelectError': function (file, errorCode, errorMsg) {
+                switch (errorCode) {
+                    case -100:
+                        window.top.bootstrapGM.alert("上传的文件数量已经超出系统限制的" + $('#file_upload').uploadify('settings', 'queueSizeLimit') + "个文件！");
+                        break;
+                    case -110:
+                        window.top.bootstrapGM.alert("文件 [" + file.name + "] 大小超出系统限制的5M大小！");
+                        break;
+                    case -120:
+                        window.top.bootstrapGM.alert("文件 [" + file.name + "] 大小异常！");
+                        break;
+                    case -130:
+                        window.top.bootstrapGM.alert("文件 [" + file.name + "] 类型不正确！");
+                        break;
+                }
+                return false;
+            },
+
+            'onSelect': function (file) {
+                this.addPostParam("file_name", encodeURI(file.name));
+            }
+
+        });
+    });
+
+
+    function exportToExcel() {
+        if ($("td").length > 0) {
+            document.getElementById("aDownload").click();
+        } else {
+            window.top.bootstrapGM.alert("列表无数据，无需导出。");
+        }
+        
+    }
+
+</script>

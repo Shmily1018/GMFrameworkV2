@@ -1,0 +1,119 @@
+﻿@model GoldMantis.Web.ViewModel.OA.ModelOAKPILeavesIndex
+@{
+    Layout = null;
+}
+
+<div class="alert alert-warning" style="margin-bottom: 0px; padding: 8px;">
+    <button class="close" data-dismiss="alert"></button>
+    <i class="fa  fa-info-circle"></i>
+    <strong>警告!</strong> 用户信息涉及用户登录，请勿随意删除！
+</div>
+
+
+<div style="width: 100%; overflow: auto;" class="common-table-container" id="common-table-container">
+    <table style="margin-top: 0px; table-layout: fixed;"
+           class="table dataTable table-responsive table-striped table-bordered table-hover"
+           role="grid">
+        <colgroup>
+            <col style="width: 40px;" />
+            <col style="width: auto;" />
+            <col style="width: auto;" />
+            <col style="width: auto;" />
+            <col style="width: auto;" />
+            <col style="width: auto;" />
+            <col style="width: auto;" />
+            <col style="width: auto;" />
+            <col style="width: auto;" />
+            <col style="width: auto;" />
+        </colgroup>
+        <thead class="common-table-header">
+            <tr role="row" style="text-align: center;">
+
+                @Html.HiddenFor(x => x.SearchEntity.OrderName, new { data_order_name = "" })
+                @Html.HiddenFor(x => x.SearchEntity.OrderDirection, new { data_order_direction = "" })
+                <th style="text-align: center;">
+                    <input type="checkbox" class="common-table-checkbox-all" />
+                </th>
+                <th>
+                    操作
+                </th>
+                @(Html.ThOrderHelper<OAKPILeaves>(x => x.ID, "编号"))
+                @(Html.ThOrderHelper<OAKPILeaves>(x => x.EmpId, "员工"))
+                @(Html.ThOrderHelper<OAKPILeaves>(x => x.DeptId, "所在部门"))
+                @(Html.ThOrderHelper<OAKPILeaves>(x => x.LeaveType, "请假类型"))
+                @(Html.ThOrderHelper<OAKPILeaves>(x => x.BeginDate, "请假日期"))
+                @(Html.ThOrderHelper<OAKPILeaves>(x => x.Days, "请假天数"))
+                @(Html.ThOrderHelper<OAKPILeaves>(x => x.Reason, "请假原因"))
+                @(Html.ThOrderHelper<OAKPILeaves>(x => x.CheckStatus, "审批状态"))
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var i in Model.GridDataSources)
+            {
+                <tr role="row" style="text-align: center;" ondblclick="javascript:Maintain.actionView('@i.ID');">
+                    <td>
+                        <div>
+                            <input type="checkbox" name="checkboxItem" class="checkboxItem" value="@i.ID"/>
+                        </div>
+                    </td>
+
+                    <td>
+                        <button type="button" class="btn blue btn-xs" onclick="Maintain.actionEdit(@i.ID)">
+                            <i class="fa fa-edit"></i>
+                            编辑
+                        </button>
+                        <button type="button" class="btn red btn-xs" onclick="Maintain.actionDelete(@i.ID)">
+                            <i class="fa fa-trash"></i>
+                            删除
+                        </button>
+                    </td>
+                    <td td-data-content="@i.Code">
+                        <div style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;">
+                            @i.Code
+                        </div>
+                    </td>
+                    <td td-data-content="@i.EmpId">
+                        <div style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;">
+                            @i.EmpId
+                        </div>
+                    </td>
+                    <td td-data-content="@i.DeptId">
+                        <div style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;">
+                            @i.DeptId
+                        </div>
+                    </td>
+                    <td td-data-content="@i.LeaveType">
+                        <div style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;">
+                            @i.LeaveType
+                        </div>
+                    </td>
+                    <td td-data-content="@i.BeginDate">
+                        <div style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;">
+                            @i.BeginDate
+                        </div>
+                    </td>
+                    <td td-data-content="@i.Days">
+                        <div style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;">
+                            @i.Days
+                        </div>
+                    </td>
+                    <td td-data-content="@i.Reason">
+                        <div style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;">
+                            @i.Reason
+                        </div>
+                    </td>
+                    <td>
+                        @Html.Raw(PageHelper.IsPostDecoration(i.CheckStatus))
+                    </td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div>
+        @{
+            Html.RenderPartial(Url.Content("~/Views/Controls/PaginateAjax.cshtml"), Model.PaginateHelperObject);
+        }
+    </div>
+</div>

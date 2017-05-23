@@ -1,0 +1,1 @@
+﻿<%@ ServiceHost Language="C#" Debug="true" Service="GoldMantis.Service.Service.SAUserService" CodeBehind="SAUserService.svc.cs" %>

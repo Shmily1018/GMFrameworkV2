@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{518E1E22-1FFB-42E9-B81A-7319F1927132}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>GoldMantis.Service.Dal</RootNamespace>
+    <AssemblyName>GoldMantis.Service.Dal</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="NHibernate">
+      <HintPath>..\..\..\GMReference\Reference\NHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Core\IRepository.cs" />
+    <Compile Include="Core\IRepositoryAudit.cs" />
+    <Compile Include="Core\IRepositoryQuery.cs" />
+    <Compile Include="Core\IRepositorySP.cs" />
+    <Compile Include="Core\Repository.cs" />
+    <Compile Include="Core\RepositorySP.cs" />
+    <Compile Include="Core\RepositoryTable.cs" />
+    <Compile Include="Core\RepositoryView.cs" />
+    <Compile Include="DalView\VW_OAKPILeavesDal.cs" />
+    <Compile Include="DalView\VW_SCBasicTypeDal.cs" />
+    <Compile Include="DalView\VW_UserProfileDal.cs" />
+    <Compile Include="DalView\VW_OAOvertimeDal.cs" />
+    <Compile Include="Dal\OAKPILeavesDal.cs" />
+    <Compile Include="Dal\PermissionDal.cs" />
+    <Compile Include="Dal\SCBasicTypeDal.cs" />
+    <Compile Include="Dal\SAUserDeptDal.cs" />
+    <Compile Include="Dal\DemoDal.cs" />
+    <Compile Include="Dal\DalSAAttachment.cs" />
+    <Compile Include="Dal\FlowMapingDal.cs" />
+    <Compile Include="Dal\OperationDal.cs" />
+    <Compile Include="Dal\RoleDal.cs" />
+    <Compile Include="Dal\RoleMenuDal.cs" />
+    <Compile Include="Dal\RoleTypeDal.cs" />
+    <Compile Include="Dal\SystemModuleDal.cs" />
+    <Compile Include="Dal\MenuOperationDal.cs" />
+    <Compile Include="Dal\MenuDal.cs" />
+    <Compile Include="Dal\UTIPARKCUSTOMERVisitorDal.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GoldMantis.Common\GoldMantis.Common.csproj">
+      <Project>{2c049107-e053-489b-8bdd-a4b97bcefc97}</Project>
+      <Name>GoldMantis.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GoldMantis.Entity\GoldMantis.Entity.csproj">
+      <Project>{549eb49c-d99c-4124-a55e-a60ceeb9daf5}</Project>
+      <Name>GoldMantis.Entity</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="DalSP\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

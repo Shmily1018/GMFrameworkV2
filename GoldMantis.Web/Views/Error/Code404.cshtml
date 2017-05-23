@@ -1,0 +1,48 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="@Url.Content("~/Scripts/assets/admin/pages/css/error.css")" rel="stylesheet" type="text/css" />
+
+<div class="container">
+    <!-- BEGIN CONTAINER -->
+    <div class="page-container">
+        <!-- BEGIN CONTENT -->
+        <div class="page-content-wrapper">
+            <div class="page-content" style="min-height:500px">
+                <!-- BEGIN PAGE CONTENT-->
+                <div class="row">
+                    <div class="col-md-12 page-404">
+                        <div class="number">
+                            404
+                        </div>
+                        <div class="details">
+                            <h3>未能找到页面</h3>
+                            <p>
+                                无法找到页面路径，或者路径已经变更。<br>
+                                <a onclick="window.top.location = window.top.location">
+                                    回到主页
+                                </a>
+                                或者尝试以下查询框。
+                            </p>
+                            <form action="#">
+                                <div class="input-group input-medium">
+                                    <input type="text" class="form-control" placeholder="关键字...">
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn blue"><i class="fa fa-search"></i></button>
+                                    </span>
+                                </div>
+                                <!-- /input-group -->
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!-- END PAGE CONTENT-->
+            </div>
+            <!-- BEGIN CONTENT -->
+        </div>
+        <!-- END CONTENT -->
+
+    </div>
+    <!-- END CONTAINER -->
+    <!-- END FOOTER -->
+</div>

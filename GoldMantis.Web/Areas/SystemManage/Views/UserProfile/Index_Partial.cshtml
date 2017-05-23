@@ -1,0 +1,14 @@
+﻿
+
+@using GoldMantis.Common
+
+@model ModelSAUserIndex
+@{
+    Layout = null;
+}
+
+@Html.TableBanner(Model.PaginateHelperObject.TotalCount)
+
+@TableExtensions.Table(Html, ViewBag.TableData as TableAttribute<SAUser>)
+
+@Html.Pager("pagin", Model.PaginateHelperObject)

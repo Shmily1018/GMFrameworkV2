@@ -1,0 +1,114 @@
+﻿@model GoldMantis.Web.ViewModel.User.ModelCommonFlowEntityCreate
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_LayoutDialog.cshtml";
+}
+
+<style type="text/css">
+    .table .divLeft {
+        text-align: right;
+    }
+</style>
+<h3 class="form-section">审批流程</h3>
+
+<table style="margin-top: 0px; table-layout: fixed;"
+       class="table  table-responsive table-striped table-bordered table-hover"
+       role="grid">
+    <colgroup>
+        <col style="width: auto" />
+        <col style="width: auto" />
+        <col style="width: auto" />
+        <col style="width: auto" />
+    </colgroup>
+
+    <tbody>
+        <tr>
+            <td class="divLeft">
+                流程名称：
+            </td>
+            <td>
+                @Model.CommonFlowEntity.WFName
+            </td>
+            <td class="divLeft">
+                创建者：
+            </td>
+            <td>
+                @Model.UserName
+            </td>
+        </tr>
+        <tr>
+            <td class="divLeft">
+                流程描述：
+            </td>
+            <td>
+                @Model.CommonFlowEntity.FlowDesc
+            </td>
+            <td class="divLeft"></td>
+            <td>
+                
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+
+
+
+<h3 class="form-section">审批节点区域</h3>
+<table style="margin-top: 0px; table-layout: fixed;"
+       class="table  table-responsive table-striped table-bordered table-hover"
+       role="grid">
+    <colgroup>
+        <col style="width: auto" />
+        <col style="width: auto" />
+        <col style="width: auto" />
+        <col style="width: auto" />
+    </colgroup>
+    <thead class="common-table-header">
+        <tr role="row">
+            <th style="text-align: center;">
+                No.
+            </th>
+            <th style="text-align: center;">
+                用户ID
+            </th>
+            <th style="text-align: center;">
+                审批节点名称
+            </th>
+            <th style="text-align: center;">
+                操作
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (int index = 0; index < Model.CustomFlowNodes.Count; index++)
+        {
+            var item = Model.CustomFlowNodes[index];
+            <tr role="row" style="text-align: center;">
+
+                <td>
+                    <div style="text-align: left;">
+                        @(index + 1)
+                    </div>
+                </td>
+
+
+                <td>
+                    <div style="text-align: left;">
+                        @item.UserID
+                    </div>
+                </td>
+
+                <td>
+                    <div style="text-align: left;">
+                        @item.UserName@(item.IsRemind ? ("（" + item.Hour + "小时后未处理提醒）") : "")
+                    </div>
+                </td>
+
+
+                <td></td>
+
+            </tr>
+        }
+    </tbody>
+</table>

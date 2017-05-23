@@ -1,0 +1,18 @@
+﻿@model GoldMantis.Web.ViewModel.OA.ModelVW_OAOvertimeIndex
+@{
+    Layout = null;
+}
+
+@*@Html.TableBanner(Model.PaginateHelperObject.TotalCount)*@
+
+<div class="alert alert-warning" style="margin-bottom: 0px; padding: 8px;">
+    <button class="close" data-dismiss="alert"></button>
+    <i class="fa  fa-info-circle"></i>
+    <strong>警告!</strong> 用户信息涉及用户登录，请勿随意删除！
+</div>
+
+@Html.Table(ViewBag.TableData as TableAttribute<VW_OAOvertime>)
+
+@Html.Pager("pagin", Model.PaginateHelperObject)
+
+

@@ -1,0 +1,213 @@
+﻿@{
+    Layout = "~/Views/Shared/_GmLayoutEmpty.cshtml";
+}
+
+@{
+    string searchId = "CommonSearchCondition";
+    string searchIndex = "PageIndex";
+
+    if (Model != null)
+    {
+        Type modelType = Model.GetType();
+
+        if (modelType.IsSubclassOf(typeof(BaseModel)))
+        {
+            PropertyInfo pro = modelType.GetProperties(BindingFlags.Instance | BindingFlags.Public).FirstOrDefault(p => p.PropertyType.IsSubclassOf(typeof(BaseSearch)));
+
+            if (pro.IsNotNull())
+            {
+                searchId = string.Format("{0}.{1}", pro.Name, searchId);
+                searchIndex = string.Format("{0}.{1}", pro.Name, searchIndex);
+            }
+        }
+    }
+}
+
+@section HtmlHeadPlaceHolder
+{
+    @RenderSection("SelectHeadPlaceHolder", false)
+}
+
+<div id="main">
+    @using (Html.BeginForm(new FormAttribute()))
+    {
+        <div style="padding: 15px 15px 0px;">
+            <div style="height: 34px; margin-bottom: 10px;">
+                <div class="toolbar-left" style="float: left;">
+                    @RenderSection("ActionButtonAreaRight", false)
+                    <button type="button" class="btn btn-success" id="btn-select-confirm">
+                        <i class="fa fa-check"></i>
+                        确定
+                    </button>
+                    <button type="button" class="btn btn-danger" id="btn-select-cancel">
+                        <i class="fa fa-arrow-left"></i>
+                        返回
+                    </button>
+                    <button type="button" class="btn btn-warning" id="btn-select-condition">
+                        <i class="fa fa-search"></i>
+                        条件查询
+                    </button>
+                    @RenderSection("ActionButtonAreaLeft", false)
+                </div>
+                <div style="float: right; width: 250px; margin-right: 15px;">
+                    <div class="input-group">
+
+                        <input class="common-search-condition form-control input-circle-left" content="统一查询" id="@searchId" name="@searchId" type="text" value="" placeholder="请输入查询条件..." data-original-title="" title="">
+                        <span class=" input-group-addon input-circle-right btn-select-common-search" style="cursor: pointer;">
+                            <i class="fa fa-search"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="search-container" style="margin-top: 15px; display: none;">
+                @RenderSection("QueryConditionArea", false)
+
+                <div class="form-group" style="text-align: right; margin-right: 0px;">
+                    <div class="col-sm-12">
+                        @RenderSection("QueryButtonAreaRight", false)
+                        <button type="submit" class="button-search btn blue " id="btn-select-search">
+                            搜索 <i class="fa fa-search"></i>
+                        </button>
+                        <button class="button-clear btn red">
+                            清除 <i class="fa fa-trash-o"></i>
+                        </button>
+                        @RenderSection("QueryButtonAreaLeft", false)
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="replace-container">
+            @{
+        Html.RenderPartial(string.Format("{0}_Partial", this.ViewContext.RouteData.GetRequiredString("action")));
+            }
+
+            @RenderBody()
+        </div>
+    }
+    <div class="clear"></div>
+</div>
+
+
+@section HtmlScriptsPlaceHolder
+{
+    <script type="text/javascript">
+        var returnObject = [];
+
+        var Dialog = {
+            commonContent: '',
+            actionConfirm: function () {
+                if (!commonPage.forceSelectOne())
+                    return;
+
+                if (jQuery.isArray(returnObject) && returnObject.length > 0) {
+                    window.top.bootstrapGM.closeDialog({ action: 'confirm' });
+                }
+            },
+            actionCancel: function () {
+                window.top.bootstrapGM.closeDialog();
+            },
+            actionToggleCondition: function () {
+                commonPage.scan();
+            },
+            actionSearch: function () {
+                try {
+                    $('input[name="@searchIndex"]').val('0');
+                } catch (e) {
+
+                }
+            },
+            actionCommonSearch: function () {
+                $('.button-clear').click();
+            },
+            asyncError: function () {
+
+            },
+            addAsyncError: function (fn) {
+
+            },
+            load: function () {
+
+            },
+            asyncBefore: function () {
+
+            },
+            addAsyncBefore: function (fn) {
+                
+            },
+            setCommomContent: function () {
+                var input = $('.common-search-condition');
+
+                if (input) {
+                    input.attr('content', this.commonContent);
+                }
+            }
+        }
+    </script>
+
+    @RenderSection("SelectScriptsPlaceHolder", false)
+
+    <script type="text/javascript">
+
+        $(function () {
+
+            $('#btn-select-confirm').on('click', function () {
+                Dialog.actionConfirm();
+            });
+
+            $('#btn-select-cancel').on('click', function () {
+                Dialog.actionCancel();
+            });
+
+            $('#btn-select-condition').on('click', function () {
+                Dialog.actionToggleCondition();
+            });
+
+            $('#btn-select-search').on('click', function () {
+                Dialog.actionSearch();
+            });
+
+            $('.btn-select-common-search').on('click', function () {
+                Dialog.actionCommonSearch();
+            });
+
+            
+            $('.cb-select-selection').on('click', function () {
+                returnObject = [];
+
+                var rowData = eval('(' + this.getAttribute('data-row') + ')');
+                if (this.type === 'radio') {
+                    returnObject.push(rowData);
+
+                } else if (this.type === 'checkbox') {
+                    if (this.checked) {
+                        returnObject.push(rowData);
+                    }
+                }
+            });
+            
+
+            Dialog.setCommomContent();
+
+            commonPage.initialize();
+            commonPage.ajaxGrid();
+            window.top.bootstrapGM.unblockUI();
+
+            commonPage.callbackSuccess = function () {
+                Dialog.load();
+            };
+
+            commonPage.callbackError = function () {
+                Dialog.asyncError();
+            };
+
+            commonPage.callbackBefore = function () {
+                Dialog.asyncBefore();
+            };
+
+            
+
+        });
+    </script>
+}

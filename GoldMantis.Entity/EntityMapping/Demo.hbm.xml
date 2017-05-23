@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<hibernate-mapping assembly="GoldMantis.Entity" namespace="GoldMantis.Entity" xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Demo" table="Demo" lazy="true" >
+    <id name="ID">
+      <generator class="native" />
+    </id>
+    <property name="Name"  >
+      <column name="Name" sql-type="nvarchar" not-null="true" />
+    </property>
+    <property name="Age"  >
+      <column name="Age" sql-type="int" not-null="true" />
+    </property>
+    <property name="CheckStatus"  >
+      <column name="CheckStatus" sql-type="int" not-null="false" />
+    </property>
+    <property name="PostDate"  >
+      <column name="PostDate" sql-type="datetime" not-null="false" />
+    </property>
+    <property name="IsPost"  >
+      <column name="IsPost" sql-type="bit" not-null="true" />
+    </property>
+  </class>
+</hibernate-mapping>

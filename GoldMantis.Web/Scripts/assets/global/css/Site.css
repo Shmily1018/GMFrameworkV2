@@ -1,0 +1,80 @@
+﻿/*禁止出现滚动条*/
+.red {
+    color: red;
+}
+
+.common-table-tr-selected {
+    color: #3598DC;
+}
+
+.popover {
+    max-width: none;
+}
+
+.theme-font {
+  color: #4db3a4 !important;
+}
+
+.common-table-header tr th {
+    text-align: center;
+}
+
+/*禁止出现滚动条*/
+body, html {
+    overflow: hidden;
+}
+
+body {
+    background-color: white !important;
+}
+
+/*改变输入框在disabled是bootstrap默认样式*/
+.form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
+    background-color: white;
+}
+
+/*选择控件样式*/
+.select-control-link {
+    text-decoration: underline; 
+    color: #6B86B3; 
+    cursor: pointer;
+}
+
+/*表格隐藏过长文本*/
+.text-hidden {
+    white-space: nowrap; 
+    text-overflow: ellipsis; 
+    overflow: hidden;
+}
+
+input[type=checkbox], input[type=radio] {
+    width: 15px;
+}
+
+td, th {
+  vertical-align: middle !important;
+}
+
+.btn-plus {
+    color: green;
+    cursor: pointer;
+}
+
+.btn-minus {
+    color: red;
+    cursor: pointer;
+}
+
+table .dataTable thead tr td {
+    text-align: center;
+}
+
+th {
+    text-align: right;
+    font-size: 15px;
+    font-weight: normal;
+}
+
+.form-control-static {
+    font-size: 15px;
+}

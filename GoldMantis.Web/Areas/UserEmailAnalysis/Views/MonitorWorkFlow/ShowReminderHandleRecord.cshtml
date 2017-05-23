@@ -1,0 +1,46 @@
+﻿@model GoldMantis.Web.ViewModel.UserEmailAnalysis.WF_REMINDER_WORKFLOW_TEMP.ModelVW_WF_REMINDER_WORKFLOW_TEMPIndex
+@{
+    Layout = "~/Views/Shared/_LayoutDialog.cshtml";
+}
+
+<script type="text/javascript">
+    function cancel() {
+        window.top.bootstrapGM.closeDialog();
+    }
+
+</script>
+@using (Html.BeginForm(null, null, null, FormMethod.Get, new { role = "form", @class = "form-horizontal" }))
+{
+    @Html.HiddenFor(x=>x.InstanceID)
+    <div style="padding: 15px 15px 0px;">
+        <!--TOOLBAR-->
+        <div style="height: 34px; margin-bottom: 10px;">
+            <div class="toolbar-left" style="float: left;">
+                <a href="javascript:;" class="btn red" onclick="cancel();">
+                    <i class="fa fa-edit"></i>
+                    取消
+                </a>
+            </div>
+            <div style="float: right; width: 250px; margin-right: 15px;">
+                <div class="input-group">
+                    @Html.TextBoxFor(x => x.SearchEntity.CommonSearchCondition, new { @class = "common-search-condition", content = "" })
+                    <span class=" input-group-addon input-circle-right common-search-submit" style="cursor: pointer;">
+                        <i class="fa fa-search"></i>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="replace-container">
+        @{
+    Html.RenderPartial("ShowReminderHandleRecord_Partial");
+        }
+    </div>
+}
+
+<script type="text/javascript" language="javascript">
+    $(document).ready(function () {
+
+    });
+</script>
+

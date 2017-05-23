@@ -1,0 +1,143 @@
+﻿@using GoldMantis.Web.Areas.UploadFileManage.Controllers
+
+@model GoldMantis.Web.ViewModel.BaseModel
+@{
+    ViewBag.Title = "NewMultiFileUploadEdit";
+}
+<div id="trAttachment">
+    <div id="divMulti" class="attachmentdiv">
+        @Html.HiddenFor(x => x.FileUploadHelperObject.FileKey)
+        @if (Model.FileUploadHelperObject.AttachmentList != null)
+        {
+            for (int i = 0; i < Model.FileUploadHelperObject.AttachmentList.Count; i++)
+            {
+                string fileName = Model.FileUploadHelperObject.AttachmentList[i].Name;
+                string path = Model.FileUploadHelperObject.AttachmentList[i].Path;
+
+                <div class='uploadify-queue-item' id="uploadedfile@(Model.FileUploadHelperObject.AttachmentList[i].ID)">
+                    @Html.HiddenFor(x => x.FileUploadHelperObject.AttachmentList[i].ID)
+                    @Html.HiddenFor(x => x.FileUploadHelperObject.AttachmentList[i].FileSize)
+                    @Html.HiddenFor(x => x.FileUploadHelperObject.AttachmentList[i].Name)
+                    @Html.HiddenFor(x => x.FileUploadHelperObject.AttachmentList[i].Path)
+                    <div class="cancel">
+                        <a href="javascript:deleteUploadFile('uploadedfile@(Model.FileUploadHelperObject.AttachmentList[i].ID)','@path')">
+                            X
+                        </a>
+                    </div>
+
+                    @if (fileName.ToLower().Contains(".jpg") 
+                        || fileName.ToLower().Contains(".jpeg") 
+                        || fileName.ToLower().Contains(".gif") 
+                        || fileName.ToLower().Contains(".png") 
+                        || fileName.ToLower().Contains(".bmp"))
+                    {
+                        <a  rel="group" title='@fileName'
+                           href='@Url.Content("~/UploadfileNew/GetFileByID?name="+fileName+"&path="+path)'>@fileName</a>
+                    }
+                    else
+                    {
+                        <a  href='@Url.Content("~/UploadfileNew/GetFileByID?name="+fileName+"&path="+path)'>@fileName</a>
+                    }
+                </div>
+            }
+        }
+    </div>
+    <div class="clearboth">
+    </div>
+    <div class="uploadbtnbar" style="float:none;">
+        <div class="btn1">
+            <input id="fileMultiImage" name="fileMultiImage" type="file" />
+        </div>
+        <input id="btnMultiImage" type="button" value="上传" class="button-upload" />
+    </div>
+    <div class="clearboth">
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function ($) {
+        $("a[rel=group]").fancybox({
+            openEffect: 'elastic',
+            openSpeed: 150,
+            closeEffect: 'elastic',
+            closeSpeed: 150,
+            closeClick: true,
+            helpers: {
+                title: {
+                    type: 'inside'
+                },
+                buttons: {}
+            },
+            afterLoad: function () {
+                this.title = (this.index + 1) + '/' + this.group.length + (this.title ? ' - ' + this.title : '');
+            }
+        });
+
+        //上传控件
+        $('#fileMultiImage').uploadify({
+            'swf': '@Url.Content("~/Scripts/assets/global/plugins/uploadify/uploadify.swf")',
+            'uploader': '@Url.Content("~/UploadfileNew/UploadFile")',
+            'buttonClass': 'button-upload',
+            'buttonCursor': 'hand',
+            'height': 30,
+            'width': 65,
+            'buttonText': '选择文件',
+            'fileTypeExts': "*.doc;*.docx;*.ppt;*.pptx;*.xls;*.xlsx;*.jpg;*.gif;*.png;*.zip;*.rar;*.pdf;*.vsd;*.ppsx",
+            'auto': false,
+            'multi': true,
+            'fileSizeLimit': 5120,
+            'overrideEvents': ['onSelectError', 'onDialogClose'],
+            'queueID': "divMulti",
+            'formData': { FileKey: $("#@Html.FullHtmlFieldId(x => x.FileUploadHelperObject.FileKey)").val(), 'ASPNETSessionId': '@Request.Cookies["ASP.NET_SessionId"].Value' },
+            'onUploadSuccess': function (file, data, response) {
+                var responseData = JSON.parse(data)[0];
+                $(".fileName", "#" + file.id).html("<a target='_blank' href='@Url.Content("~/UploadfileNew/GetFileByID?name=")" + encodeURI(responseData["Name"]) + "&path=" + responseData["KeyID"] + "'>" + file.name + "</a>");
+                $("#" + file.id).find("div.cancel>a").attr("href", "javascript:deleteUploadFile('" + file.id + "','" + responseData["KeyID"] + "')");
+                $(".uploadify-progress", "#" + file.id).remove();
+                $(".data", "#" + file.id).remove();
+            },
+            'onSelectError': function (file, errorCode, errorMsg) {
+                switch (errorCode) {
+                    case -100:
+                        window.top.bootstrapGM.alert("上传的文件数量已经超出系统限制的" + $('#file_upload').uploadify('settings', 'queueSizeLimit') + "个文件！");
+                        break;
+                    case -110:
+                        window.top.bootstrapGM.alert("文件 [" + file.name + "] 大小超出系统限制的5M大小！");
+                        break;
+                    case -120:
+                        window.top.bootstrapGM.alert("文件 [" + file.name + "] 大小异常！");
+                        break;
+                    case -130:
+                        window.top.bootstrapGM.alert("文件 [" + file.name + "] 类型不正确！");
+                        break;
+                }
+                return false;
+            },
+
+            'onSelect': function (file) {
+                this.addPostParam("file_name", encodeURI(file.name));//改变文件名的编码
+            }
+
+        });
+
+        $("#btnMultiImage").click(function () {
+            $('#fileMultiImage').uploadify('upload', '*');
+        });
+    });
+
+    function deleteUploadFile(fileID, fileName) {
+        $.ajax({
+            type: "POST",
+            url: "@Url.Content("~/UploadFileNew/DeleteFile")",
+            data: "fileName=" + fileName,
+            success: function (msg) {
+                if ($.trim(msg) == "success") {
+                    $("#" + fileID).remove();
+                }
+                else {
+                    window.top.showMessageDialog(msg);
+                }
+            }
+        });
+    }
+</script>

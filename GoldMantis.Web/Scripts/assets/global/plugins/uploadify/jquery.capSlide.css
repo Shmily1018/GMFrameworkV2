@@ -1,0 +1,99 @@
+﻿.demo
+{
+    float: left;
+    margin-right: 0px;
+    margin-bottom: 2px;
+}
+.img1
+{
+    width: 80px;
+    height: 80px;
+}
+
+a, a:visited
+{
+    color: #00BBFF;
+    text-decoration: none;
+    outline: none;
+}
+
+a:hover
+{
+    text-decoration: underline;
+}
+
+.tutorial-info
+{
+    text-align: center;
+    padding: 10px;
+    margin-top: 70px;
+}
+
+.ic_container
+{
+    vertical-align: baseline;
+    margin: 2px;
+    position: relative;
+    margin-bottom: 2px; /*-moz-border-radius:10px;     -webkit-border-radius:10px;     -khtml-border-radius:10px;     -moz-box-shadow: 0 1px 3px #888;     -webkit-box-shadow: 0 1px 3px #888;*/
+}
+.overlay
+{
+    opacity: 0.3;
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    filter: progid:DXImageTransform.Microsoft.Alpha(opacity=70);
+}
+.ic_caption
+{
+    position: absolute;
+    opacity: 0.6;
+    overflow: hidden;
+    margin: 0px;
+    padding: 0px;
+    left: 0px;
+    right: 0px;
+    cursor: default;
+    filter: progid:DXImageTransform.Microsoft.Alpha(opacity=80);
+    height:80px;
+}
+.ic_category
+{
+    font-size: 12px;
+    text-align: center;
+    padding: 0 5px;
+    margin: 0px;
+    color:#FFF;
+   
+}
+.ic_category a,.ic_category a span{ color:#e19f37; text-decoration:none}
+.ic_category a:hover,.ic_category a:hover span{ color:#e19f37; text-decoration:none}
+.ic_caption h3
+{
+    padding: 0px 5px 5px 5px;
+    margin: 0px;
+    font-size: 9px;
+}
+.ic_text
+{
+    padding: 5px;
+    margin: 0px;
+    text-align: center;
+    font-size: 12px;
+    color:#FFF;
+    height:47px;
+    overflow:hidden
+}
+.ic_container{ border:none!important}
+.ic_caption{ background:#2a100e!important}
+.overlay{ background:#FFF!important}
+.amore{ display:block; float:left; height:18px; width:18px; background:url(amore.png) 0 0 no-repeat; margin-left:5px}
+.amore:hover{ background-position:0 -18px}
+
+.amoreb{ display:block; float:left; height:18px; width:18px; background:url(amore.png) 0 0 no-repeat; margin-left:5px}
+.amoreb:hover{ background-position:0 -18px}
+
+.amorec{ display:block; float:left; height:18px; width:18px; background:url(amore.png) 0 0 no-repeat; margin-left:5px}
+.amorec:hover{ background-position:0 -18px}

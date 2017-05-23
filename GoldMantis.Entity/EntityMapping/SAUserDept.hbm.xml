@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<hibernate-mapping assembly="GoldMantis.Entity" namespace="GoldMantis.Entity" xmlns="urn:nhibernate-mapping-2.2">
+  <class name="SAUserDept" table="SAUserDept" lazy="true" >
+    <id name="ID" column="ID">
+      <generator class="identity" />
+    </id>
+    <property name="UserID">
+      <column name="UserID" sql-type="int" not-null="true" />
+    </property>
+    <property name="DeptID">
+      <column name="DeptID" sql-type="int" not-null="true" />
+    </property>
+  </class>
+</hibernate-mapping>

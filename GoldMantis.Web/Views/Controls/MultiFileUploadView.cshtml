@@ -1,0 +1,197 @@
+﻿@using GoldMantis.Web.Areas.UploadFileManage.Controllers
+@model GoldMantis.Web.ViewModel.BaseModel
+@{
+    ViewBag.Title = "NewMultiFileUploadView";
+}
+
+<link rel="stylesheet" type="text/css" href="@Url.Content("~/Scripts/assets/global/plugins/uploadify/jquery.capSlide.css")" />
+
+<script type="text/javascript" src="@Url.Content("~/Scripts/assets/global/plugins/uploadify/jquery.capSlide.js")"></script>
+
+<!-- Add fancyBox main JS and CSS files -->
+
+<!-- Add Button helper (this is optional) -->
+<link rel="stylesheet" type="text/css" href="@Url.Content("~/Scripts/assets/global/plugins/fancybox/source/helpers/jquery.fancybox-buttons.css?v=1.0.5")" />
+<script type="text/javascript" src="@Url.Content("~/Scripts/assets/global/plugins/fancybox/source/helpers/jquery.fancybox-buttons.js?v=1.0.5")"></script>
+
+<!-- Add Thumbnail helper (this is optional) -->
+<link rel="stylesheet" type="text/css" href="@Url.Content("~/Scripts/assets/global/plugins/fancybox/source/helpers/jquery.fancybox-thumbs.css?v=1.0.7")" />
+<script type="text/javascript" src="@Url.Content("~/Scripts/assets/global/plugins/fancybox/source/helpers/jquery.fancybox-thumbs.js?v=1.0.7")"></script>
+
+
+<div id="trAttachment">
+    <div id="divMulti" class="attachmentdiv" style="width: 100%">
+        @Html.HiddenFor(x => x.FileUploadHelperObject.FileKey)
+        @if (Model.FileUploadHelperObject.AttachmentList != null)
+        {
+            for (int i = 0; i < Model.FileUploadHelperObject.AttachmentList.Count; i++)
+            {
+                if (Model.FileUploadHelperObject.AttachmentList[i].SourceFileName.ToLower().Contains(".jpg") || Model.FileUploadHelperObject.AttachmentList[i].SourceFileName.ToLower().Contains(".jpeg") || Model.FileUploadHelperObject.AttachmentList[i].SourceFileName.ToLower().Contains(".gif") || Model.FileUploadHelperObject.AttachmentList[i].SourceFileName.ToLower().Contains(".png") || Model.FileUploadHelperObject.AttachmentList[i].SourceFileName.ToLower().Contains(".bmp"))
+                {
+                    //图片格式
+                    <div id="demo_@i.ToString()" class="demo">
+                        <div class="ic_container">
+                            <img src='@Url.Content("~/UploadfileNew/GetImage/")@(Model.FileUploadHelperObject.AttachmentList[i].AttachmentID)' class="img1" alt="" />
+                            <div class="overlay" style="display: none;">
+                            </div>
+                            <div class="ic_caption">
+                                <span class="ic_text">
+                                    @(Model.FileUploadHelperObject.AttachmentList[i].SourceFileName.Substring(0, Model.FileUploadHelperObject.AttachmentList[i].SourceFileName.LastIndexOf('.') <= 15 ? Model.FileUploadHelperObject.AttachmentList[i].SourceFileName.LastIndexOf('.') : 15))
+                                </span>
+                                <br />
+                                <span class="ic_category">
+                                    <a target="_blank" rel="group"
+                                       title='@(Model.FileUploadHelperObject.AttachmentList[i].SourceFileName.Substring(0, Model.FileUploadHelperObject.AttachmentList[i].SourceFileName.LastIndexOf('.')))'
+                                       href='@UploadfileConfiguration.FinalPath@(Model.FileUploadHelperObject.AttachmentList[i].LocalFileName.Substring(0, Model.FileUploadHelperObject.AttachmentList[i].LocalFileName.LastIndexOf('.')) + "_miniSummary" + Model.FileUploadHelperObject.AttachmentList[i].LocalFileName.Substring(Model.FileUploadHelperObject.AttachmentList[i].LocalFileName.LastIndexOf('.')))'>
+                                        <span style="font-size: 11px">[查看]</span>
+                                    </a> <a target="_blank" href='@Url.Content("~/UploadfileNew/GetFileByID/")@(Model.FileUploadHelperObject.AttachmentList[i].AttachmentID)'>
+                                        <span style="font-size: 11px">[下载]</span>
+                                    </a>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    if (Model.FileUploadHelperObject.AttachmentList.Count > 6 && i == 5)
+                    {
+                        <a class="amore" onclick="ShowAllFiles()"></a>
+                    }
+
+                }
+                else if (Model.FileUploadHelperObject.AttachmentList[i].SourceFileName.ToLower().Contains(".doc") || Model.FileUploadHelperObject.AttachmentList[i].SourceFileName.ToLower().Contains(".docx"))
+                {
+                    //可打开模式 WORD文档和PDF等
+                    <div id="demo_@i.ToString()" class="demo">
+                        <div class="ic_container">
+                            <img src="@Url.Content("~/Scripts/assets/global/plugins/uploadify/KDK.jpg")" class="img1" alt="" />
+                            <div class="overlay" style="display: none;">
+                            </div>
+                            <div class="ic_caption">
+                                <span class="ic_text">
+                                    @(Model.FileUploadHelperObject.AttachmentList[i].SourceFileName.Substring(0, Model.FileUploadHelperObject.AttachmentList[i].SourceFileName.LastIndexOf('.') <= 15 ? Model.FileUploadHelperObject.AttachmentList[i].SourceFileName.LastIndexOf('.') : 15))
+                                </span>
+                                <br />
+                                <span class="ic_category">
+                                    @if (Model.FileUploadHelperObject.AttachmentList[i].FileSize < Convert.ToInt32(System.Configuration.ConfigurationManager.AppSettings["MaxChangeSize"].ToString()))
+                                    {
+                                        <a target="_blank" href='@Url.Content("~/UploadfileNew/GetPdfByID/")@(Model.FileUploadHelperObject.AttachmentList[i].AttachmentID)'>
+                                            <span style="font-size: 11px">[查看]</span>
+                                        </a>
+                                    }
+
+                                    <a target="_blank" href='@System.Configuration.ConfigurationManager.AppSettings["UploadFinalPath"]@(Model.FileUploadHelperObject.AttachmentList[i].LocalFileName)'>
+                                        <span style="font-size: 11px">[下载]</span>
+                                    </a>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    if (Model.FileUploadHelperObject.AttachmentList.Count > 6 && i == 5)
+                    {
+                        <a class="amore" onclick="ShowAllFiles()"></a>
+                    }
+                }
+                else if (Model.FileUploadHelperObject.AttachmentList[i].SourceFileName.ToLower().Contains(".pdf"))
+                {
+                    //可打开模式 WORD文档和PDF等
+                    <div id="demo_@i.ToString()" class="demo">
+                        <div class="ic_container">
+                            <img src="@Url.Content("~/Scripts/assets/global/plugins/uploadify/KDK.jpg")" class="img1" alt="" />
+                            <div class="overlay" style="display: none;">
+                            </div>
+                            <div class="ic_caption">
+                                <span class="ic_text">
+                                    @(Model.FileUploadHelperObject.AttachmentList[i].SourceFileName.Substring(0, Model.FileUploadHelperObject.AttachmentList[i].SourceFileName.LastIndexOf('.') <= 15 ? Model.FileUploadHelperObject.AttachmentList[i].SourceFileName.LastIndexOf('.') : 15))
+                                </span>
+                                <br />
+                                <span class="ic_category">
+                                    <a target="_blank" href='@System.Configuration.ConfigurationManager.AppSettings["UploadFinalPath"]@(Model.FileUploadHelperObject.AttachmentList[i].LocalFileName)'>
+                                        <span style="font-size: 11px">[查看]</span>
+                                    </a> 
+                                    <a target="_blank" href='@System.Configuration.ConfigurationManager.AppSettings["UploadFinalPath"]@(Model.FileUploadHelperObject.AttachmentList[i].LocalFileName)'>
+                                        <span style="font-size: 11px">[下载]</span>
+                                    </a>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    if (Model.FileUploadHelperObject.AttachmentList.Count > 6 && i == 5)
+                    {
+                        <a class="amore" onclick="ShowAllFiles()"></a>
+                    }
+                }
+                else
+                {
+                    //不可打开模式 excel rar文件等等
+                    <div id="demo_@i.ToString()" class="demo">
+                        <div class="ic_container">
+                            <img src="@Url.Content("~/Scripts/assets/global/plugins/uploadify/KDK.jpg")" class="img1" alt="" />
+                            <div class="overlay" style="display: none;">
+                            </div>
+                            <div class="ic_caption">
+                                <span class="ic_text">
+                                    @(Model.FileUploadHelperObject.AttachmentList[i].SourceFileName.Substring(0, Model.FileUploadHelperObject.AttachmentList[i].SourceFileName.LastIndexOf('.') <= 15 ? Model.FileUploadHelperObject.AttachmentList[i].SourceFileName.LastIndexOf('.') : 15))
+                                </span>
+                                <br />
+                                <span class="ic_category">
+                                    <a target="_blank" href='@Url.Content("~/UploadfileNew/GetFileByID/")@(Model.FileUploadHelperObject.AttachmentList[i].AttachmentID)'>
+                                        <span style="font-size: 12px">[下载]</span>
+                                    </a>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    if (Model.FileUploadHelperObject.AttachmentList.Count > 6 && i == 5)
+                    {
+                        <a class="amore" onclick="ShowAllFiles()" title="显示全部"></a>
+                    }
+                }
+            }
+        }
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function ($) {
+        $("a[rel=group]").fancybox({
+            openEffect: 'elastic',
+            openSpeed: 150,
+            closeEffect: 'elastic',
+            closeSpeed: 150,
+            closeClick: true,
+
+            helpers: {
+                thumbs: {
+                    width: 50,
+                    height: 50
+                },
+                title: {
+                    type: 'inside'
+                },
+                buttons: {}
+            },
+            afterLoad: function () {
+                this.title = (this.index + 1) + '/' + this.group.length + (this.title ? ' - ' + this.title : '');
+            }
+        });
+
+        $(".ic_container").capslide({
+            caption_color: 'black',
+            caption_bgcolor: 'white',
+            overlay_bgcolor: '#CE9B9B',
+            border: '1px solid #CE9B9B',
+            showcaption: false
+        });
+
+        var demos = $("[id^='demo_']");
+        $.each(demos, function(index,item) {
+            if (index > 5) {
+                $(item).hide();
+            }
+        });
+
+    });
+    function ShowAllFiles() {
+        $("[id^='demo_']").css("display", "");
+        $(".amore").css("display", "none");
+        //resizeDailog();
+    }
+</script>

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<hibernate-mapping assembly="GoldMantis.Entity" namespace="GoldMantis.Entity" xmlns="urn:nhibernate-mapping-2.2">
+  <class name="VW_UserProfile" table="VW_UserProfile" lazy="true" >
+    <id name="KeyID">
+    </id>
+    <property name="LoginID">
+      <column name="LoginID" sql-type="nvarchar" not-null="true" />
+    </property>
+    <property name="Password">
+      <column name="Password" sql-type="nvarchar" not-null="false" />
+    </property>
+    <property name="UserName">
+      <column name="UserName" sql-type="nvarchar" not-null="true" />
+    </property>
+    <property name="Email">
+      <column name="Email" sql-type="nvarchar" not-null="false" />
+    </property>
+    <property name="Mobile">
+      <column name="Mobile" sql-type="nvarchar" not-null="false" />
+    </property>
+    <property name="SMobile">
+      <column name="SMobile" sql-type="nvarchar" not-null="false" />
+    </property>
+    <property name="Telephone">
+      <column name="Telephone" sql-type="nvarchar" not-null="false" />
+    </property>
+    <property name="JobCode">
+      <column name="JobCode" sql-type="nvarchar" not-null="false" />
+    </property>
+    <property name="IdentityCard">
+      <column name="IdentityCard" sql-type="nvarchar" not-null="false" />
+    </property>
+    <property name="UserType">
+      <column name="UserType" sql-type="int" not-null="true" />
+    </property>
+    <property name="CreateTime">
+      <column name="CreateTime" sql-type="datetime" not-null="false" />
+    </property>
+    <property name="IsOn">
+      <column name="IsOn" sql-type="bit" not-null="true" />
+    </property>
+    <property name="IsOnTime">
+      <column name="IsOnTime" sql-type="datetime" not-null="false" />
+    </property>
+    <property name="CanLogin">
+      <column name="CanLogin" sql-type="bit" not-null="false" />
+    </property>
+    <property name="CanLoginTime">
+      <column name="CanLoginTime" sql-type="datetime" not-null="false" />
+    </property>
+    <property name="IsOnJob">
+      <column name="IsOnJob" sql-type="bit" not-null="false" />
+    </property>
+    <property name="ExpireTime">
+      <column name="ExpireTime" sql-type="datetime" not-null="false" />
+    </property>
+    <property name="IsSync">
+      <column name="IsSync" sql-type="bit" not-null="true" />
+    </property>
+    <property name="ExtensionNumber">
+      <column name="ExtensionNumber" sql-type="nvarchar" not-null="false" />
+    </property>
+    <property name="DirectNummer">
+      <column name="DirectNummer" sql-type="nvarchar" not-null="false" />
+    </property>
+    <property name="Fax">
+      <column name="Fax" sql-type="nvarchar" not-null="false" />
+    </property>
+    <property name="IsSimple">
+      <column name="IsSimple" sql-type="bit" not-null="false" />
+    </property>
+    <property name="SaleInfoNumEnabled">
+      <column name="SaleInfoNumEnabled" sql-type="int" not-null="false" />
+    </property>
+    <property name="SortNo">
+      <column name="SortNo" sql-type="int" not-null="false" />
+    </property>
+    <property name="AccDisabledTime">
+      <column name="AccDisabledTime" sql-type="datetime" not-null="false" />
+    </property>
+    <property name="CreateUser">
+      <column name="CreateUser" sql-type="int" not-null="false" />
+    </property>
+    <property name="LastUpdateDate">
+      <column name="LastUpdateDate" sql-type="datetime" not-null="false" />
+    </property>
+    <property name="ConfirmAccountCorrect">
+      <column name="ConfirmAccountCorrect" sql-type="bit" not-null="false" />
+    </property>
+    <property name="DeptID">
+      <column name="DeptID" sql-type="int" not-null="true" />
+    </property>
+    <property name="DeptName">
+      <column name="DeptName" sql-type="nvarchar" not-null="true" />
+    </property>
+    <property name="PositionID">
+      <column name="PositionID" sql-type="int" not-null="true" />
+    </property>
+    <property name="PositionName">
+      <column name="PositionName" sql-type="nvarchar" not-null="true" />
+    </property>
+  </class>
+</hibernate-mapping>

@@ -1,0 +1,1 @@
+﻿<%@ ServiceHost Language="C#" Debug="true" Service="GoldMantis.Service.Service.SAAttachmentService" CodeBehind="SAAttachmentService.svc.cs" %>

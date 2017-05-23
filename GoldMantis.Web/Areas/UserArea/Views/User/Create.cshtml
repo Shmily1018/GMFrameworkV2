@@ -1,0 +1,725 @@
+﻿@model GoldMantis.Web.ViewModel.User.ModelDemoCreate
+@{
+    Layout = "~/Views/Shared/_LayoutEdit.cshtml";
+}
+
+
+<link rel="stylesheet" type="text/css" href="@Url.Content("~/Scripts/assets/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css")" />
+<link rel="stylesheet" type="text/css" href="@Url.Content("~/Scripts/assets/global/plugins/bootstrap-timepicker/css/bootstrap-timepicker.min.css")" />
+<link rel="stylesheet" type="text/css" href="@Url.Content("~/Scripts/assets/global/plugins/bootstrap-daterangepicker/daterangepicker-bs3.css")" />
+<link rel="stylesheet" type="text/css" href="@Url.Content("~/Scripts/assets/global/plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css")" />
+
+
+<script type="text/javascript" src="@Url.Content("~/Scripts/assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/assets/global/plugins/bootstrap-timepicker/js/bootstrap-timepicker.min.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/assets/global/plugins/bootstrap-daterangepicker/moment.min.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/assets/global/plugins/bootstrap-daterangepicker/daterangepicker.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/assets/global/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js")"></script>
+
+<div class="portlet light bordered">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="icon-equalizer font-red-sunglo"></i>
+            <span class="caption-subject font-red-sunglo bold uppercase">您好：zhangsanfeng</span>
+            <span class="caption-helper">(172.16.55.126)</span>
+        </div>
+    </div>
+    <div class="portlet-body form">
+        <!-- BEGIN FORM-->
+        @using (Html.BeginForm(null, null, null, FormMethod.Post, new { role = "form", @class = "form-horizontal" }))
+        {
+            @Html.HiddenFor(x => x.Demo.ID)
+            @Html.HiddenFor(x => x.Demo.CheckStatus)
+
+            <div class="form-actions top">
+                @{
+            if (Model.ButtonSaveVisible)
+            {
+                <button type="submit" class="btn green">保存</button>
+            }
+            if (Model.ButtonViewOpinionVisible)
+            {
+                        <!--pass-->
+                    <button type="button" class="btn green" id="assignSuggestion" value="">审批意见</button>
+            }
+            if (Model.ButtonViewDiagramVisible)
+            {
+                        <!--pass-->
+                    <button type="button" class="btn green" id="assignPic">流程图</button>
+            }
+            if (Model.ButtonSubmitVisible)
+            {
+                        <!--pass-->
+                    <button type="button" id="btnSubmit" class="btn default">提交</button>
+            }
+            if (Model.ButtonReSubmitVisible)
+            {
+                        <!--pass-->
+                    <button type="button" id="btnReSubmit" class="btn default">再次提交</button>
+            }
+            if (Model.ButtonAgreeVisible)
+            {
+                        <!--pass-->
+                    <input type="button" id="btnAgree" class="btn default" value="同意" />
+            }
+            if (Model.ButtonDeprecateVisible)
+            {
+                <input type="button" id="btnDeprecate" class="btn default" value="不同意" />
+            }
+            if (Model.ButtonCancelVisible)
+            {
+                <button type="button" id="btnCancel" class="btn default">弃权</button>
+            }
+            if (Model.ButtonAssignVisible)
+            {
+                <input type="button" id="btnAssign" class="btn default" value="委托" />
+            }
+            if (Model.ButtonStopVisible)
+            {
+                <button type="button" id="btnStop" class="btn default">终止</button>
+            }
+            if (Model.ButtonBackVisible)
+            {
+                        <!--pass-->
+                    <input type="button" id="btnBack" class="btn default" value="退回" />
+            }
+
+            if (Model.ButtonViewVisible)
+            {
+                <input type="button" id="btnView" class="btn default" value="已阅" />
+            }
+            if (Model.ButtonThroughVisible)
+            {
+                        <!--pass-->
+                    <button type="button" id="btnThrough" class="btn default">直送</button>
+            }
+            if (Model.ButtonCCVisible)
+            {
+                <input type="button" id="btnCC" class="btn default" value="抄送" />
+            }
+            if (Model.ButtonSuspendVisible)
+            {
+                <input type="button" id="btnSuspend" class="btn default" value="挂起" />
+            }
+
+            if (Model.ButtonResumeVisible)
+            {
+                <input type="button" id="btnResume" class="btn default" value="恢复" />
+            }
+            if (Model.ButtonCustomFlowVisible)
+            {
+                <input type="button" id="btnCustomFlow" class="btn default" value="自定义" />
+            }
+
+            <button type="button" class="btn default btnCancer">返回</button>
+                }
+
+
+                <div style="display: none;">
+                    <button type="button" id="btnConfrim" class="btn default">确认</button>
+                    <button type="button" id="btnSelectUserConfrim" class="btn default"></button>
+                    <button type="button" id="btnSelectNextConfrim" class="btn default"></button>
+                </div>
+            </div>
+
+            @Html.HiddenFor(x => x.ActorTokenId)
+            @Html.HiddenFor(x => x.WFPublishID)
+            @Html.HiddenFor(x => x.ReStartCommand)
+            @Html.HiddenFor(x => x.TokenExtendInfo)
+            @Html.HiddenFor(x => x.WFTokenName)
+
+            @Html.HiddenFor(x => x.Idea)
+            @Html.HiddenFor(x => x.Comand)
+            @Html.HiddenFor(x => x.SelectUserID)
+            @Html.HiddenFor(x => x.SelectActivityID)
+            @Html.HiddenFor(x => x.InputKey)
+            @Html.HiddenFor(x => x.WFPublishID)
+            @Html.HiddenFor(x => x.WFName)
+            @Html.HiddenFor(x => x.SelectNextID)
+            @Html.HiddenFor(x => x.IsCustomFlow)
+            @Html.HiddenFor(x => x.IsEmergency)
+            @Html.HiddenFor(x => x.KeyID)
+
+
+            <div class="form-body">
+                <h3 class="form-section">人员信息</h3>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label col-md-4">姓名：</label>
+                            <div class="col-md-8">
+
+                                <div class="input-group input-medium date date-picker">
+                                    <input type="text" class="form-control" readonly>
+                                    <span class="input-group-btn">
+                                        <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
+                                    </span>
+                                </div>
+
+
+                                <div class="input-icon right">
+                                    <i class="fa"></i>
+                                    @Html.TextBoxFor(x => x.Demo.Name, new { @class = "form-control", placeholder = "如：赵子龙", onclick = "showModalDialog()" })
+                                    @Html.ValidationMessageFor(x => x.Demo.Name)
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!--/span-->
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label col-md-4">籍贯：</label>
+                            <div class="col-md-8">
+                                @Html.DropDownListFor(x => x.Demo.Age, new List<SelectListItem>()
+                                    {
+                                        new SelectListItem() {Text = "--请选择--", Value = null},
+                                        new SelectListItem() {Text = "常山", Value = "1"},
+                                        new SelectListItem() {Text = "幽州", Value = "2"},
+                                        new SelectListItem() {Text = "保定", Value = "1"}
+                                    }, new { @class = "select2me form-control" })
+
+                                @Html.ValidationMessageFor(x => x.Demo.Age)
+
+                            </div>
+                        </div>
+                    </div>
+                    <!--/span-->
+                </div>
+                <!--/row-->
+                @*<div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label col-md-3">性别：</label>
+                                <div class="col-md-9">
+                                    @Html.TextBoxFor(x => x.Demo.ID, new { @class = "form-control decimal-input" })
+                                        @Html.ValidationMessageFor(x => x.Demo.ID)
+                                    @*<select class="form-control">
+                                            <option value="">男</option>
+                                            <option value="">女</option>
+                                        </select>
+                                    <span class="help-block">
+                                            请选择性别。
+                                        </span>
+                                </div>
+                            </div>
+                        </div>
+                        <!--/span-->
+                        @*<div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">年龄：</label>
+                                    <div class="col-md-9">
+                                        <div class="input-icon right">
+                                            <i class="fa"></i>
+                                            @Html.TextBoxFor(x => x.Demo.Age, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(x => x.Demo.Age)
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <!--/span-->
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="control-label col-md-3">图标：</label>
+                                <div class="col-md-9">
+                                    <div class="input-icon right">
+                                        <i class="fa fa-bell-o"></i>
+                                        @{
+                                            Html.RenderPartial(Url.Content("~/Views/Controls/MultiFileUpload.cshtml"), Model);
+                                                                    }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>*@
+
+                ><div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="control-label col-md-2">图标：</label>
+                            <div class="col-md-10">
+                                <div class="input-icon right">
+                                    @{
+            Html.RenderPartial(Url.Content("~/Views/Controls/MultiFileUploadGM.cshtml"), Model);
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="control-label col-md-2">菜单列表：</label>
+                            <div id="divTree" style="width: 300px; overflow: hidden;">
+                                <div id="searchText" style="width: 100%; margin: 5px;">
+                                    <span>搜索:</span>
+                                    <input type="text" id="blockFilter" style="width: 70%;" />
+                                </div>
+                                <div id="treeContainer" style="height: 300px; overflow-y: scroll;">
+                                    <div class="">
+                                        金螳螂部门组织架构
+                                    </div>
+                                    <div id="tree_2" class=" tree-demo">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        @*<div id="tree_2" class="tree-demo">
+                            </div>*@
+
+
+                    </div>
+                </div>
+
+
+
+            </div>
+
+        }
+        <!-- END FORM-->
+    </div>
+</div>
+
+<a class="fancyboxDigram" title="流程图"></a>
+
+
+
+
+
+<!--treegrid for bootstrap-->
+
+
+
+
+
+
+<script type="text/javascript" src="@Url.Content("~/Scripts/assets/global/plugins/fancybox/source/jquery.fancybox.js")"></script>
+<link rel="stylesheet" type="text/css" href="@Url.Content("~/Scripts/assets/global/plugins/fancybox/source/jquery.fancybox.css?v=2.1.5")" media="screen" />
+<!-- Add Button helper (this is optional) -->
+<link rel="stylesheet" type="text/css" href="@Url.Content("~/Scripts/assets/global/plugins/fancybox/source/helpers/jquery.fancybox-buttons.css?v=1.0.5")" />
+<script type="text/javascript" src="@Url.Content("~/Scripts/assets/global/plugins/fancybox/source/helpers/jquery.fancybox-buttons.js?v=1.0.5")"></script>
+
+
+<script type="text/javascript" language="javascript">
+    function showModalDialog() {
+        window.top.bootstrapGM.dialog({
+            url: 'UserArea/User/Choose',
+            title: '选择人员',
+            width: 650
+        });
+    }
+
+    function chooseUser_CallBack(obj) {
+        var result = obj.split(";");
+        var name = result[1];
+
+        $("#Demo_Name").val(name);
+
+    }
+
+
+    $(document).ready(function() {
+
+        @*$("#tree_2").jstree({
+            'plugins': ["checkbox", "types","dnd", "state" , 'search'],
+            //"search": { "show_only_matches" : true},
+            "core" : {
+                "themes" : {
+                    "responsive": false
+                },
+                // so that create works
+                "check_callback" : true,
+                'data' : {
+                    'url' : function (node) {
+                        return "@Url.Content("~/UserArea/User/GetTree?ticket=" + DateTime.Now.Ticks.ToString())";
+                    },
+                    'data' : function (n) {
+                        return { "id": n.id ? n.id : "0" };
+                    }
+                },
+                "cache": false
+            }
+        }).bind("select_node.jstree", function (e, data) {
+            if (data.rslt.obj.attr('codetype') == "block") {
+            } else {
+
+            }
+        }).bind("dblclick_node.jstree", function (e, data) {
+
+        }).bind("loaded.jstree", function (e, data) {
+            data.instance.open_all();
+        }).bind("load_all.jstree", function (e, data) {
+            //alert(1);
+        });*@
+
+        $("#tree_2").jstree({
+            'plugins': ["checkbox", "types","dnd", "state" , 'search'],
+            'core': {
+                "themes" : {
+                    "responsive": false
+                },
+                'data': [@Html.Raw(ViewBag.Text)],
+                "cache": false
+            }
+        }).bind("loaded.jstree", function (e, data) {
+            //data.instance.open_all();
+            data.instance.open_node($(".jstree > ul > li>ul>li:eq(0)"));
+        });
+
+
+
+        $(".fancyboxDigram").fancybox({
+            loop: false,
+            openEffect: 'elastic',
+            openSpeed: 150,
+            closeEffect: 'elastic',
+            closeSpeed: 150,
+            closeClick: true,
+            rotate:true,
+            helpers: {
+                title: {
+                    type: 'inside'
+                },
+                buttons: {}
+            }
+        });
+
+
+        $("#assignPic").bind('click', function() {
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Content("~/UserArea/WorkFlow/ShowDigram?wfpid=cdb27229-bd1f-4303-a7ed-abdd6957e744")',
+                success: function(url) {
+                    $(".fancyboxDigram").attr("href", url);
+                    $(".fancyboxDigram").click();
+                }
+            });
+        });
+
+        $("#assignSuggestion").bind('click', function() {
+            window.top.bootstrapGM.dialog({
+                url: '@Url.Content("~/UserArea/WorkFlow/GetAdvice")'+'?keyID=@Model.KeyID'+"&menuID=@Model.MenuID"+"&workFlowID=@Model.WFPublishID",
+                title: '查看审批意见',
+                width: 1000
+            });
+        });
+
+
+        $("form .form-control").tooltipValidation();
+
+
+
+
+
+        var to = false;
+        $('#blockFilter').keyup(function () {
+            if (to) {
+                clearTimeout(to);
+            }
+            to = setTimeout(function () {
+                $('#tree_2').jstree("search", $('#blockFilter').val());
+            }, 250);
+        });
+
+
+        //$('.select2_category').select2({
+        //    placeholder: "Select an option",
+        //    allowClear: true
+        //});
+
+
+    });
+
+    var afterWFButtonClicked, beforeWFButtonClicked, radIndex = 1;
+    function WFButtonClick(obj, command) {
+        $("#Comand").val(command);
+        var wfName = '@Model.WFName';
+        if (wfName == "") {
+            wfName = "下一步选择流程";
+        }
+        if (obj == 'btnSubmit') {
+            var message = "确认提交,进入【" + wfName + "】的审批流程吗?";
+            if (document.getElementById('btnCustomFlow')) {
+                message += "<br /><br /><a href='javascript:ClickSelectCustomFlow()' " +
+                    "style='color:#637695; text-decoration:none' >" +
+                    "选择或者创建自定义流程</a>";
+            }
+            var title = "确认提交";
+            window.top.bootstrapGM.alert({
+                title: title,
+                msg: message,
+                width: 450
+            }, function() {
+                if (@Model.KeyID>0) {
+                    WFConfrimClick(@CommandCatalog.Commit.GetHashCode());
+                } else {
+                    $("#Comand").val("1");
+                    $("form").submit();
+                }
+            });
+
+        } else if (obj == 'btnReSubmit') {
+            var message = "确认重新提交,进入{" + wfName + "}的审批流程吗?<br/><br/><br/><b style='color:red'>该操作会重新发起流程，点击“直送”按钮可以直接发送给退回人！</b>";
+            var title = "确认重新提交";
+            window.top.bootstrapGM.alert({
+                title: title,
+                msg: message,
+                width: 450
+            }, function() {
+                WFConfrimClick(@CommandCatalog.Commit.GetHashCode());
+            });
+        }
+        else {
+            var extendsInfo = '';
+            if (obj == 'Suspend')
+                extendsInfo = '<br/><b style="color:goldenrod">(注:系统会在7天后自动恢复此项代办)</b>';
+            var message = "审批意见：";
+            message += "<br /><br /><textarea class='textarea' id='txtAreaInput' rows='4' cols='30'  style='width:418px;resize:none;' ></textarea>";
+            var title = "确认操作并填写意见(不超过500字)";
+            message = message + extendsInfo;
+
+
+            window.top.bootstrapGM.alert({
+                title:title,
+                msg:message,
+                width: 450
+            },function() {
+                WFConfrimClick(command);
+            });
+
+            if ($("#Idea").val() == "") {
+                window.top.$("#txtAreaInput").html($("#" + obj).val());
+            } else {
+                window.top.$("#txtAreaInput").html($("#Idea").val());
+            }
+            $("#txtAreaInput").focus();
+
+        }
+        afterWFButtonClicked && afterWFButtonClicked(command);
+        return false;
+    }
+
+    function WFConfrimClick(commandType) {
+        if ($("#Idea").val() != "" && $("#Area").val() != "") {
+            $("#Idea").val($("#Area").val());
+        }
+        $.ajax({
+            type: "POST",
+            url: '@Url.Content("~/UserArea/User/Confirm")',
+            data: {
+                commandType:commandType,
+                pageState:'@ViewBag.PageState',
+                keyID:'@Model.KeyID',
+                idea:window.top.$("#txtAreaInput").val(),
+                checkStatus:'@Model.CheckStatus',
+                wfName:$("#WFName").val(),
+                wfPublishID:$("#WFPublishID").val(),
+                isCustomFlow:$('#IsCustomFlow').val(),
+                selectUserID:$('#SelectUserID').val()
+            }
+        });
+    }
+
+
+    function SelectUserConfrimClick(commandType) {
+        $.ajax({
+            type: "POST",
+            url: '@Url.Content("~/UserArea/User/SelectUserConfrim")',
+            data: {
+                reStartCommand:commandType,
+                selectUsers:$("#SelectUserID").val(),
+                selectActivityID:$("#SelectActivityID").val(),
+                inputKey:$('#InputKey').val()
+            }
+        });
+    }
+
+
+    //选择退回环节后的回调函数
+    function EvalSelectNode_CallBack(obj) {
+        $("#SelectActivityID").val(obj);
+        SelectUserConfrimClick(@CommandCatalog.Refuse.GetHashCode());
+    }
+
+    //function EvalNodeReurnValueAndClose(returnValue) {
+    //    var objHdSelectActivityID = document.getElementById('<%=hfdSelectNextID.ClientID%>');
+    //    if (returnValue == false)
+    //        return;
+    //    objHdSelectActivityID.value = returnValue;
+    //    document.getElementById('<%=btnSelectNextConfrim.ClientID%>').click();
+    //}
+
+    function WFMutualSelectFlow(menuID, deptID) {
+        window.top.bootstrapGM.dialog({
+            url:"UserArea/User/ChooseSCFlowMapingIndex?menuID=" + menuID + "&deptID=" + deptID,
+            title: '选择流程',
+            width: 800
+        });
+    }
+
+    //选择流程后的回调函数
+    function WFMutualSelectFlow_Callback(obj) {
+        var result = obj.split(";");
+
+        $("#WFPublishID").val(result[0]);
+        $('#WFName').val(result[1]);
+        $('#IsCustomFlow').val("true");
+
+        WFConfrimClick(@CommandCatalog.Commit.GetHashCode());
+    }
+
+    //function ClickSelectCustomFlow() {
+    //    document.getElementById('<%=btnCustomFlow.ClientID %>').click();
+    //}
+
+    /*选择自定义流程 勿删*/
+    //function WFCustomFlow(menuID, userID, deptID) {
+    //    var width = 750;
+    //    var height = 500;
+    //    var url = "/WF/CustomFlow.aspx?UserID=" + userID + "&MenuID=" + menuID + "&DeptID=" + deptID;
+    //    ShowDialogPageFrame("选择自定义流程", url, "WFCustomFlowCallback()", width, height);
+    //    return false;
+    //}
+
+    //function WFCustomFlow_Callback() {
+    //    var result = window.returnValue;
+    //    var arrayResult = Array.prototype.jsonDeserialize(result);
+    //    if (arrayResult.length > 0) {
+    //        $("#" + '<%=hfdWFPublishID.ClientID%>').val(arrayResult[0].KeyID);
+    //        $('#' + '<%=hfdWFName.ClientID %>').val(arrayResult[0].Name);
+    //        $('#' + '<%=hfdIsCustomFlow.ClientID %>').val("true");
+    //        document.getElementById('<%=btnSubmit.ClientID%>').click();
+    //    } else {
+    //        ShowAlert("提示信息", "请选择要启动的流程！");
+    //        return false;
+    //    }
+    //}
+
+    /*指定人*/
+    function MutualPage(title, url, pdata) {
+        window.top.bootstrapGM.dialog({
+            url:url+"?pdata=" + pdata ,
+            title: title,
+            width: 800
+        });
+    }
+
+    /*选择指定人_回调函数*/
+    function MutualPage_Callback(userID) {
+        $("#SelectUserID").val(userID);
+        SelectUserConfrimClick($("#Comand").val());
+    }
+
+    $(document).ready(function () {
+
+        $('.date-picker').datepicker({
+            orientation: "left",
+            autoclose: true,
+            clearBtn:true,
+            todayBtn: true,
+            startDate:new Date(),
+            todayHighlight: true
+        });
+
+        //function toggleEmergencyWarning(isEmergency) {
+        //    if ($('#emergencyWarning').size() == 0)
+        //        $('body').append('<div id="emergencyWarning"><div/><div/><div/><div/></div>');
+        //    if (isEmergency == 'True') {
+        //        $('#chkIsEmergency').attr('checked', true);
+        //        $('.emergencyPanel')[0].style.opacity = 1;
+        //        try {
+        //            $('.emergencyPanel')[0].style.backgroundColor = 'rgba(250,95,95,.6)';
+        //        } catch (e) {
+        //            $('.emergencyPanel')[0].style.backgroundColor = 'rgb(250,95,95)';
+        //        }
+        //        $('#emergencyWarning').addClass('emergencyWarning');
+        //    } else {
+        //        $('#chkIsEmergency').attr('checked', false);
+        //        $('.emergencyPanel')[0].style.opacity = '';
+        //        $('.emergencyPanel')[0].style.backgroundColor = '';
+        //        $('#emergencyWarning').removeClass('emergencyWarning');
+        //    }
+        //}
+
+        //if ($('#btnSubmit,#btnAgree').size() == 0)
+        //    return;
+        //$('#<%= upProcessButton.ClientID %>').css({ position: 'relative', display: 'inline-block', verticalAlign: 'top' });
+        //$('.emergencyPanel').show();
+        //toggleEmergencyWarning($('#<%= hfdIsEmergency.ClientID %>').val());
+        $('#chkIsEmergency').on('click', function () {
+            //toggleEmergencyWarning($('#<%= hfdIsEmergency.ClientID %>').val($(this).is(':checked') ? 'True' : 'False').val());
+        });
+
+
+        $("#btnSubmit").bind('click', function() {
+            WFButtonClick("btnSubmit", @CommandCatalog.Commit.GetHashCode());
+        });
+
+
+        $("#btnAgree").bind('click', function() {
+            WFButtonClick("btnAgree", @CommandCatalog.Agree.GetHashCode());
+        });
+
+        $("#btnBack").bind('click', function() {
+            WFButtonClick("btnBack", @CommandCatalog.Refuse.GetHashCode());
+        });
+
+
+        $("#btnReSubmit").bind('click', function() {
+            WFButtonClick("btnReSubmit", @CommandCatalog.Commit.GetHashCode());
+        });
+
+        $("#btnThrough").bind('click', function() {
+            WFButtonClick("btnThrough", @CommandCatalog.Through.GetHashCode());
+        });
+
+        $("#btnDeprecate").bind('click', function() {
+            WFButtonClick("btnDeprecate", @CommandCatalog.Disagree.GetHashCode());
+        });
+
+        $("#btnAssign").bind('click', function() {
+            WFButtonClick("btnAssign", @CommandCatalog.Assign.GetHashCode());
+        });
+
+        $("#btnCancel").bind('click', function() {
+            WFButtonClick("btnCancel", @CommandCatalog.Cancel.GetHashCode());
+        });
+
+        $("#btnStop").bind('click', function() {
+            WFButtonClick("btnStop", @CommandCatalog.Stop.GetHashCode());
+        });
+
+        $("#btnCC").bind('click', function() {
+            WFButtonClick("btnCC", @CommandCatalog.CC.GetHashCode());
+        });
+
+        $("#btnSuspend").bind('click', function() {
+            WFButtonClick("btnSuspend", @CommandCatalog.Suspend.GetHashCode());
+        });
+
+        $("#btnResume").bind('click', function() {
+            WFButtonClick("btnResume", @CommandCatalog.Resume.GetHashCode());
+        });
+
+        $("#btnCustomFlow").bind('click', function() {
+            WFButtonClick("WFCustomFlow", @CommandCatalog.Resume.GetHashCode());
+        });
+
+        $("#btnView").bind('click', function() {
+            WFButtonClick("btnView", @CommandCatalog.View.GetHashCode());
+        });
+
+        if ('@Model.Comand' == '1') {
+            WFConfrimClick(@CommandCatalog.Commit.GetHashCode());
+        }
+
+
+    });
+</script>
